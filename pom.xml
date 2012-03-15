@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+        xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.koolapp</groupId>
+    <artifactId>koolapp-project</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <junit-version>4.9</junit-version>
+        <kotlin-compiler.version>0.2.3.8</kotlin-compiler.version>
+        <kotlin-maven-plugin.version>0.2.3.8-beta-10</kotlin-maven-plugin.version>
+        <kotlin.version>1.0-SNAPSHOT</kotlin.version>
+        <project-root>${project.basedir}/..</project-root>
+        <kotlin-sdk>${project-root}/../kotlin/dist/kotlinc</kotlin-sdk>
+        <pegdown.version>1.1.0</pegdown.version>
+        <surefire-version>2.5</surefire-version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>evgeny-goldin.org</id>
+            <url>http://evgeny-goldin.org/artifactory/repo/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>evgeny-goldin.org</id>
+            <url>http://evgeny-goldin.org/artifactory/repo/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <modules>
+        <module>koolapp-template</module>
+        <module>koolapp-web</module>
+        <module>koolapp-ui</module>
+        <module>website</module>
+    </modules>
+
+    <build>
+        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.goldin.plugins</groupId>
+                    <artifactId>kotlin-maven-plugin</artifactId>
+                    <version>${kotlin-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>compile-kotlin-sources</id>
+                            <goals>
+                                <goal>compile</goal>
+                                <goal>testCompile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                      <verbose>false</verbose>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire-version}</version>
+                <configuration>
+                    <forkMode>once</forkMode>
+                    <useSystemClassLoader>false</useSystemClassLoader>
+                    <useManifestOnlyJar>false</useManifestOnlyJar>
+                    <failIfNoTests>false</failIfNoTests>
+                    <includes>
+                        <include>**/*Test.*</include>
+                    </includes>
+                    <excludes>
+                    </excludes>
+                    <systemProperties>
+                        <project.version>${project.version}</project.version>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- Run "mvn clean install -PlocalKotlin" to use locally built Kotlin jars in ${kotlin-sdk}/lib -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <profiles>
+      <profile>
+        <id>localKotlin</id>
+        <build>
+          <pluginManagement>
+            <plugins>
+              <plugin>
+                  <groupId>com.goldin.plugins</groupId>
+                  <artifactId>kotlin-maven-plugin</artifactId>
+                  <version>${kotlin-maven-plugin.version}</version>
+                  <configuration>
+                    <kotlinJars>
+                      <jar>${kotlin-sdk}/lib/kotlin-build-tools.jar</jar>
+                      <jar>${kotlin-sdk}/lib/kotlin-compiler.jar</jar>
+                      <jar>${kotlin-sdk}/lib/kotlin-runtime.jar</jar>
+                      <jar>${kotlin-sdk}/lib/intellij-core.jar</jar>
+                      <jar>${kotlin-sdk}/lib/picocontainer.jar</jar>
+                      <jar>${kotlin-sdk}/lib/trove4j.jar</jar>
+                      <jar>${kotlin-sdk}/lib/guava-11.0.1.jar</jar>
+                      <jar>${kotlin-sdk}/lib/asm-commons.jar</jar>
+                      <jar>${kotlin-sdk}/lib/asm.jar</jar>
+                    </kotlinJars>
+                  </configuration>
+              </plugin>
+            </plugins>
+          </pluginManagement>
+        </build>
+      </profile>
+    </profiles>
+
+</project>
