@@ -19,9 +19,12 @@ class MarkdownFilter : TextFilter {
         val text = filterContext.source.text()
         val output = markdownProcessor.markdownToHtml(text, linkRendered)
         if (output != null) {
+            filterContext.outputContentType = "text/html"
             appendable.append(output)
         }
     }
 
-    override val urlMapping: Array<String> = array("*.md")
+    override fun getUrlMapping(): Array<String> {
+        return array("*.md")
+    }
 }

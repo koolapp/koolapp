@@ -23,13 +23,16 @@ class TextFilterServlet(val textFilter: TextFilter): HttpServlet() {
                 val path = request.getServletPath()
                 val input = servletContext.getResourceAsStream(path)
                 if (path != null && input != null) {
-                    println("Found input!!")
                     val source = InputStreamSource(input)
                     val requestContext = HttpRequestContext(path, request, response)
                     val filterContext = FilterContext(requestContext, source)
                     textFilter.filter(filterContext, response.getWriter().sure())
+                    val contentType = filterContext.outputContentType
+                    if (contentType != null) {
+                        response.setContentType(contentType)
+                    }
                 } else {
-                    println("Cannot find input for: $path")
+                    log("Cannot find input for: $path")
                 }
             }
         }

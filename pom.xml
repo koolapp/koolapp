@@ -12,8 +12,7 @@
 
     <properties>
         <junit-version>4.9</junit-version>
-        <kotlin-compiler.version>0.2.3.8</kotlin-compiler.version>
-        <kotlin-maven-plugin.version>0.2.3.8-beta-10</kotlin-maven-plugin.version>
+        <kotlin-maven-plugin.version>0.2.3.8</kotlin-maven-plugin.version>
         <kotlin.version>1.0-SNAPSHOT</kotlin.version>
         <project-root>${project.basedir}/..</project-root>
         <kotlin-sdk>${project-root}/../kotlin/dist/kotlinc</kotlin-sdk>
@@ -23,15 +22,15 @@
 
     <repositories>
         <repository>
-            <id>evgeny-goldin.org</id>
-            <url>http://evgeny-goldin.org/artifactory/repo/</url>
+            <id>evgenyg.artifactoryonline.com</id>
+            <url>http://evgenyg.artifactoryonline.com/evgenyg/repo</url>
         </repository>
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
-            <id>evgeny-goldin.org</id>
-            <url>http://evgeny-goldin.org/artifactory/repo/</url>
+            <id>evgenyg.artifactoryonline.com</id>
+            <url>http://evgenyg.artifactoryonline.com/evgenyg/repo</url>
         </pluginRepository>
     </pluginRepositories>
 
@@ -49,7 +48,7 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>com.goldin.plugins</groupId>
+                    <groupId>com.github.goldin</groupId>
                     <artifactId>kotlin-maven-plugin</artifactId>
                     <version>${kotlin-maven-plugin.version}</version>
                     <executions>
@@ -62,7 +61,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                      <verbose>false</verbose>
+                        <verbose>false</verbose>
                     </configuration>
                 </plugin>
             </plugins>
@@ -96,33 +95,33 @@
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
     <profiles>
-      <profile>
-        <id>localKotlin</id>
-        <build>
-          <pluginManagement>
-            <plugins>
-              <plugin>
-                  <groupId>com.goldin.plugins</groupId>
-                  <artifactId>kotlin-maven-plugin</artifactId>
-                  <version>${kotlin-maven-plugin.version}</version>
-                  <configuration>
-                    <kotlinJars>
-                      <jar>${kotlin-sdk}/lib/kotlin-build-tools.jar</jar>
-                      <jar>${kotlin-sdk}/lib/kotlin-compiler.jar</jar>
-                      <jar>${kotlin-sdk}/lib/kotlin-runtime.jar</jar>
-                      <jar>${kotlin-sdk}/lib/intellij-core.jar</jar>
-                      <jar>${kotlin-sdk}/lib/picocontainer.jar</jar>
-                      <jar>${kotlin-sdk}/lib/trove4j.jar</jar>
-                      <jar>${kotlin-sdk}/lib/guava-11.0.1.jar</jar>
-                      <jar>${kotlin-sdk}/lib/asm-commons.jar</jar>
-                      <jar>${kotlin-sdk}/lib/asm.jar</jar>
-                    </kotlinJars>
-                  </configuration>
-              </plugin>
-            </plugins>
-          </pluginManagement>
-        </build>
-      </profile>
+        <profile>
+            <id>localKotlin</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>com.github.goldin</groupId>
+                            <artifactId>kotlin-maven-plugin</artifactId>
+                            <version>${kotlin-maven-plugin.version}</version>
+                            <configuration>
+                                <kotlinJars>
+                                    <jar>${kotlin-sdk}/lib/kotlin-build-tools.jar</jar>
+                                    <jar>${kotlin-sdk}/lib/kotlin-compiler.jar</jar>
+                                    <jar>${kotlin-sdk}/lib/kotlin-runtime.jar</jar>
+                                    <jar>${kotlin-sdk}/lib/intellij-core.jar</jar>
+                                    <jar>${kotlin-sdk}/lib/picocontainer.jar</jar>
+                                    <jar>${kotlin-sdk}/lib/trove4j.jar</jar>
+                                    <jar>${kotlin-sdk}/lib/guava-11.0.1.jar</jar>
+                                    <jar>${kotlin-sdk}/lib/asm-commons.jar</jar>
+                                    <jar>${kotlin-sdk}/lib/asm.jar</jar>
+                                </kotlinJars>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
     </profiles>
 
 </project>

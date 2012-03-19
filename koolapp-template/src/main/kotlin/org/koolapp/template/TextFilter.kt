@@ -8,5 +8,5 @@ trait TextFilter {
      */
     fun filter(filterContext: FilterContext, appendable: Appendable): Unit
 
-    val urlMapping: Array<String>
+    fun getUrlMapping(): Array<String>
 }

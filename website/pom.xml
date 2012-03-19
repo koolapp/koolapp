@@ -13,11 +13,12 @@
 
     <artifactId>website</artifactId>
 
+    <packaging>war</packaging>
+
     <dependencies>
         <dependency>
             <groupId>org.koolapp</groupId>
-            <artifactId>koolapp-template</artifactId>
-            <!-- <artifactId>koolapp-web</artifactId> -->
+            <artifactId>koolapp-web</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -25,7 +26,7 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kdoc</artifactId>
-            <version>${project.version}</version>
+            <version>${kotlin.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- TODO not sure why we have to list transitive dependendcies on compiler... -->
@@ -52,7 +53,7 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>com.goldin.plugins</groupId>
+                <groupId>com.github.goldin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
             </plugin>
 
@@ -60,7 +61,7 @@
                 <!-- This plugin is needed for the servlet example -->
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>7.5.4.v20111024</version>
+                <version>8.1.2.v20120308</version>
               </plugin>
 <!--
               <plugin>

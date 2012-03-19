@@ -10,7 +10,6 @@ import java.util.List
  */
 fun loadTextFilters(classLoader: ClassLoader? = null): List<TextFilter> {
     val filterClass = javaClass<TextFilter>()
-    println("=== filterClass $filterClass")
     val loader = if (classLoader != null) {
         ServiceLoader.load(filterClass, classLoader)
     } else {

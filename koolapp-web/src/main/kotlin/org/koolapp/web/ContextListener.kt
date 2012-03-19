@@ -16,12 +16,16 @@ class ContextListener : ServletContextListener {
         if (event != null) {
             val sc = event.getServletContext()
             if (sc != null) {
+                sc.log("Stating the KoolApp ContextListener")
                 for (filter in loadContextTextFilters(sc)) {
                     val name = filter.toString()
+
                     val servlet = TextFilterServlet(filter)
                     val registration = sc.addServlet(name, servlet)
                     if (registration != null) {
-                        for (mapping in filter.urlMapping) {
+                        val mappings = filter.getUrlMapping()
+                        sc.log("Adding filter: $filter with mappings: ${mappings.toList()}")
+                        for (mapping in mappings) {
                             registration.addMapping(mapping)
                         }
                     }
@@ -34,6 +38,7 @@ class ContextListener : ServletContextListener {
     }
 
     protected fun loadContextTextFilters(sc: ServletContext): List<TextFilter> {
-       return loadTextFilters(sc.getClassLoader())
+       return loadTextFilters(Thread.currentThread().sure().getContextClassLoader())
+       //return loadTextFilters(sc.getClassLoader())
     }
 }

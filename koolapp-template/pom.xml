@@ -14,13 +14,11 @@
     <artifactId>koolapp-template</artifactId>
 
     <dependencies>
-<!--
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>stdlib</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
--->
+                <dependency>
+                    <groupId>org.jetbrains.kotlin</groupId>
+                    <artifactId>stdlib</artifactId>
+                    <version>${kotlin.version}</version>
+                </dependency>
         <dependency>
             <groupId>org.pegdown</groupId>
             <artifactId>pegdown</artifactId>
@@ -38,7 +36,7 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>com.goldin.plugins</groupId>
+                <groupId>com.github.goldin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
             </plugin>
         </plugins>
