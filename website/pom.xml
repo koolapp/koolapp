@@ -20,6 +20,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${javax.servlet.api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.koolapp</groupId>
             <artifactId>koolapp-web</artifactId>
             <version>${project.version}</version>

@@ -9,15 +9,17 @@ import java.util.List
 import kotlin.util.arrayList
 import javax.servlet.ServletContext
 
-[WebListener]
-class ContextListener : ServletContextListener {
+/**
+ * Base class for creating your own context listener
+ */
+abstract class ContextListener : ServletContextListener {
 
     override fun contextInitialized(event: ServletContextEvent?) {
         if (event != null) {
             val sc = event.getServletContext()
             if (sc != null) {
-                sc.log("Stating the KoolApp ContextListener")
-                for (filter in loadContextTextFilters(sc)) {
+                sc.log("Stating the KoolApp context: $this")
+                for (filter in loadContextFilterRendererServlets(sc)) {
                     val name = filter.toString()
 
                     val servlet = TextFilterServlet(filter)
@@ -30,6 +32,16 @@ class ContextListener : ServletContextListener {
                         }
                     }
                 }
+                val layout = createLayoutFilter(sc)
+                if (layout != null) {
+                    val registration = sc.addFilter("LayoutFilter", layout)
+                    // TODO cannot invoke varargs....
+                    if (registration != null) {
+                        for (mapping in layout.urlMapping) {
+                            registration.addMappingForUrlPatterns(null, true, mapping)
+                        }
+                    }
+                }
             }
         }
     }
@@ -37,7 +49,11 @@ class ContextListener : ServletContextListener {
     override fun contextDestroyed(event: ServletContextEvent?) {
     }
 
-    protected fun loadContextTextFilters(sc: ServletContext): List<TextFilter> {
+    open protected fun createLayoutFilter(sc: ServletContext): LayoutFilter? {
+        return null
+    }
+
+    open protected fun loadContextFilterRendererServlets(sc: ServletContext): List<TextFilter> {
        return loadTextFilters(Thread.currentThread().sure().getContextClassLoader())
        //return loadTextFilters(sc.getClassLoader())
     }

@@ -50,7 +50,8 @@ fun main(args: Array<String>): Unit {
 
     /** Returns true if we should scan this lib for annotations */
     fun isScannedWebInfLib(path: String): Boolean {
-        return path.contains("kool")
+        return path.endsWith("koolapp/website/target/classes")
+        //return path.contains("kool")
         //return true
     }
 

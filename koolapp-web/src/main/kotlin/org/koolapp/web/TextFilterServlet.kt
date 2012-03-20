@@ -1,17 +1,18 @@
 package org.koolapp.web
 
-import org.koolapp.template. *
 
-/**
- * A Servlet for serving up output using the
- */
-import javax.servlet.Servlet
-import javax.servlet.ServletConfig
-import javax.servlet.ServletRequest
-import javax.servlet.ServletResponse
-import javax.servlet.http.HttpServlet
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
+import javax.servlet.*
+import javax.servlet.http.*
+import org.koolapp.template.*
+
+fun filterContext(request: HttpServletRequest, response: HttpServletResponse, source: Input): FilterContext? {
+    val path = request.getServletPath()
+    if (path != null) {
+        val requestContext = HttpRequestContext(path, request, response)
+        return FilterContext(requestContext, source)
+    }
+    return null
+}
 
 class TextFilterServlet(val textFilter: TextFilter): HttpServlet() {
 
@@ -22,11 +23,15 @@ class TextFilterServlet(val textFilter: TextFilter): HttpServlet() {
                 // lets find the source
                 val path = request.getServletPath()
                 val input = servletContext.getResourceAsStream(path)
-                if (path != null && input != null) {
-                    val source = InputStreamSource(input)
-                    val requestContext = HttpRequestContext(path, request, response)
-                    val filterContext = FilterContext(requestContext, source)
-                    textFilter.filter(filterContext, response.getWriter().sure())
+                val filterContext = if (input != null) {
+                    filterContext(request, response, InputStreamInput(input))
+                } else {
+                    null
+                }
+                if (filterContext != null) {
+                    val writer = response.getWriter().sure()
+                    textFilter.filter(filterContext, writer)
+                    writer.flush()
                     val contentType = filterContext.outputContentType
                     if (contentType != null) {
                         response.setContentType(contentType)
