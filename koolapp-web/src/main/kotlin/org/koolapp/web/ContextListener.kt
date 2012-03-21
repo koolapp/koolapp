@@ -49,7 +49,7 @@ abstract class ContextListener : ServletContextListener {
     override fun contextDestroyed(event: ServletContextEvent?) {
     }
 
-    open protected fun createLayoutFilter(sc: ServletContext): LayoutFilter? {
+    open protected fun createLayoutFilter(sc: ServletContext): LayoutServletFilter? {
         return null
     }
 

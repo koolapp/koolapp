@@ -1,20 +1,19 @@
 package org.koolapp.website
 
-import javax.servlet.annotation.WebFilter
 import org.koolapp.template.FilterContext
+import org.koolapp.template.Template
 import org.koolapp.web.*
-import org.koolapp.template.Output
 
 // TODO
 //[WebFilter(displayName = "LayoutFilter", urlPatterns = array("*", "*.html"))]
-class MyLayout() : LayoutFilter() {
+class MyLayoutFilter(): LayoutServletFilter() {
 
-    override fun findLayout(context: FilterContext): Layout? {
+    override fun findLayoutTemplate(context: FilterContext): Template? {
         val contentType = context.outputContentType
         println("content type: $contentType")
         if (contentType != null && contentType.startsWith("text/html")) {
             println("Matching for request: ${context.requestContext.uri}")
-            return LayoutTemplate(SomeLayout(context))
+            return DefaultLayoutTemplate(context.source.text())
         } else {
             return null
         }
