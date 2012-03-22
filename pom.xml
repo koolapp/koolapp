@@ -62,7 +62,19 @@
                         </execution>
                     </executions>
                     <configuration>
+                        <runIf>{{ new File( project.build.sourceDirectory ).directory }}</runIf>
                         <verbose>false</verbose>
+                        <kotlinJars>
+                            <jar>${kotlin-sdk}/lib/kotlin-build-tools.jar</jar>
+                            <jar>${kotlin-sdk}/lib/kotlin-compiler.jar</jar>
+                            <jar>${kotlin-sdk}/lib/kotlin-runtime.jar</jar>
+                            <jar>${kotlin-sdk}/lib/intellij-core.jar</jar>
+                            <jar>${kotlin-sdk}/lib/picocontainer.jar</jar>
+                            <jar>${kotlin-sdk}/lib/trove4j.jar</jar>
+                            <jar>${kotlin-sdk}/lib/guava-11.0.1.jar</jar>
+                            <jar>${kotlin-sdk}/lib/asm-commons.jar</jar>
+                            <jar>${kotlin-sdk}/lib/asm.jar</jar>
+                        </kotlinJars>
                     </configuration>
                 </plugin>
             </plugins>

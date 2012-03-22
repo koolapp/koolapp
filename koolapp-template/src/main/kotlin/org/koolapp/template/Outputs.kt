@@ -8,7 +8,7 @@ import java.nio.charset.Charset
  * Represents an output which may be textual
  */
 abstract class Output {
-        /**
+    /**
      * Returns the [[Writer]] of the Output
      */
     abstract fun writer(): Writer
@@ -20,7 +20,7 @@ abstract class Output {
 }
 
 abstract class TextOutputSupport : Output() {
-    var charSet: Charset = Charset.defaultCharset().sure()
+    var charSet: Charset = defaultCharset
 
     override fun writer(): Writer = outputStream().writer(charSet)
 }

@@ -37,7 +37,7 @@ abstract class Input() {
  * Abstract base class for implementation inheritence of [[TextInput]] implementations
  */
 abstract class TextInputSupport: Input() {
-    var charSet: Charset = Charset.defaultCharset().sure()
+    var charSet: Charset = defaultCharset
 
     override fun reader(): Reader = inputStream().reader(charSet)
 
