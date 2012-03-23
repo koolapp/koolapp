@@ -37,6 +37,7 @@
 
     <modules>
         <module>koolapp-template</module>
+        <module>koolapp-html-modelgen</module>
         <module>koolapp-web</module>
         <module>koolapp-ui</module>
         <module>website</module>
