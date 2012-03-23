@@ -1,4 +1,4 @@
-package org.koolapp.template.dom
+package org.koolapp.template.html
 
 import org.w3c.dom.*
 

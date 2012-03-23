@@ -1,13 +1,13 @@
-package test.koolapp.template.dom
+package test.koolapp.template.html
 
-import org.koolapp.template.dom.*
+import org.koolapp.template.html.*
 import org.w3c.dom.*
 
 import kotlin.dom.*
 
 import org.junit.Test
 
-class HtmlDomTemplateTest {
+class HtmlTemplateTest {
     Test fun createDom() {
         val document = createDocument()
         val dom = document.html {
