@@ -6,9 +6,8 @@ package org.koolapp.template
 import java.io.File
 import java.io.FileWriter
 
-abstract class Template {
-    abstract fun render(out: Appendable): Unit
-
+trait Template {
+    fun render(out: Appendable): Unit
 }
 
 /**

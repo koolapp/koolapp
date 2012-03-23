@@ -3,7 +3,7 @@ package org.koolapp.website
 import org.koolapp.template.FilterContext
 import org.koolapp.template.Template
 
-class DefaultLayoutTemplate(val text: String, val title: String = "KoolApp"): Template() {
+class DefaultLayoutTemplate(val text: String, val title: String = "KoolApp"): Template {
 
     override fun render(out: Appendable): Unit {
         out.append("""
