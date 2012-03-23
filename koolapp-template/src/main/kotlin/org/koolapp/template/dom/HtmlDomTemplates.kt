@@ -7,14 +7,6 @@ import kotlin.dom.*
 import org.koolapp.template.Template
 import java.io.Writer
 
-/*
-abstract class NodeTemplate : Template {
-
-    override fun render(out: Appendable) {
-    }
-}
-*/
-
 /**
  * Renders the node as XML markup
  */
