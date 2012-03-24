@@ -40,6 +40,8 @@ fun Node.body(init: Element.()-> Unit): Element = element("body", init)
 
 fun Node.div(init: Element.()-> Unit): Element = element("div", init)
 
+fun Node.h1(text: String? = null): Element = h1(text) {}
+
 fun Node.h1(text: String? = null, init: Element.()-> Unit): Element = textElement("h1", text, init)
 
 fun Node.h2(text: String? = null, init: Element.()-> Unit): Element = textElement("h2", text, init)
@@ -58,6 +60,8 @@ fun Node.a(href: String? = null, title: String? = null, text: String? = null, in
     }
 }
 
+
+fun Node.img(src: String? = null, alt: String? = null): Element = img(src, alt) {}
 
 fun Node.img(src: String? = null, alt: String? = null, init: Element.()-> Unit): Element {
     return element("img") {

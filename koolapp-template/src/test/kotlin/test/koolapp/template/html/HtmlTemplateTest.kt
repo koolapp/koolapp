@@ -12,16 +12,17 @@ class HtmlTemplateTest {
         val document = createDocument()
         val dom = document.html {
             body {
-                h1("Hey") {
-                }
-                h2 {
+                h1("Hey")
+                h1 {
+                    text = "my title"
                 }
                 p {
                     a(href = "hey", text = "link text") {
+                        // TODO doesn't work yet...
+                        // text = "whatnot"
                     }
                     a(href = "cheese.html", title = "my link title") {
-                        img(src = "blah.jpg") {
-                        }
+                        img(src = "blah.jpg")
                     }
                 }
 
