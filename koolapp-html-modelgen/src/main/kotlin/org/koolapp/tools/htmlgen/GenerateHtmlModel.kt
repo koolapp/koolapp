@@ -45,6 +45,7 @@ fun Document.id(idValue: String): Element {
 class GenerateHtmlModel : Runnable {
 
     public var htmlSpecUrl: String = "http://dev.w3.org/html5/spec/section-index.html"
+    public var htmlGlobalAttributesUrl: String = "http://dev.w3.org/html5/spec/global-attributes.html"
 
     override fun run() {
         println("Loading the HTML5 spec from $htmlSpecUrl")
@@ -75,6 +76,34 @@ class GenerateHtmlModel : Runnable {
         val nextElements: Iterator<Element> = title.nextElements()
         val table = nextElements.find{ it.getTagName() == "table" }
         println("Found table $table")
+        if (table != null) {
+            val tbody = table["tbody"]
+            if (tbody.notEmpty()) {
+                val rows = tbody[0]["tr"]
+                for (row in rows) {
+                    //println("Processing row $row")
+                    val links = row["a"]
+                    if (links.notEmpty()) {
+                        val name = links[0].text
+                        val tds = row["td"]
+                        var empty = false
+                        if (tds.size() > 4) {
+                            val contentTd = tds[1]
+                            val emptyTd = tds[3]
+                            if (emptyTd.text == "empty") {
+                                empty = true
+                            }
+                            val attributesTd = tds[4]
+                            // TODO drop 1
+                            val attributeNames = attributesTd["a"].map<Element,String>{it.text}
+                            println("Element $name empty $empty attributes $attributeNames")
+                        }
+                    }
+                }
+            }
+
+        }
+
     }
 }
 
