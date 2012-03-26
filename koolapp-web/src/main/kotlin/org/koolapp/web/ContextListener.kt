@@ -6,7 +6,6 @@ import javax.servlet.annotation.WebListener
 import javax.servlet.ServletContextListener
 import javax.servlet.ServletContextEvent
 import java.util.List
-import kotlin.util.arrayList
 import javax.servlet.ServletContext
 
 /**

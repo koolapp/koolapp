@@ -11,7 +11,6 @@ import org.koolapp.template.Template
 import org.koolapp.web.filterContext
 
 import java.util.List
-import kotlin.util.arrayList
 
 class ResponseOutput(val response: ServletResponse): Output() {
 

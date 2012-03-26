@@ -11,7 +11,6 @@ import org.koolapp.template.Template
 import org.koolapp.web.support.*
 
 import java.util.List
-import kotlin.util.arrayList
 
 /**
  * A Servlet [[Filter]] which performs layouts
