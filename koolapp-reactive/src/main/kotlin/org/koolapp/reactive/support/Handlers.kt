@@ -1,0 +1,77 @@
+package org.koolapp.reactive.support
+
+import org.koolapp.reactive.*
+import java.io.Closeable
+
+/**
+ * Useful base class for [[Handler]] to avoid having to implement [[onComplete()]] or [[onError()]]
+ */
+abstract class AbstractHandler<T> : Handler<T> {
+    override fun onComplete() {
+    }
+
+    override fun onError(e: Exception) {
+    }
+
+}
+
+/**
+ * Allows a function to be converted into an [[Handler]] so we can use a simple function to consume events
+ */
+class FunctionHandler<T>(val fn: (T) -> Unit): AbstractHandler<T>() {
+
+    public override fun onNext(next: T) {
+        if (fn != null) {
+            (fn)(next)
+        }
+    }
+}
+
+/**
+ * Useful base class which delegates to another [[Handler]]
+ */
+abstract class DelegateHandler<T>(val delegate: Handler<T>) : Handler<T> {
+
+    public override fun onComplete() {
+        delegate.onComplete()
+    }
+
+    public override fun onError(e: Exception) {
+        delegate.onError(e)
+    }
+
+    public override fun onNext(next: T) {
+        delegate.onNext(next)
+    }
+}
+
+/**
+ * A [[Handler]] which filters elements in the stream
+ */
+class FilterHandler<T>(delegate: Handler<T>, val predicate: (T) -> Boolean): DelegateHandler<T>(delegate) {
+
+    public override fun onNext(next: T) {
+        if ((predicate)(next)) {
+            delegate.onNext(next)
+        }
+    }
+}
+
+/**
+ * A [[Handler]] which filters elements in the stream
+ */
+class MapHandler<T, R>(val delegate: Handler<R>, val transform: (T) -> R): Handler<T> {
+
+    public override fun onNext(next: T) {
+        val result = (transform)(next)
+        delegate.onNext(result)
+    }
+
+    override fun onComplete() {
+        delegate.onComplete()
+    }
+
+    override fun onError(e: Exception) {
+        delegate.onError(e)
+    }
+}

@@ -1,0 +1,73 @@
+package org.koolapp.reactive
+
+import java.io.Closeable
+import org.koolapp.reactive.support.*
+
+/**
+ * Represents an asynchronous stream of events which can be composed and processed asynchronously.
+ *
+ * You can think of a *Stream* as being like a push based collection where rather than pulling values out,
+ * values are pushed into a [[handler]] instead so processing of collections can be done completely asynchronously.
+ */
+abstract class Stream<out T> {
+
+    /**
+     * Opens the stream for processing with the given handler
+     */
+    abstract fun subscribe(handler: Handler<T>): Closeable
+
+    /**
+     * Subscribes to the stream of events using a function block
+     * to process each next element
+     */
+    fun subscribe(nextBlock: (T) -> Unit): Closeable {
+        return subscribe(FunctionHandler(nextBlock))
+    }
+
+    /**
+     * Creates a new [[Stream]] which filters out elements
+     * in the stream to those which match the given predicate
+     */
+    fun filter(predicate: (T) -> Boolean): Stream<T>  {
+        return DelegateStream(this) {
+            FilterHandler(it, predicate)
+        }
+    }
+
+    /**
+     * Creates a new [[Stream]] which transforms the elements
+     * in the stream using the given function
+     */
+    fun <R> map(transform: (T) -> R): Stream<R> {
+        return MapStream<T,R>(this) {
+            MapHandler<T,R>(it, transform)
+        }
+    }
+
+    class object {
+
+        /**
+         * Create an empty [[Stream]]
+         */
+        fun <T> empty(): Stream<T> = FunctionStream {
+            it.onComplete()
+        }
+
+        /**
+         * Create an [[Stream]] of a single value
+         */
+        fun <T> single(next: T): Stream<T> = FunctionStream {
+            it.onNext(next)
+            it.onComplete()
+        }
+
+        /**
+         * Create an [[Stream]] which always raises an error
+         */
+        fun <T> error(exception: Exception): Stream<T> = FunctionStream {
+            it.onError(exception)
+        }
+
+    }
+}
+
