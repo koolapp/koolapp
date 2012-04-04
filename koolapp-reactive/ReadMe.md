@@ -4,6 +4,7 @@ This framework is inspired by a combination of the [Reactive Extensions (Rx)](ht
 [Iteratees](http://okmij.org/ftp/Streams.html) and various other similar approaches to dealing with concurrency.
 
 The basic idea is to provide support for asynchronous collections or event **Streams** that can be
-[composed and processed](https://github.com/koolapp/koolapp/blob/master/koolapp-reactive/src/test/kotlin/test/koolapp/reactive/CollectionTest.kt#L15) like regular collections
+[composed and processed](https://github.com/koolapp/koolapp/blob/master/koolapp-reactive/src/test/kotlin/test/koolapp/reactive/CollectionTest.kt#L15)
+like regular [collections](http://jetbrains.github.com/kotlin/versions/snapshot/apidocs/kotlin/java/util/Collection-extensions.html)
 but done asynchronously to deal with time delay, use threads efficiently and avoid blocking.
 
