@@ -8,7 +8,7 @@ import org.koolapp.web.LayoutServletFilter
 [WebListener]
 public class MyContextListener() : ContextListener() {
 
-    override fun createLayoutFilter(sc: ServletContext): LayoutServletFilter? {
+    public override fun createLayoutFilter(sc: ServletContext): LayoutServletFilter? {
         return MyLayoutFilter()
     }
 }

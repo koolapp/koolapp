@@ -5,7 +5,7 @@ import org.koolapp.template.Template
 
 class DefaultLayoutTemplate(val text: String, val title: String = "KoolApp"): Template {
 
-    override fun render(out: Appendable): Unit {
+    public override fun render(out: Appendable): Unit {
         out.append("""
 <!DOCTYPE html>
 <html lang="en">

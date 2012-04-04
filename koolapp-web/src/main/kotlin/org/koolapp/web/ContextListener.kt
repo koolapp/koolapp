@@ -13,7 +13,7 @@ import javax.servlet.ServletContext
  */
 abstract class ContextListener : ServletContextListener {
 
-    override fun contextInitialized(event: ServletContextEvent?) {
+    public override fun contextInitialized(event: ServletContextEvent?) {
         if (event != null) {
             val sc = event.getServletContext()
             if (sc != null) {
@@ -45,7 +45,7 @@ abstract class ContextListener : ServletContextListener {
         }
     }
 
-    override fun contextDestroyed(event: ServletContextEvent?) {
+    public override fun contextDestroyed(event: ServletContextEvent?) {
     }
 
     open protected fun createLayoutFilter(sc: ServletContext): LayoutServletFilter? {

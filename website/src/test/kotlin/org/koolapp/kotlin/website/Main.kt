@@ -72,7 +72,7 @@ fun main(args: Array<String>): Unit {
 
     val annotationConfiguration = object : AnnotationConfiguration() {
 
-        override fun parseWebInfClasses(context: WebAppContext?, parser: AnnotationParser?) {
+        public override fun parseWebInfClasses(context: WebAppContext?, parser: AnnotationParser?) {
             super.parseWebInfClasses(context, parser)
 
             if (parser != null && context != null) {
@@ -120,12 +120,12 @@ fun main(args: Array<String>): Unit {
 }
 
 class MyResolver(val context: WebAppContext): ClassNameResolver {
-    override fun isExcluded(name: String?): Boolean {
+    public override fun isExcluded(name: String?): Boolean {
         if (context != null && context.isSystemClass(name)) return true
         if (context != null && context.isServerClass(name)) return false
         return false
     }
-    override fun shouldOverride(name: String?): Boolean {
+    public override fun shouldOverride(name: String?): Boolean {
         //looking at webapp classpath, found already-parsed class of same name - did it come from system or duplicate in webapp?
         if (context != null && context.isParentLoaderPriority())
             return false;

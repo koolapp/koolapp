@@ -6,7 +6,7 @@ import org.koolapp.template.*
 
 class TextFilterServlet(val textFilter: TextFilter): HttpServlet() {
 
-    override fun doGet(request: HttpServletRequest?, response: HttpServletResponse?) {
+    public override fun doGet(request: HttpServletRequest?, response: HttpServletResponse?) {
         if (request != null && response != null) {
             val servletContext = request.getServletContext()
             if (servletContext != null) {

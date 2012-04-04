@@ -24,7 +24,7 @@ class GenerateSiteTest : TestCase() {
         copyDocResources(outDir)
         val args = KDocArguments()
         args.setSrc("../koolapp-ui/src/main/kotlin")
-        args.setDocOutputDir(outDir.toString())
+        //args.setDocOutputDir(outDir.toString())
         args.setOutputDir("target/classes-kdoc")
 
         val config = args.docConfig

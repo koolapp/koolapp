@@ -21,14 +21,14 @@ abstract class LayoutServletFilter: Filter {
 
     public var urlMapping: Array<String> = array("*")
 
-    override fun init(config: FilterConfig?) {
+    public override fun init(config: FilterConfig?) {
         $config = config
     }
 
-    override fun destroy() {
+    public override fun destroy() {
     }
 
-    override fun doFilter(request: ServletRequest?, response: ServletResponse?, chain: FilterChain?) {
+    public override fun doFilter(request: ServletRequest?, response: ServletResponse?, chain: FilterChain?) {
         if (chain != null) {
             if (request is HttpServletRequest && response is HttpServletResponse) {
                 val path = request.getServletPath()

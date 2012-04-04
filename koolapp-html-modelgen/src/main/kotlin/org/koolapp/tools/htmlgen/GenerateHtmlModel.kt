@@ -47,7 +47,7 @@ class GenerateHtmlModel : Runnable {
     public var htmlSpecUrl: String = "http://dev.w3.org/html5/spec/section-index.html"
     public var htmlGlobalAttributesUrl: String = "http://dev.w3.org/html5/spec/global-attributes.html"
 
-    override fun run() {
+    public override fun run() {
         println("Loading the HTML5 spec from $htmlSpecUrl")
 
         val config = HTMLConfiguration()

@@ -8,7 +8,7 @@ import org.koolapp.web.*
 //[WebFilter(displayName = "LayoutFilter", urlPatterns = array("*", "*.html"))]
 class MyLayoutFilter(): LayoutServletFilter() {
 
-    override fun findLayoutTemplate(context: FilterContext): Template? {
+    public override fun findLayoutTemplate(context: FilterContext): Template? {
         val contentType = context.outputContentType
         println("content type: $contentType")
         if (contentType != null && contentType.startsWith("text/html")) {

@@ -14,11 +14,11 @@ import java.util.List
 
 class ResponseOutput(val response: ServletResponse): Output() {
 
-    override fun outputStream(): OutputStream {
+    public override fun outputStream(): OutputStream {
         return response.getOutputStream().sure()
     }
 
-    override fun writer(): Writer {
+    public override fun writer(): Writer {
         return response.getWriter().sure()
     }
 }
@@ -32,22 +32,22 @@ class BufferedResponseWrapper(response: HttpServletResponse): HttpServletRespons
         return buffer.toByteArray().sure()
     }
 
-    override fun getWriter(): PrintWriter {
+    public override fun getWriter(): PrintWriter {
         return writer
     }
 
-    override fun getOutputStream(): ServletOutputStream? {
+    public override fun getOutputStream(): ServletOutputStream? {
         return BufferedServletOutputStream(buffer)
     }
 
-    override fun setContentLength(len: Int) {
+    public override fun setContentLength(len: Int) {
         // avoid as we typically may write something else
     }
 }
 
 class BufferedServletOutputStream(val buffer: ByteArrayOutputStream) : ServletOutputStream() {
 
-    override fun write(b: Int) {
+    public override fun write(b: Int) {
         buffer.write(b)
     }
 }
@@ -59,11 +59,11 @@ class TextBufferResponseWrapper(response: HttpServletResponse): HttpServletRespo
         return output.toString().sure()
     }
 
-    override fun getWriter(): PrintWriter {
+    public override fun getWriter(): PrintWriter {
         return PrintWriter(output);
     }
 
-    override fun setContentLength(len: Int) {
+    public override fun setContentLength(len: Int) {
         // avoid as we typically may write something else
     }
 }
