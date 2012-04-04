@@ -1,12 +1,14 @@
 package org.koolapp.reactive.support
 
+import org.koolapp.reactive.*
+
 import java.io.Closeable
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * A useful base class for implementing a [[Closesable]]
+ * A useful base class for implementing a [[Cursor]]
  */
-abstract class AbstractCloseable: Closeable {
+abstract class AbstractCursor: Cursor {
     private val closedFlag = AtomicBoolean(false)
 
     /**
@@ -23,8 +25,7 @@ abstract class AbstractCloseable: Closeable {
     /**
      * Returns true if this object is closed
      */
-    public fun isClosed(): Boolean = closedFlag.get()
-
+    public override fun isClosed(): Boolean = closedFlag.get()
 
 
     /**

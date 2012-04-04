@@ -9,9 +9,9 @@ import java.util.concurrent.Executor
  * A [[Stream]] which invokes the given function on the handler
  */
 class FunctionStream<T>(val fn: (Handler<T>) -> Unit): Stream<T>() {
-    override fun open(handler: Handler<T>): Closeable {
+    override fun open(handler: Handler<T>): Cursor {
         (fn)(handler)
-        return DefaultCloseable
+        return DefaultCursor()
     }
 }
 
@@ -19,7 +19,7 @@ class FunctionStream<T>(val fn: (Handler<T>) -> Unit): Stream<T>() {
  * Converts a collection into an [[Stream]]
  */
 class StreamCollection<T>(val coll: java.lang.Iterable<T>, val executor: Executor) : Stream<T>() {
-    public override fun open(handler: Handler<T>): Closeable {
+    public override fun open(handler: Handler<T>): Cursor {
         val subscription = IteratorTask(coll.iterator(), handler)
         executor.execute(subscription)
         return subscription
@@ -32,7 +32,7 @@ class StreamCollection<T>(val coll: java.lang.Iterable<T>, val executor: Executo
  */
 class DelegateStream<T>(val delegate: Stream<T>, val fn: (Handler<T>) -> Handler<T>) : Stream<T>() {
 
-    public override fun open(handler: Handler<T>): Closeable {
+    public override fun open(handler: Handler<T>): Cursor {
         val result = (fn)(handler)
         return delegate.open(result)
     }
@@ -44,7 +44,7 @@ class DelegateStream<T>(val delegate: Stream<T>, val fn: (Handler<T>) -> Handler
  */
 class TakeWhileStream<T>(val delegate: Stream<T>, val predicate: (T) -> Boolean) : Stream<T>() {
 
-    public override fun open(handler: Handler<T>): Closeable {
+    public override fun open(handler: Handler<T>): Cursor {
         val result = TakeWhileHandler(handler, predicate)
         val closeable = delegate.open(result)
         result.closeable = closeable
@@ -57,7 +57,7 @@ class TakeWhileStream<T>(val delegate: Stream<T>, val predicate: (T) -> Boolean)
  */
 class MapStream<T,R>(val delegate: Stream<T>, val fn: (Handler<R>) -> Handler<T>) : Stream<R>() {
 
-    public override fun open(handler: Handler<R>): Closeable {
+    public override fun open(handler: Handler<R>): Cursor {
         val result = (fn)(handler)
         return delegate.open(result)
     }

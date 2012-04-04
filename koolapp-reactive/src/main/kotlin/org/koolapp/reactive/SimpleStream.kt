@@ -1,5 +1,7 @@
 package org.koolapp.reactive
 
+import org.koolapp.reactive.support.AbstractCursor
+
 import java.io.Closeable
 import java.util.ArrayList
 import java.util.Collection
@@ -10,10 +12,10 @@ import java.util.concurrent.ConcurrentLinkedQueue
  */
 class SimpleStream<in T>(val handlers: Collection<Handler<T>> = ConcurrentLinkedQueue<Handler<T>>()): Stream<T>(), Handler<T> {
 
-    override fun open(handler: Handler<T>): Closeable {
+    override fun open(handler: Handler<T>): Cursor {
         handlers.add(handler)
-        return object: Closeable {
-            public override fun close() {
+        return object: AbstractCursor() {
+            protected override fun doClose() {
                 handlers.remove(handler)
             }
         }
@@ -23,7 +25,7 @@ class SimpleStream<in T>(val handlers: Collection<Handler<T>> = ConcurrentLinked
         forEach{ it.onComplete() }
     }
 
-    override fun onError(e: Exception): Unit {
+    override fun onError(e: Throwable): Unit {
         forEach{ it.onError(e) }
     }
 

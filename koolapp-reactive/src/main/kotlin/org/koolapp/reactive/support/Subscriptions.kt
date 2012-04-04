@@ -3,8 +3,8 @@ package org.koolapp.reactive.support
 import org.koolapp.reactive.*
 import java.io.Closeable
 
-object DefaultCloseable: Closeable {
-    public override fun close() {
+class DefaultCursor(): AbstractCursor() {
+    protected override fun doClose() {
     }
 }
 
@@ -12,22 +12,18 @@ object DefaultCloseable: Closeable {
  * A task which iterates over an iterator invoking the [[Handler]]
  * until its complete
  */
-class IteratorTask<T>(val iter: java.util.Iterator<T>, val handler: Handler<T>): Closeable, Runnable {
-    var closed = false
-
-    public override fun close() {
-        closed = true
-    }
-
+class IteratorTask<T>(val iter: java.util.Iterator<T>, val handler: Handler<T>): AbstractCursor(), Runnable {
     public override fun run(): Unit {
         try {
             for (element in iter) {
                 handler.onNext(element)
-                if (closed) break
+                if (isClosed()) break
             }
             handler.onComplete()
-        } catch (e: Exception) {
+            close()
+        } catch (e: Throwable) {
             handler.onError(e)
+            close()
         }
     }
 }

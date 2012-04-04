@@ -14,13 +14,13 @@ abstract class Stream<out T> {
     /**
      * Opens the stream for processing with the given handler
      */
-    abstract fun open(handler: Handler<T>): Closeable
+    abstract fun open(handler: Handler<T>): Cursor
 
     /**
      * Opens the stream of events using the given function block to process each event
      * until the stream completes or fails
      */
-    fun open(nextBlock: (T) -> Unit): Closeable {
+    fun open(nextBlock: (T) -> Unit): Cursor {
         return open(FunctionHandler(nextBlock))
     }
 
@@ -70,9 +70,7 @@ abstract class Stream<out T> {
      * the given predicate returns false and the underlying stream is then closed
      */
     fun takeWhile(predicate: (T) -> Boolean): Stream<T> {
-        return DelegateStream(this) {
-            TakeWhileHandler(it, predicate)
-        }
+        return TakeWhileStream(this, predicate)
     }
 
     class object {
@@ -95,7 +93,7 @@ abstract class Stream<out T> {
         /**
          * Create an [[Stream]] which always raises an error
          */
-        fun <T> error(exception: Exception): Stream<T> = FunctionStream {
+        fun <T> error(exception: Throwable): Stream<T> = FunctionStream {
             it.onError(exception)
         }
 

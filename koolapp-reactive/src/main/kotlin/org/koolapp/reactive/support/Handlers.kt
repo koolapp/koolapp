@@ -11,7 +11,7 @@ abstract class AbstractHandler<T> : Handler<T> {
     override fun onComplete() {
     }
 
-    override fun onError(e: Exception) {
+    override fun onError(e: Throwable) {
     }
 
 }
@@ -37,7 +37,7 @@ abstract class DelegateHandler<T>(val delegate: Handler<T>) : Handler<T> {
         delegate.onComplete()
     }
 
-    public override fun onError(e: Exception) {
+    public override fun onError(e: Throwable) {
         delegate.onError(e)
     }
 
@@ -61,7 +61,7 @@ class FilterHandler<T>(delegate: Handler<T>, val predicate: (T) -> Boolean): Del
 /**
  * A [[Handler]] which processes elements in the stream until the predicate is false then the underlying stream is closed
  */
-class TakeWhileHandler<T>(var delegate: Handler<T>, val predicate: (T) -> Boolean): AbstractCloseable(), Handler<T> {
+class TakeWhileHandler<T>(var delegate: Handler<T>, val predicate: (T) -> Boolean): AbstractCursor(), Handler<T> {
 
     public override fun onNext(next: T) {
         if ((predicate)(next)) {
@@ -75,13 +75,13 @@ class TakeWhileHandler<T>(var delegate: Handler<T>, val predicate: (T) -> Boolea
         close()
     }
 
-    public override fun onError(e: Exception) {
+    public override fun onError(e: Throwable) {
         close()
     }
 
     protected override fun doClose() {
         delegate.onComplete()
-        super<AbstractCloseable>.doClose()
+        super<AbstractCursor>.doClose()
     }
 }
 
@@ -99,7 +99,7 @@ class MapHandler<T, R>(val delegate: Handler<R>, val transform: (T) -> R): Handl
         delegate.onComplete()
     }
 
-    override fun onError(e: Exception) {
+    override fun onError(e: Throwable) {
         delegate.onError(e)
     }
 }

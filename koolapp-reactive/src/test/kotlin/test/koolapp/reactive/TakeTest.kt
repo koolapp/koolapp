@@ -18,9 +18,7 @@ class TakeTest {
         stream.onNext("foo")
         stream.onNext("bar")
 
-        if (c1 is AbstractCloseable) {
-            assertEquals(true, c1.isClosed())
-        }
+        c1.assertClosed()
 
         println("Stream generated: results1: $results")
         assertEquals(arrayList("foo"), results)
@@ -37,9 +35,7 @@ class TakeTest {
         stream.onNext("foo2")
         stream.onNext("bar")
 
-        if (c1 is AbstractCloseable) {
-            assertEquals(true, c1.isClosed())
-        }
+        c1.assertClosed()
 
         println("Stream generated: results1: $results")
         assertEquals(arrayList("foo", "foo2"), results)

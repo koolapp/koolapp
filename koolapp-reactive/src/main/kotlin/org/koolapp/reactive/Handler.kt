@@ -19,5 +19,5 @@ trait Handler<in T> {
     /**
      * Marks a stream as completed with a failure
      */
-    fun onError(e: Exception): Unit
+    fun onError(e: Throwable): Unit
 }
