@@ -1,6 +1,6 @@
 package org.koolapp.reactive
 
-import org.koolapp.reactive.support.AbstractCursor
+import org.koolapp.reactive.support.*
 
 import java.io.Closeable
 import java.util.ArrayList
@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentLinkedQueue
 /**
  * A simple [[Stream]] that can have elements injected into its active [[Handler]] instances
  */
-class SimpleStream<in T>(val handlers: Collection<Handler<T>> = ConcurrentLinkedQueue<Handler<T>>()): Stream<T>(), Handler<T> {
+open class SimpleStream<in T>(val handlers: ConcurrentContainer<Handler<T>> = DefaultConcurrentContainer<Handler<T>>()): Stream<T>(), Handler<T> {
 
     override fun open(handler: Handler<T>): Cursor {
         handlers.add(handler)
@@ -22,21 +22,14 @@ class SimpleStream<in T>(val handlers: Collection<Handler<T>> = ConcurrentLinked
     }
 
     override fun onComplete(): Unit {
-        forEach{ it.onComplete() }
+        handlers.forEach{ it.onComplete() }
     }
 
     override fun onError(e: Throwable): Unit {
-        forEach{ it.onError(e) }
+        handlers.forEach{ it.onError(e) }
     }
 
     override fun onNext(next: T): Unit {
-        forEach{ it.onNext(next) }
+        handlers.forEach{ it.onNext(next) }
     }
-
-    protected fun forEach(fn: (Handler<T>) -> Any): Unit {
-        for (handler in handlers) {
-            (fn)(handler)
-        }
-    }
-
 }

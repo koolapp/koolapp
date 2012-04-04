@@ -13,7 +13,6 @@ abstract class AbstractHandler<T> : Handler<T> {
 
     override fun onError(e: Throwable) {
     }
-
 }
 
 /**
