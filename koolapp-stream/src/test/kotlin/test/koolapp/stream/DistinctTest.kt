@@ -1,8 +1,8 @@
-package test.koolapp.reactive
+package test.koolapp.stream
 
 import kotlin.test.*
 
-import org.koolapp.reactive.*
+import org.koolapp.stream.*
 
 import org.junit.Test as test
 

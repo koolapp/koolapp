@@ -1,7 +1,7 @@
-package org.koolapp.reactive
+package org.koolapp.stream
 
 import java.util.*
-import org.koolapp.reactive.support.*
+import org.koolapp.stream.support.*
 import java.util.concurrent.Executor
 
 /**

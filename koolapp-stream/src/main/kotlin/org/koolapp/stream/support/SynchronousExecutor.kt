@@ -1,4 +1,4 @@
-package org.koolapp.reactive.support
+package org.koolapp.stream.support
 
 import java.util.concurrent.Executor
 

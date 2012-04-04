@@ -1,7 +1,7 @@
-package org.koolapp.reactive
+package org.koolapp.stream
 
 import java.io.Closeable
-import org.koolapp.reactive.support.*
+import org.koolapp.stream.support.*
 
 /**
  * Represents an asynchronous stream of events which can be composed and processed asynchronously.

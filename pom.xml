@@ -36,7 +36,7 @@
     </pluginRepositories>
 
     <modules>
-        <module>koolapp-reactive</module>
+        <module>koolapp-stream</module>
         <module>koolapp-template</module>
         <module>koolapp-html-modelgen</module>
         <module>koolapp-web</module>

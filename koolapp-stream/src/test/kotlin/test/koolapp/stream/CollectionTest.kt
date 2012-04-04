@@ -1,6 +1,6 @@
-package test.koolapp.reactive
+package test.koolapp.stream
 
-import org.koolapp.reactive.*
+import org.koolapp.stream.*
 
 import org.junit.Test as test
 

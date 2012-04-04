@@ -1,4 +1,4 @@
-package org.koolapp.reactive
+package org.koolapp.stream
 
 import java.io.Closeable
 

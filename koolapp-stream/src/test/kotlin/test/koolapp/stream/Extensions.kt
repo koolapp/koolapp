@@ -1,6 +1,6 @@
-package test.koolapp.reactive
+package test.koolapp.stream
 
-import org.koolapp.reactive.Cursor
+import org.koolapp.stream.Cursor
 import kotlin.test.assertTrue
 
 fun Cursor.assertClosed(): Unit {

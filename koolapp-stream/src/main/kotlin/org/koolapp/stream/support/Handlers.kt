@@ -1,6 +1,6 @@
-package org.koolapp.reactive.support
+package org.koolapp.stream.support
 
-import org.koolapp.reactive.*
+import org.koolapp.stream.*
 import java.io.Closeable
 import java.util.concurrent.atomic.AtomicBoolean
 
