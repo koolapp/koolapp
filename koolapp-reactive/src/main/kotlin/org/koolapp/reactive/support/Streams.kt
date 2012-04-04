@@ -9,7 +9,7 @@ import java.util.concurrent.Executor
  * A [[Stream]] which invokes the given function on the handler
  */
 class FunctionStream<T>(val fn: (Handler<T>) -> Unit): Stream<T>() {
-    override fun subscribe(handler: Handler<T>): Closeable {
+    override fun open(handler: Handler<T>): Closeable {
         (fn)(handler)
         return DefaultCloseable
     }
@@ -19,7 +19,7 @@ class FunctionStream<T>(val fn: (Handler<T>) -> Unit): Stream<T>() {
  * Converts a collection into an [[Stream]]
  */
 class StreamCollection<T>(val coll: java.lang.Iterable<T>, val executor: Executor) : Stream<T>() {
-    public override fun subscribe(handler: Handler<T>): Closeable {
+    public override fun open(handler: Handler<T>): Closeable {
         val subscription = IteratorTask(coll.iterator(), handler)
         executor.execute(subscription)
         return subscription
@@ -32,9 +32,9 @@ class StreamCollection<T>(val coll: java.lang.Iterable<T>, val executor: Executo
  */
 class DelegateStream<T>(val delegate: Stream<T>, val fn: (Handler<T>) -> Handler<T>) : Stream<T>() {
 
-    public override fun subscribe(handler: Handler<T>): Closeable {
+    public override fun open(handler: Handler<T>): Closeable {
         val result = (fn)(handler)
-        return delegate.subscribe(result)
+        return delegate.open(result)
     }
 }
 /**
@@ -42,8 +42,8 @@ class DelegateStream<T>(val delegate: Stream<T>, val fn: (Handler<T>) -> Handler
  */
 class MapStream<T,R>(val delegate: Stream<T>, val fn: (Handler<R>) -> Handler<T>) : Stream<R>() {
 
-    public override fun subscribe(handler: Handler<R>): Closeable {
+    public override fun open(handler: Handler<R>): Closeable {
         val result = (fn)(handler)
-        return delegate.subscribe(result)
+        return delegate.open(result)
     }
 }

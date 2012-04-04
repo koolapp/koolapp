@@ -14,14 +14,14 @@ abstract class Stream<out T> {
     /**
      * Opens the stream for processing with the given handler
      */
-    abstract fun subscribe(handler: Handler<T>): Closeable
+    abstract fun open(handler: Handler<T>): Closeable
 
     /**
-     * Subscribes to the stream of events using a function block
-     * to process each next element
+     * Opens the stream of events using the given function block to process each event
+     * until the stream completes or fails
      */
-    fun subscribe(nextBlock: (T) -> Unit): Closeable {
-        return subscribe(FunctionHandler(nextBlock))
+    fun open(nextBlock: (T) -> Unit): Closeable {
+        return open(FunctionHandler(nextBlock))
     }
 
     /**
