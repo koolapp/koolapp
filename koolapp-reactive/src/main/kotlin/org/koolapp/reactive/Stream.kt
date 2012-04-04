@@ -25,7 +25,7 @@ abstract class Stream<out T> {
     }
 
     /**
-     * Creates a new [[Stream]] which filters out elements
+     * Returns a new [[Stream]] which filters out elements
      * in the stream to those which match the given predicate
      */
     fun filter(predicate: (T) -> Boolean): Stream<T>  {
@@ -35,12 +35,24 @@ abstract class Stream<out T> {
     }
 
     /**
-     * Creates a new [[Stream]] which transforms the elements
+     * Returns a new [[Stream]] which transforms the elements
      * in the stream using the given function
      */
     fun <R> map(transform: (T) -> R): Stream<R> {
         return MapStream<T,R>(this) {
             MapHandler<T,R>(it, transform)
+        }
+    }
+
+    /**
+     * Returns a [[Stream]] which filters out duplicates
+     */
+    fun distinct(): Stream<T> {
+        var previous: T? = null
+        return filter  {
+            val changed = previous == null || previous != it
+            previous = it
+            changed
         }
     }
 
