@@ -37,6 +37,21 @@ class DelegateStream<T>(val delegate: Stream<T>, val fn: (Handler<T>) -> Handler
         return delegate.open(result)
     }
 }
+
+/**
+ * Creates an [[Stream]] which takes elements from the delegate stream until the predicate is false
+ * then the stream closes the delegate stream
+ */
+class TakeWhileStream<T>(val delegate: Stream<T>, val predicate: (T) -> Boolean) : Stream<T>() {
+
+    public override fun open(handler: Handler<T>): Closeable {
+        val result = TakeWhileHandler(handler, predicate)
+        val closeable = delegate.open(result)
+        result.closeable = closeable
+        return result
+
+    }
+}
 /**
  * Creates an [[Stream]] which transforms the handler using the given function
  */

@@ -2,6 +2,7 @@ package org.koolapp.reactive.support
 
 import org.koolapp.reactive.*
 import java.io.Closeable
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Useful base class for [[Handler]] to avoid having to implement [[onComplete()]] or [[onError()]]
@@ -54,6 +55,33 @@ class FilterHandler<T>(delegate: Handler<T>, val predicate: (T) -> Boolean): Del
         if ((predicate)(next)) {
             delegate.onNext(next)
         }
+    }
+}
+
+/**
+ * A [[Handler]] which processes elements in the stream until the predicate is false then the underlying stream is closed
+ */
+class TakeWhileHandler<T>(var delegate: Handler<T>, val predicate: (T) -> Boolean): AbstractCloseable(), Handler<T> {
+
+    public override fun onNext(next: T) {
+        if ((predicate)(next)) {
+            delegate.onNext(next)
+        } else {
+            close()
+        }
+    }
+
+    public override fun onComplete() {
+        close()
+    }
+
+    public override fun onError(e: Exception) {
+        close()
+    }
+
+    protected override fun doClose() {
+        delegate.onComplete()
+        super<AbstractCloseable>.doClose()
     }
 }
 

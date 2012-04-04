@@ -56,6 +56,25 @@ abstract class Stream<out T> {
         }
     }
 
+    /**
+     * Returns a [[Stream]] which takes the given amount of items from
+     * the stream then closes it
+     */
+    fun take(n: Int): Stream<T> {
+        var counter = n
+        return takeWhile{ --counter >= 0 }
+    }
+
+    /**
+     * Returns a [[Stream]] which takes the events from this stream until
+     * the given predicate returns false and the underlying stream is then closed
+     */
+    fun takeWhile(predicate: (T) -> Boolean): Stream<T> {
+        return DelegateStream(this) {
+            TakeWhileHandler(it, predicate)
+        }
+    }
+
     class object {
 
         /**
