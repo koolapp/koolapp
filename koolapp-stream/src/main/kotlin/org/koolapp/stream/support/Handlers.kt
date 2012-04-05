@@ -7,23 +7,40 @@ import java.util.concurrent.atomic.AtomicBoolean
 /**
  * Useful base class for [[Handler]] to avoid having to implement [[onComplete()]] or [[onError()]]
  */
-abstract class AbstractHandler<T> : AbstractCursor(), Handler<T> {
+abstract class AbstractHandler<T> : Handler<T>(), Closeable {
+    private val closedFlag = AtomicBoolean(false)
+
+    public override fun close() {
+        if (closedFlag.compareAndSet(false, true)) {
+            cursor?.close()
+            doClose()
+        }
+    }
+
+    /**
+     * Returns true if this object is closed
+     */
+    public fun isClosed(): Boolean = closedFlag.get()
+
+
     var cursor: Cursor? = null
 
-    override fun onOpen(cursor: Cursor) {
+    public open override fun onOpen(cursor: Cursor) {
         $cursor = cursor
     }
 
-    public override fun onComplete() {
+    public open override fun onComplete() {
         close()
     }
 
-    public override fun onError(e: Throwable) {
+    public open override fun onError(e: Throwable) {
         close()
     }
 
-    protected override fun doClose() {
-        cursor?.close()
+    /**
+     * Implementations can override this to implement custom closing logic
+     */
+    protected open fun doClose(): Unit {
     }
 }
 
@@ -42,9 +59,9 @@ class FunctionHandler<T>(val fn: (T) -> Unit): AbstractHandler<T>() {
 /**
  * Useful base class which delegates to another [[Handler]]
  */
-abstract class DelegateHandler<T,R>(val delegate: Handler<R>) : Handler<T> {
+abstract class DelegateHandler<T,R>(val delegate: Handler<R>) : Handler<T>() {
 
-    override fun onOpen(cursor: Cursor) {
+    public override fun onOpen(cursor: Cursor) {
         delegate.onOpen(cursor)
     }
 

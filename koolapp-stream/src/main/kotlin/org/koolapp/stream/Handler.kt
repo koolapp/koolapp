@@ -10,26 +10,26 @@ package org.koolapp.stream
  * The sequence of events is Open, Next*, (Complete|Error) so that there will always be an Open first
  * then zero to many Next events and finally either Complete or Error
  */
-public trait Handler<in T> {
+public abstract class Handler<in T> {
 
     /**
      * Receives the [[Cursor]] when the stream is opened in case
      * the handler wishes to close the cursor itself
      */
-    fun onOpen(cursor: Cursor): Unit
+    public abstract fun onOpen(cursor: Cursor): Unit
 
     /**
      * Receives the next value of a stream
      */
-    fun onNext(next: T): Unit
+    public abstract fun onNext(next: T): Unit
 
     /**
      * Marks a stream as completed
      */
-    fun onComplete(): Unit
+    public abstract fun onComplete(): Unit
 
     /**
      * Marks a stream as completed with a failure
      */
-    fun onError(e: Throwable): Unit
+    public abstract fun onError(e: Throwable): Unit
 }

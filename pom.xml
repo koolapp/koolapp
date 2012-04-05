@@ -11,14 +11,15 @@
     <packaging>pom</packaging>
 
     <properties>
+        <camel.version>2.9.1</camel.version>
+        <javax.servlet.api.version>3.0.1</javax.servlet.api.version>
         <junit-version>4.9</junit-version>
         <kotlin-maven-plugin.version>0.2.3.8</kotlin-maven-plugin.version>
-        <kotlin.version>1.0-SNAPSHOT</kotlin.version>
-        <project-root>${project.basedir}/..</project-root>
         <kotlin-sdk>${project-root}/../kotlin/dist/kotlinc</kotlin-sdk>
+        <kotlin.version>1.0-SNAPSHOT</kotlin.version>
         <pegdown.version>1.1.0</pegdown.version>
+        <project-root>${project.basedir}/..</project-root>
         <surefire-version>2.5</surefire-version>
-        <javax.servlet.api.version>3.0.1</javax.servlet.api.version>
     </properties>
 
     <repositories>
@@ -37,6 +38,7 @@
 
     <modules>
         <module>koolapp-stream</module>
+        <module>koolapp-camel</module>
         <module>koolapp-template</module>
         <module>koolapp-html-modelgen</module>
         <module>koolapp-web</module>
