@@ -2,6 +2,7 @@ package org.koolapp.stream.support
 
 import org.koolapp.stream.*
 import java.io.Closeable
+import java.util.TimerTask
 
 public open class DefaultCursor(): AbstractCursor() {
     protected override fun doClose() {
@@ -28,3 +29,9 @@ public open class IteratorTask<T>(val iter: java.util.Iterator<T>, val handler: 
     }
 }
 
+public class TimerTaskCursor(val task: TimerTask) : AbstractCursor() {
+
+    public override fun doClose() {
+        task.cancel()
+    }
+}
