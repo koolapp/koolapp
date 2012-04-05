@@ -5,6 +5,7 @@ import java.io.Closeable
 import java.util.concurrent.Executor
 import java.util.Timer
 import java.util.TimerTask
+import java.util.concurrent.ScheduledFuture
 
 
 /**
@@ -30,6 +31,25 @@ class TimerStream(val schedularFunction: (TimerTask) -> Unit): Stream<Long>() {
         val cursor = TimerTaskCursor(task, handler)
         handler.onOpen(cursor)
         (schedularFunction)(task)
+        return cursor
+    }
+}
+/**
+ * A [[Stream]] which uses an [[Timer]] to schedule the invocation of the [[Handler]] at specific
+ * scheduled times defined by the *schedularFunction*
+ */
+class ScheduledFutureStream(val schedularFunction: (Runnable) -> ScheduledFuture<*>?): Stream<Long>() {
+    fun toString() = "ScheduledFutureStream($schedularFunction)"
+
+    public override fun open(handler: Handler<Long>): Cursor {
+        val runnable = handler.toTimerRunnable()
+        val cursor = FutureCursor(handler)
+        handler.onOpen(cursor)
+
+        // lets pass in the future to the cursor after we've
+        // opened the handler to avoid any timing issues
+        // where the runnable fires in Next events before the Open
+        cursor.future = (schedularFunction)(runnable)
         return cursor
     }
 }

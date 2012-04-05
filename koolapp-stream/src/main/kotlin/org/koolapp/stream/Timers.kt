@@ -1,19 +1,12 @@
 package org.koolapp.stream
 
-import org.koolapp.stream.support.*
-import kotlin.concurrent.*
-
 import java.util.*
-import java.util.concurrent.Executor
+import kotlin.concurrent.*
+import org.koolapp.stream.support.*
 
 /**
- * Converts a collection into an event stream
- */
-fun <T> java.lang.Iterable<T>.toStream(executor: Executor = SynchronousExecutor()): Stream<T> = StreamCollection(this, executor)
-
-/**
- * Creates a [[TimerTask]] for the given handler
- */
+* Creates a [[TimerTask]] for the given handler
+*/
 fun Handler<Long>.toTimerTask(): TimerTask {
     val handler = this
     return timerTask {
@@ -45,7 +38,7 @@ fun Timer.fixedRateStream(period: Long, delay: Long = 0): Stream<Long> = TimerSt
 }
 
 /**
- * Creates a [[Stream]] of time events at a  *fixed rate execution* with the given millisecond *period* between events starting at the given *firstTime*
+ * Creates a [[Stream]] of time events at a *fixed rate execution* with the given millisecond *period* between events starting at the given *firstTime*
  */
 fun Timer.fixedRateStream(period: Long, firstTime: Date): Stream<Long> = TimerStream {
     scheduleAtFixedRate(it, firstTime, period)

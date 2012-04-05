@@ -5,14 +5,16 @@ import java.util.Timer
 
 import kotlin.test.*
 import org.junit.Test as test
+import java.util.concurrent.Executors
 
-class TimerTest {
+class ScheduledExecutorServiceTest {
 
     test fun subject() {
         var results = arrayList<Long>()
 
-        val timer = Timer()
-        val c1 = timer.fixedDelayStream(1000).take(3).open {
+        val executor = Executors.newSingleThreadScheduledExecutor()!!
+
+        val c1 = executor.scheduleAtFixedRateStream(1000).take(4).open {
             println("Timer fired at $it")
             results += it
         }
