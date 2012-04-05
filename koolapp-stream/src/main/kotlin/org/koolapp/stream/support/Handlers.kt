@@ -42,7 +42,7 @@ class FunctionHandler<T>(val fn: (T) -> Unit): AbstractHandler<T>() {
 /**
  * Useful base class which delegates to another [[Handler]]
  */
-abstract class DelegateHandler<T>(val delegate: Handler<T>) : Handler<T> {
+abstract class DelegateHandler<T,R>(val delegate: Handler<R>) : Handler<T> {
 
     override fun onOpen(cursor: Cursor) {
         delegate.onOpen(cursor)
@@ -55,21 +55,28 @@ abstract class DelegateHandler<T>(val delegate: Handler<T>) : Handler<T> {
     public override fun onError(e: Throwable) {
         delegate.onError(e)
     }
+}
+
+/**
+ * A [[Handler]] which filters elements in the stream
+ */
+class FilterHandler<T>(delegate: Handler<T>, val predicate: (T) -> Boolean): DelegateHandler<T,T>(delegate) {
 
     public override fun onNext(next: T) {
-        delegate.onNext(next)
+        if ((predicate)(next)) {
+            delegate.onNext(next)
+        }
     }
 }
 
 /**
  * A [[Handler]] which filters elements in the stream
  */
-class FilterHandler<T>(delegate: Handler<T>, val predicate: (T) -> Boolean): DelegateHandler<T>(delegate) {
+class MapHandler<T, R>(delegate: Handler<R>, val transform: (T) -> R): DelegateHandler<T,R>(delegate) {
 
     public override fun onNext(next: T) {
-        if ((predicate)(next)) {
-            delegate.onNext(next)
-        }
+        val result = (transform)(next)
+        delegate.onNext(result)
     }
 }
 
@@ -89,28 +96,5 @@ class TakeWhileHandler<T>(var delegate: Handler<T>, val predicate: (T) -> Boolea
     protected override fun doClose() {
         delegate.onComplete()
         super.doClose()
-    }
-}
-
-/**
- * A [[Handler]] which filters elements in the stream
- */
-class MapHandler<T, R>(val delegate: Handler<R>, val transform: (T) -> R): Handler<T> {
-
-    override fun onOpen(cursor: Cursor) {
-        delegate.onOpen(cursor)
-    }
-
-    public override fun onNext(next: T) {
-        val result = (transform)(next)
-        delegate.onNext(result)
-    }
-
-    override fun onComplete() {
-        delegate.onComplete()
-    }
-
-    override fun onError(e: Throwable) {
-        delegate.onError(e)
     }
 }

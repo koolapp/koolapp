@@ -29,9 +29,10 @@ public open class IteratorTask<T>(val iter: java.util.Iterator<T>, val handler: 
     }
 }
 
-public class TimerTaskCursor(val task: TimerTask) : AbstractCursor() {
+public class TimerTaskCursor(val task: TimerTask, val handler: Handler<*>) : AbstractCursor() {
 
     public override fun doClose() {
         task.cancel()
+        handler.onComplete()
     }
 }

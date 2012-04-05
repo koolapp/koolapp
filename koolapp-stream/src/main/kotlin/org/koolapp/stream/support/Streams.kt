@@ -3,17 +3,34 @@ package org.koolapp.stream.support
 import org.koolapp.stream.*
 import java.io.Closeable
 import java.util.concurrent.Executor
+import java.util.Timer
+import java.util.TimerTask
 
 
 /**
  * A [[Stream]] which invokes the given function to open a stream and return a cursor
  */
 class FunctionStream<T>(val fn: (Handler<T>) -> Cursor): Stream<T>() {
-
     fun toString() = "FunctionStream($fn)"
 
-    override fun open(handler: Handler<T>): Cursor {
+    public override fun open(handler: Handler<T>): Cursor {
         return (fn)(handler)
+    }
+}
+
+/**
+ * A [[Stream]] which uses a [[Timer]] to schedule the invocation of the [[Handler]] at specific
+ * scheduled times defined by the *schedularFunction*
+ */
+class TimerStream(val schedularFunction: (TimerTask) -> Unit): Stream<Long>() {
+    fun toString() = "TimerStream($schedularFunction)"
+
+    public override fun open(handler: Handler<Long>): Cursor {
+        val task = handler.toTimerTask()
+        val cursor = TimerTaskCursor(task, handler)
+        handler.onOpen(cursor)
+        (schedularFunction)(task)
+        return cursor
     }
 }
 
