@@ -62,7 +62,7 @@ public abstract class Stream<out T> {
      */
     fun take(n: Int): Stream<T> {
         var counter = n
-        return takeWhile{ --counter >= 0 }
+        return TakeWhileStream(this, true){ --counter > 0 }
     }
 
     /**
@@ -70,7 +70,7 @@ public abstract class Stream<out T> {
      * the given predicate returns false and the underlying stream is then closed
      */
     fun takeWhile(predicate: (T) -> Boolean): Stream<T> {
-        return TakeWhileStream(this, predicate)
+        return TakeWhileStream(this, false, predicate)
     }
 
 

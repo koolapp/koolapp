@@ -16,7 +16,6 @@ class TakeTest {
         val c1 = stream.take(1).open{ results += it }
 
         stream.onNext("foo")
-        stream.onNext("bar")
 
         c1.assertClosed()
 
