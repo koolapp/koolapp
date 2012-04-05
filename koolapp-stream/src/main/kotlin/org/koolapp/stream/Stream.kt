@@ -9,7 +9,7 @@ import org.koolapp.stream.support.*
  * You can think of a *Stream* as being like a push based collection where rather than pulling values out,
  * values are pushed into a [[handler]] instead so processing of collections can be done completely asynchronously.
  */
-abstract class Stream<out T> {
+public abstract class Stream<out T> {
 
     /**
      * Opens the stream for processing with the given handler
@@ -73,6 +73,16 @@ abstract class Stream<out T> {
         return TakeWhileStream(this, predicate)
     }
 
+
+    /**
+     * Helper method to open a delegate stream
+     */
+    protected fun openDelegate(delegate: Stream<T>, handler: Handler<T>): Cursor {
+        val cursor = delegate.open(handler)
+        handler.onOpen(cursor)
+        return cursor
+    }
+
     class object {
 
         /**
@@ -80,6 +90,7 @@ abstract class Stream<out T> {
          */
         fun <T> empty(): Stream<T> = FunctionStream {
             it.onComplete()
+            DefaultCursor()
         }
 
         /**
@@ -88,6 +99,7 @@ abstract class Stream<out T> {
         fun <T> single(next: T): Stream<T> = FunctionStream {
             it.onNext(next)
             it.onComplete()
+            DefaultCursor()
         }
 
         /**
@@ -95,6 +107,7 @@ abstract class Stream<out T> {
          */
         fun <T> error(exception: Throwable): Stream<T> = FunctionStream {
             it.onError(exception)
+            DefaultCursor()
         }
 
     }

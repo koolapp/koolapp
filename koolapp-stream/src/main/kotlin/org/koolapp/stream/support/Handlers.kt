@@ -7,11 +7,23 @@ import java.util.concurrent.atomic.AtomicBoolean
 /**
  * Useful base class for [[Handler]] to avoid having to implement [[onComplete()]] or [[onError()]]
  */
-abstract class AbstractHandler<T> : Handler<T> {
-    override fun onComplete() {
+abstract class AbstractHandler<T> : AbstractCursor(), Handler<T> {
+    var cursor: Cursor? = null
+
+    override fun onOpen(cursor: Cursor) {
+        $cursor = cursor
     }
 
-    override fun onError(e: Throwable) {
+    public override fun onComplete() {
+        close()
+    }
+
+    public override fun onError(e: Throwable) {
+        close()
+    }
+
+    protected override fun doClose() {
+        cursor?.close()
     }
 }
 
@@ -31,6 +43,10 @@ class FunctionHandler<T>(val fn: (T) -> Unit): AbstractHandler<T>() {
  * Useful base class which delegates to another [[Handler]]
  */
 abstract class DelegateHandler<T>(val delegate: Handler<T>) : Handler<T> {
+
+    override fun onOpen(cursor: Cursor) {
+        delegate.onOpen(cursor)
+    }
 
     public override fun onComplete() {
         delegate.onComplete()
@@ -60,7 +76,7 @@ class FilterHandler<T>(delegate: Handler<T>, val predicate: (T) -> Boolean): Del
 /**
  * A [[Handler]] which processes elements in the stream until the predicate is false then the underlying stream is closed
  */
-class TakeWhileHandler<T>(var delegate: Handler<T>, val predicate: (T) -> Boolean): AbstractCursor(), Handler<T> {
+class TakeWhileHandler<T>(var delegate: Handler<T>, val predicate: (T) -> Boolean): AbstractHandler<T>() {
 
     public override fun onNext(next: T) {
         if ((predicate)(next)) {
@@ -70,17 +86,9 @@ class TakeWhileHandler<T>(var delegate: Handler<T>, val predicate: (T) -> Boolea
         }
     }
 
-    public override fun onComplete() {
-        close()
-    }
-
-    public override fun onError(e: Throwable) {
-        close()
-    }
-
     protected override fun doClose() {
         delegate.onComplete()
-        super<AbstractCursor>.doClose()
+        super.doClose()
     }
 }
 
@@ -88,6 +96,10 @@ class TakeWhileHandler<T>(var delegate: Handler<T>, val predicate: (T) -> Boolea
  * A [[Handler]] which filters elements in the stream
  */
 class MapHandler<T, R>(val delegate: Handler<R>, val transform: (T) -> R): Handler<T> {
+
+    override fun onOpen(cursor: Cursor) {
+        delegate.onOpen(cursor)
+    }
 
     public override fun onNext(next: T) {
         val result = (transform)(next)

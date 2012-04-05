@@ -6,12 +6,14 @@ import java.util.concurrent.Executor
 
 
 /**
- * A [[Stream]] which invokes the given function on the handler
+ * A [[Stream]] which invokes the given function to open a stream and return a cursor
  */
-class FunctionStream<T>(val fn: (Handler<T>) -> Unit): Stream<T>() {
+class FunctionStream<T>(val fn: (Handler<T>) -> Cursor): Stream<T>() {
+
+    fun toString() = "FunctionStream($fn)"
+
     override fun open(handler: Handler<T>): Cursor {
-        (fn)(handler)
-        return DefaultCursor()
+        return (fn)(handler)
     }
 }
 
@@ -33,8 +35,8 @@ class StreamCollection<T>(val coll: java.lang.Iterable<T>, val executor: Executo
 class DelegateStream<T>(val delegate: Stream<T>, val fn: (Handler<T>) -> Handler<T>) : Stream<T>() {
 
     public override fun open(handler: Handler<T>): Cursor {
-        val result = (fn)(handler)
-        return delegate.open(result)
+        val newHandler = (fn)(handler)
+        return openDelegate(delegate, newHandler)
     }
 }
 
@@ -45,11 +47,8 @@ class DelegateStream<T>(val delegate: Stream<T>, val fn: (Handler<T>) -> Handler
 class TakeWhileStream<T>(val delegate: Stream<T>, val predicate: (T) -> Boolean) : Stream<T>() {
 
     public override fun open(handler: Handler<T>): Cursor {
-        val result = TakeWhileHandler(handler, predicate)
-        val closeable = delegate.open(result)
-        result.closeable = closeable
-        return result
-
+        val newHandler = TakeWhileHandler(handler, predicate)
+        return openDelegate(delegate, newHandler)
     }
 }
 /**
@@ -58,7 +57,9 @@ class TakeWhileStream<T>(val delegate: Stream<T>, val predicate: (T) -> Boolean)
 class MapStream<T,R>(val delegate: Stream<T>, val fn: (Handler<R>) -> Handler<T>) : Stream<R>() {
 
     public override fun open(handler: Handler<R>): Cursor {
-        val result = (fn)(handler)
-        return delegate.open(result)
+        val newHandler = (fn)(handler)
+        val cursor = delegate.open(newHandler)
+        newHandler.onOpen(cursor)
+        return cursor
     }
 }

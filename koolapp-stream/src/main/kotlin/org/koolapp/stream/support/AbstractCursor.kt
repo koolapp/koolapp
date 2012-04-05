@@ -11,11 +11,6 @@ import java.util.concurrent.atomic.AtomicBoolean
 abstract class AbstractCursor: Cursor {
     private val closedFlag = AtomicBoolean(false)
 
-    /**
-     * Allows a closeable to be added which will be closed as part of the same lifecycle
-     */
-    public var closeable: Closeable? = null
-
     public override fun close() {
         if (closedFlag.compareAndSet(false, true)) {
             doClose()
@@ -31,7 +26,5 @@ abstract class AbstractCursor: Cursor {
     /**
      * Implementations must implement this method to perform the actual close logic
      */
-    protected open fun doClose() {
-        closeable?.close()
-    }
+    protected abstract fun doClose()
 }

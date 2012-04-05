@@ -1,6 +1,7 @@
 package test.koolapp.stream
 
 import org.koolapp.stream.Cursor
+
 import kotlin.test.assertTrue
 
 fun Cursor.assertClosed(): Unit {

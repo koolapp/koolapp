@@ -10,15 +10,21 @@ import java.util.concurrent.ConcurrentLinkedQueue
 /**
  * A simple [[Stream]] that can have elements injected into its active [[Handler]] instances
  */
-open class SimpleStream<in T>(val handlers: ConcurrentContainer<Handler<T>> = DefaultConcurrentContainer<Handler<T>>()): Stream<T>(), Handler<T> {
+public open class SimpleStream<in T>(val handlers: ConcurrentContainer<Handler<T>> = DefaultConcurrentContainer<Handler<T>>()): Stream<T>(), Handler<T> {
 
     override fun open(handler: Handler<T>): Cursor {
         handlers.add(handler)
-        return object: AbstractCursor() {
+        val cursor = object: AbstractCursor() {
             protected override fun doClose() {
                 handlers.remove(handler)
             }
         }
+        handler.onOpen(cursor)
+        return cursor
+    }
+
+    override fun onOpen(cursor: Cursor) {
+        // ignore
     }
 
     override fun onComplete(): Unit {

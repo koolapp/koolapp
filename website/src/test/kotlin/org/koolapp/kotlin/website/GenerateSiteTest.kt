@@ -23,13 +23,13 @@ class GenerateSiteTest : TestCase() {
 
         copyDocResources(outDir)
         val args = KDocArguments()
-        args.setSrc("../koolapp-ui/src/main/kotlin")
-        //args.setDocOutputDir(outDir.toString())
+        args.setModule("module.kt")
         args.setOutputDir("target/classes-kdoc")
 
         val config = args.docConfig
         config.title = "KoolApp API ($version)"
         config.version = version
+        config.docOutputDir = outDir.getCanonicalPath()!!
         config.ignorePackages.add("org.jetbrains")
         config.ignorePackages.add("org.w3c")
         config.ignorePackages.add("java")

@@ -3,7 +3,7 @@ package org.koolapp.stream.support
 import org.koolapp.stream.*
 import java.io.Closeable
 
-class DefaultCursor(): AbstractCursor() {
+public open class DefaultCursor(): AbstractCursor() {
     protected override fun doClose() {
     }
 }
@@ -12,7 +12,7 @@ class DefaultCursor(): AbstractCursor() {
  * A task which iterates over an iterator invoking the [[Handler]]
  * until its complete
  */
-class IteratorTask<T>(val iter: java.util.Iterator<T>, val handler: Handler<T>): AbstractCursor(), Runnable {
+public open class IteratorTask<T>(val iter: java.util.Iterator<T>, val handler: Handler<T>): DefaultCursor(), Runnable {
     public override fun run(): Unit {
         try {
             for (element in iter) {
