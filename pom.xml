@@ -41,6 +41,7 @@
         <module>koolapp-html-modelgen</module>
         <module>koolapp-web</module>
         <module>koolapp-ui</module>
+        <module>apidoc</module>
         <module>website</module>
     </modules>
 

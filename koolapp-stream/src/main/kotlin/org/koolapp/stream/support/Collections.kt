@@ -27,7 +27,9 @@ class DefaultConcurrentContainer<T> : ConcurrentContainer<T> {
 
     override fun forEach(fn: (T) -> Unit) {
         for (element in list) {
-            (fn)(element)
+            if (element != null) {
+                (fn)(element)
+            }
         }
     }
 

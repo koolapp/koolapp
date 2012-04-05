@@ -1,50 +1,40 @@
 package org.koolapp.website
 
-import junit.framework.TestCase
+import kotlin.test.*
+import org.junit.Test as test
 import java.io.File
-import org.jetbrains.kotlin.doc.KDocArguments
-import org.jetbrains.kotlin.doc.KDocCompiler
 
-class GenerateSiteTest : TestCase() {
+class GenerateSiteTest {
     val srcDir = findTemplateDir()
     val siteOutputDir = File(srcDir, "../../../target/site")
 
     val version = System.getProperty("project.version") ?: "SNAPSHOT"
     val versionDir = if (version.contains("SNAPSHOT")) "snapshot" else version
 
-    fun testGenerateSite(): Unit {
+    test fun generateSite(): Unit {
         val generator = SiteGenerator(srcDir, siteOutputDir)
         generator.run()
     }
 
-    fun testGenerateKDoc(): Unit {
+    test fun copyApiDocs(): Unit {
+        val apidocDir = File(siteOutputDir, "../../../apidoc/target/site/apidocs")
+        assertTrue(apidocDir.exists(), "Directory does not exist ${apidocDir.getCanonicalPath()}")
+
         val outDir = File(siteOutputDir, "versions/$versionDir/apidocs")
-        println("Generating library KDocs to $outDir")
+        println("Copying API docs to $outDir")
 
         copyDocResources(outDir)
-        val args = KDocArguments()
-        args.setModule("module.kt")
-        args.setOutputDir("target/classes-kdoc")
-
-        val config = args.docConfig
-        config.title = "KoolApp API ($version)"
-        config.version = version
-        config.docOutputDir = outDir.getCanonicalPath()!!
-        config.ignorePackages.add("org.jetbrains")
-        config.ignorePackages.add("org.w3c")
-        config.ignorePackages.add("java")
-        config.ignorePackages.add("jet")
-        config.ignorePackages.add("junit")
-        config.ignorePackages.add("sun")
-
-        // TODO add links to kotlin docs!
-
-        val compiler = KDocCompiler()
-        compiler.exec(System.out, args)
+        copyRecursive(apidocDir, outDir)
     }
 
     fun copyDocResources(outDir: File): Unit {
         val sourceDir = File(srcDir, "../apidocs")
+        copyRecursive(sourceDir, outDir)
+    }
+
+
+    // TODO this would make a handy extension function on File :)
+    fun copyRecursive(sourceDir: File, outDir: File): Unit {
         sourceDir.recurse {
             if (it.isFile()) {
                 var relativePath = sourceDir.relativePath(it)

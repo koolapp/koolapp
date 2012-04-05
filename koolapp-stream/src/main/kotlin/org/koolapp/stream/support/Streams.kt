@@ -59,7 +59,7 @@ class ScheduledFutureStream(val schedularFunction: (Runnable) -> ScheduledFuture
  */
 class StreamCollection<T>(val coll: java.lang.Iterable<T>, val executor: Executor) : Stream<T>() {
     public override fun open(handler: Handler<T>): Cursor {
-        val subscription = IteratorTask(coll.iterator(), handler)
+        val subscription = IteratorTask(coll.iterator()!!, handler)
         executor.execute(subscription)
         return subscription
     }

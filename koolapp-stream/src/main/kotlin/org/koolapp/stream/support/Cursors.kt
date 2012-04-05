@@ -18,8 +18,10 @@ public open class IteratorTask<T>(val iter: java.util.Iterator<T>, val handler: 
     public override fun run(): Unit {
         try {
             for (element in iter) {
-                handler.onNext(element)
-                if (isClosed()) break
+                if (element != null) {
+                    handler.onNext(element)
+                    if (isClosed()) break
+                }
             }
             handler.onComplete()
             close()
