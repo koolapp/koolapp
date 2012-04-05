@@ -12,7 +12,7 @@ class TimerTest {
         var results = arrayList<Long>()
 
         val timer = Timer()
-        val c1 = timer.intervalStream(1000).take(5).open {
+        val c1 = timer.fixedDelayStream(1000).take(5).open {
             println("Timer fired at $it")
             results += it
         }

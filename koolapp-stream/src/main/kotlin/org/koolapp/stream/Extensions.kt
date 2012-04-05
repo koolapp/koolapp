@@ -26,14 +26,14 @@ fun Handler<Long>.toTimerTask(): TimerTask {
 /**
  * Creates a [[Stream]] of time events with the *fixed delay execution* of the given millisecond *period* between events starting after the *delay* in milliseconds
  */
-fun Timer.intervalStream(period: Long, delay: Long = 0): Stream<Long> = TimerStream {
+fun Timer.fixedDelayStream(period: Long, delay: Long = 0): Stream<Long> = TimerStream {
     schedule(it, delay, period)
 }
 
 /**
  * Creates a [[Stream]] of time events with the *fixed delay execution* if the given millisecond *period* between events starting at the given *firstTime*
  */
-fun Timer.intervalStream(period: Long, firstTime: Date): Stream<Long> = TimerStream {
+fun Timer.fixedDelayStream(period: Long, firstTime: Date): Stream<Long> = TimerStream {
     schedule(it, firstTime, period)
 }
 
