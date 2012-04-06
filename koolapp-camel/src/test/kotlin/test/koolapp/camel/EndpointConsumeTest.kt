@@ -24,6 +24,21 @@ import kotlin.test.*
 
 class EndpointConsumeTest {
 
+    test fun createStreamFromHeaderOnExchange() {
+        val context = createCamelContext()
+        context.use {
+            val stream = context.endpointStream("timer://foo?fixedRate=true&period=1000") {
+                it.getIn()?.getHeader<String>("firedTime", javaClass<String>())
+            }
+            val cursor = stream.take(4).open{
+                println("Stream String handler got $it of type ${it.javaClass}")
+            }
+
+            Thread.sleep(6000)
+            assertTrue(cursor.isClosed())
+        }
+    }
+
     test fun consumeExchangeFromEndpoint() {
         val context = createCamelContext()
         context.use {
@@ -58,4 +73,5 @@ class EndpointConsumeTest {
             assertTrue(cursor.isClosed())
         }
     }
+
 }

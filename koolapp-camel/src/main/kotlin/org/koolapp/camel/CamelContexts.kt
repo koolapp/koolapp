@@ -7,6 +7,7 @@ import org.apache.camel.CamelContext
 import org.apache.camel.Endpoint
 import org.apache.camel.util.CamelContextHelper
 import org.apache.camel.impl.DefaultCamelContext
+import org.apache.camel.Exchange
 
 /**
  * Looks up the given endpoint in the [[CamelContext]] throwing an exception if its not available
@@ -51,6 +52,22 @@ inline fun createCamelContext(): CamelContext {
 
 
 /**
+ * Creates a stream of events by consuming messages from the given [[Endpoint]] URI and applying the given function on each Exchange
+ */
+inline fun <T> CamelContext.endpointStream(uri: String, fn: (Exchange) -> T): Stream<T> {
+    val endpoint = requireEndpoint(uri)
+    return endpointStream(endpoint, fn)
+}
+
+
+/**
+ * Creates a stream of events by consuming messages from the given [[Endpoint]] URI and applying the given function on each Exchange
+ */
+inline fun <T> CamelContext.endpointStream(endpoint: Endpoint, fn: (Exchange) -> T): Stream<T> {
+    return EndpointStream(endpoint, fn)
+}
+
+/**
  * Creates a stream of events by consuming messages from the given [[Endpoint]] URI
  */
 // TODO is there a way to avoid explicit passing in of the class?
@@ -58,8 +75,20 @@ inline fun <T> CamelContext.endpointStream(uri: String, klass: Class<T>): Stream
     val endpoint = requireEndpoint(uri)
     return endpointStream(endpoint, klass)
 }
+
+
 /**
  * Creates a stream of events by consuming messages from the given [[Endpoint]]
  */
 // TODO is there a way to avoid explicit passing in of the class?
-inline fun <T> CamelContext.endpointStream(endpoint: Endpoint, klass: Class<T>): Stream<T> = EndpointStream<T>(endpoint, klass)
+inline fun <T> CamelContext.endpointStream(endpoint: Endpoint, klass: Class<T>): Stream<T> {
+    return if (klass.isAssignableFrom(javaClass<Exchange>())) {
+        EndpointStream(endpoint) {
+            it as T
+        }
+    } else {
+        EndpointStream(endpoint) {
+            it.getIn<T>(klass) as T
+        }
+    }
+}

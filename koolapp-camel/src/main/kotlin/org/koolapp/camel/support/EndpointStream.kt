@@ -12,19 +12,11 @@ import org.koolapp.stream.support.*
 /**
  * A [[Stream]] which consumes messages on a Camel [[Endpoint]]
  */
-public class EndpointStream<T>(val endpoint: Endpoint, val klass: Class<T>): Stream<T>() {
+public class EndpointStream<T>(val endpoint: Endpoint,val fn: (Exchange) -> T): Stream<T>() {
     fun toString() = "EndpointStream($endpoint)"
 
     public override fun open(handler: Handler<T>): Cursor {
-        val processor = if (klass.isAssignableFrom(javaClass<Exchange>())) {
-            HandlerProcessor(handler, klass) {
-                it as T
-            }
-        } else {
-            HandlerProcessor(handler, klass) {
-                it.getIn<T>(klass) as T
-            }
-        }
+        val processor = HandlerProcessor(handler, fn)
         val consumer = endpoint.createConsumer(processor)!!
         val cursor = ConsumerCursor(consumer, handler)
         handler.onOpen(cursor)
@@ -33,8 +25,8 @@ public class EndpointStream<T>(val endpoint: Endpoint, val klass: Class<T>): Str
     }
 }
 
-public class HandlerProcessor<T>(val handler: Handler<T>, val klass: Class<T>, val fn: (Exchange) -> T): ExchangeProcessor {
-    fun toString() = "HandlerProcessor($handler, $klass)"
+public class HandlerProcessor<T>(val handler: Handler<T>, val fn: (Exchange) -> T): ExchangeProcessor {
+    fun toString() = "HandlerProcessor($handler)"
 
     public override fun process(exchange: Exchange?): Unit {
         if (exchange != null) {
