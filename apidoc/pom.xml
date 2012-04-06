@@ -27,6 +27,11 @@
             <artifactId>pegdown</artifactId>
             <version>${pegdown.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -38,6 +43,7 @@
                 <configuration>
                     <sources>
                         <source>${basedir}/../koolapp-stream/src/main/kotlin</source>
+                        <source>${basedir}/../koolapp-camel/src/main/kotlin</source>
                         <source>${basedir}/../koolapp-template/src/main/kotlin</source>
                     </sources>
                     <title>Kool API</title>
