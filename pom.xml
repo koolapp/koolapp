@@ -27,6 +27,31 @@
             <id>evgenyg.artifactoryonline.com</id>
             <url>http://evgenyg.artifactoryonline.com/evgenyg/repo</url>
         </repository>
+
+        <repository>
+            <id>jetbrains-kotlin-release</id>
+            <name>jetbrains-kotlin-release</name>
+            <url>http://repository.jetbrains.com/kotlin-release</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>jetbrains-kotlin-snapshots</id>
+            <name>jetbrains-kotlin-snapshots</name>
+            <url>http://repository.jetbrains.com/kotlin-snapshots</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
     </repositories>
 
     <pluginRepositories>
