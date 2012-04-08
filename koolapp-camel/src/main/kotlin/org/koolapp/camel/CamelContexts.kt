@@ -1,6 +1,6 @@
 package org.koolapp.camel
 
-import org.koolapp.stream.Stream
+import org.koolapp.stream.*
 import org.koolapp.stream.support.*
 import org.koolapp.camel.support.*
 import org.apache.camel.CamelContext
@@ -87,4 +87,13 @@ inline fun <T> Endpoint.toStreamOf(klass: Class<T>): Stream<T> {
             it.getIn<T>(klass) as T
         }
     }
+}
+
+/**
+ * Sends events on a [[Stream]] to an endpoint
+ */
+inline fun <T> Stream<T>.to(endpoint: Endpoint): Cursor {
+    val producer = endpoint.createProducer()!!
+    val handler = ProducerHandler<T>(producer)
+    return open(handler)
 }

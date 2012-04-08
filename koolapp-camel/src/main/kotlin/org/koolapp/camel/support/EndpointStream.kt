@@ -8,6 +8,7 @@ import org.koolapp.stream.Cursor
 import org.koolapp.stream.Handler
 import org.koolapp.stream.Stream
 import org.koolapp.stream.support.*
+import org.apache.camel.Producer
 
 /**
  * A [[Stream]] which consumes messages on a Camel [[Endpoint]]
@@ -52,5 +53,30 @@ public class ConsumerCursor(val consumer: Consumer, val handler: Handler<*>): Ab
     public override fun doClose() {
         consumer.stop()
         handler.onComplete()
+    }
+}
+
+/**
+ * A [[Handler]] implementation which sends messages to a Camel [[Producer]]
+ */
+public class ProducerHandler<T>(val producer: Producer) : AbstractHandler<T>() {
+    fun toString() = "EndpointProducerHandler($producer)"
+
+    public override fun onOpen(cursor: Cursor) {
+        super.onOpen(cursor)
+        producer.start()
+    }
+
+    public override fun onNext(next: T) {
+        val exchange = producer.createExchange()!!
+        val message = exchange.getIn()!!
+        message.setBody(next)
+        producer.process(exchange)
+    }
+
+    // TODO compiler bug this should be protected!!!
+    public override fun doClose() {
+        super.doClose()
+        producer.stop()
     }
 }
