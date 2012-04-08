@@ -24,11 +24,6 @@
 
     <repositories>
         <repository>
-            <id>evgenyg.artifactoryonline.com</id>
-            <url>http://evgenyg.artifactoryonline.com/evgenyg/repo</url>
-        </repository>
-
-        <repository>
             <id>jetbrains-kotlin-release</id>
             <name>jetbrains-kotlin-release</name>
             <url>http://repository.jetbrains.com/kotlin-release</url>
@@ -56,8 +51,28 @@
 
     <pluginRepositories>
         <pluginRepository>
-            <id>evgenyg.artifactoryonline.com</id>
-            <url>http://evgenyg.artifactoryonline.com/evgenyg/repo</url>
+            <id>jetbrains-kotlin-release</id>
+            <name>jetbrains-kotlin-release</name>
+            <url>http://repository.jetbrains.com/kotlin-release</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>jetbrains-kotlin-snapshots</id>
+            <name>jetbrains-kotlin-snapshots</name>
+            <url>http://repository.jetbrains.com/kotlin-snapshots</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </pluginRepository>
     </pluginRepositories>
 
@@ -65,8 +80,8 @@
         <module>koolapp-stream</module>
         <module>koolapp-camel</module>
         <module>koolapp-template</module>
-        <module>koolapp-html-modelgen</module>
         <module>koolapp-web</module>
+        <module>koolapp-html-modelgen</module>
         <module>koolapp-ui</module>
         <module>apidoc</module>
         <module>website</module>
@@ -79,33 +94,18 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>com.github.goldin</groupId>
+                    <groupId>org.jetbrains.kotlin</groupId>
                     <artifactId>kotlin-maven-plugin</artifactId>
-                    <version>${kotlin-maven-plugin.version}</version>
+                    <version>${kotlin.version}</version>
                     <executions>
                         <execution>
                             <id>compile-kotlin-sources</id>
                             <goals>
                                 <goal>compile</goal>
-                                <goal>testCompile</goal>
+                                <goal>test-compile</goal>
                             </goals>
                         </execution>
                     </executions>
-                    <configuration>
-                        <runIf>{{ new File( project.build.sourceDirectory ).directory }}</runIf>
-                        <verbose>false</verbose>
-                        <kotlinJars>
-                            <jar>${kotlin-sdk}/lib/kotlin-build-tools.jar</jar>
-                            <jar>${kotlin-sdk}/lib/kotlin-compiler.jar</jar>
-                            <jar>${kotlin-sdk}/lib/kotlin-runtime.jar</jar>
-                            <jar>${kotlin-sdk}/lib/intellij-core.jar</jar>
-                            <jar>${kotlin-sdk}/lib/picocontainer.jar</jar>
-                            <jar>${kotlin-sdk}/lib/trove4j.jar</jar>
-                            <jar>${kotlin-sdk}/lib/guava-11.0.1.jar</jar>
-                            <jar>${kotlin-sdk}/lib/asm-commons.jar</jar>
-                            <jar>${kotlin-sdk}/lib/asm.jar</jar>
-                        </kotlinJars>
-                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -131,40 +131,4 @@
             </plugin>
         </plugins>
     </build>
-
-
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- Run "mvn clean install -PlocalKotlin" to use locally built Kotlin jars in ${kotlin-sdk}/lib -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-    <profiles>
-        <profile>
-            <id>localKotlin</id>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>com.github.goldin</groupId>
-                            <artifactId>kotlin-maven-plugin</artifactId>
-                            <version>${kotlin-maven-plugin.version}</version>
-                            <configuration>
-                                <kotlinJars>
-                                    <jar>${kotlin-sdk}/lib/kotlin-build-tools.jar</jar>
-                                    <jar>${kotlin-sdk}/lib/kotlin-compiler.jar</jar>
-                                    <jar>${kotlin-sdk}/lib/kotlin-runtime.jar</jar>
-                                    <jar>${kotlin-sdk}/lib/intellij-core.jar</jar>
-                                    <jar>${kotlin-sdk}/lib/picocontainer.jar</jar>
-                                    <jar>${kotlin-sdk}/lib/trove4j.jar</jar>
-                                    <jar>${kotlin-sdk}/lib/guava-11.0.1.jar</jar>
-                                    <jar>${kotlin-sdk}/lib/asm-commons.jar</jar>
-                                    <jar>${kotlin-sdk}/lib/asm.jar</jar>
-                                </kotlinJars>
-                            </configuration>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-        </profile>
-    </profiles>
-
 </project>

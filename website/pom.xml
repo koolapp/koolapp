@@ -72,7 +72,7 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>com.github.goldin</groupId>
+                <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
             </plugin>
 
