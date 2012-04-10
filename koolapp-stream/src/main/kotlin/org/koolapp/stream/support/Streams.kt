@@ -19,40 +19,6 @@ class FunctionStream<T>(val fn: (Handler<T>) -> Cursor): Stream<T>() {
     }
 }
 
-/**
- * A [[Stream]] which uses a [[Timer]] to schedule the invocation of the [[Handler]] at specific
- * scheduled times defined by the *schedularFunction*
- */
-class TimerStream(val schedularFunction: (TimerTask) -> Unit): Stream<Long>() {
-    fun toString() = "TimerStream($schedularFunction)"
-
-    public override fun open(handler: Handler<Long>): Cursor {
-        val task = handler.toTimerTask()
-        val cursor = TimerTaskCursor(task, handler)
-        handler.onOpen(cursor)
-        (schedularFunction)(task)
-        return cursor
-    }
-}
-/**
- * A [[Stream]] which uses an [[Timer]] to schedule the invocation of the [[Handler]] at specific
- * scheduled times defined by the *schedularFunction*
- */
-class ScheduledFutureStream(val schedularFunction: (Runnable) -> ScheduledFuture<*>?): Stream<Long>() {
-    fun toString() = "ScheduledFutureStream($schedularFunction)"
-
-    public override fun open(handler: Handler<Long>): Cursor {
-        val runnable = handler.toTimerRunnable()
-        val cursor = FutureCursor(handler)
-        handler.onOpen(cursor)
-
-        // lets pass in the future to the cursor after we've
-        // opened the handler to avoid any timing issues
-        // where the runnable fires in Next events before the Open
-        cursor.future = (schedularFunction)(runnable)
-        return cursor
-    }
-}
 
 /**
  * Converts a collection into an [[Stream]]
@@ -66,16 +32,6 @@ class StreamCollection<T>(val coll: java.lang.Iterable<T>, val executor: Executo
 
 }
 
-/**
- * Creates an [[Stream]] which transforms the handler using the given function
- */
-class DelegateStream<T>(val delegate: Stream<T>, val fn: (Handler<T>) -> Handler<T>) : Stream<T>() {
-
-    public override fun open(handler: Handler<T>): Cursor {
-        val newHandler = (fn)(handler)
-        return openDelegate(delegate, newHandler)
-    }
-}
 
 /**
  * Creates an [[Stream]] which takes elements from the delegate stream until the *predicate* is false
@@ -89,17 +45,5 @@ class TakeWhileStream<T>(val delegate: Stream<T>, val includeNonMatching: Boolea
     public override fun open(handler: Handler<T>): Cursor {
         val newHandler = TakeWhileHandler(handler, includeNonMatching, predicate)
         return openDelegate(delegate, newHandler)
-    }
-}
-/**
- * Creates an [[Stream]] which transforms the handler using the given function
- */
-class MapStream<T,R>(val delegate: Stream<T>, val fn: (Handler<R>) -> Handler<T>) : Stream<R>() {
-
-    public override fun open(handler: Handler<R>): Cursor {
-        val newHandler = (fn)(handler)
-        val cursor = delegate.open(newHandler)
-        newHandler.onOpen(cursor)
-        return cursor
     }
 }

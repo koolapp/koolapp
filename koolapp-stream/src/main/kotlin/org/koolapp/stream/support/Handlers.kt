@@ -57,24 +57,6 @@ class FunctionHandler<T>(val fn: (T) -> Unit): AbstractHandler<T>() {
 }
 
 /**
- * Useful base class which delegates to another [[Handler]]
- */
-abstract class DelegateHandler<T,R>(val delegate: Handler<R>) : Handler<T>() {
-
-    public override fun onOpen(cursor: Cursor) {
-        delegate.onOpen(cursor)
-    }
-
-    public override fun onComplete() {
-        delegate.onComplete()
-    }
-
-    public override fun onError(e: Throwable) {
-        delegate.onError(e)
-    }
-}
-
-/**
  * A [[Handler]] which filters elements in the stream
  */
 class FilterHandler<T>(delegate: Handler<T>, val predicate: (T) -> Boolean): DelegateHandler<T,T>(delegate) {
@@ -86,16 +68,6 @@ class FilterHandler<T>(delegate: Handler<T>, val predicate: (T) -> Boolean): Del
     }
 }
 
-/**
- * A [[Handler]] which filters elements in the stream
- */
-class MapHandler<T, R>(delegate: Handler<R>, val transform: (T) -> R): DelegateHandler<T,R>(delegate) {
-
-    public override fun onNext(next: T) {
-        val result = (transform)(next)
-        delegate.onNext(result)
-    }
-}
 
 /**
  * A [[Handler]] which processes elements in the stream until the predicate is false then the underlying stream is closed

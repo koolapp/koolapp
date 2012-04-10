@@ -32,31 +32,3 @@ public open class IteratorTask<T>(val iter: java.util.Iterator<T>, val handler: 
     }
 }
 
-/**
- * A [[Cursor]] for closing an underlying [[TimerTask]]
- */
-public class TimerTaskCursor(val task: TimerTask, val handler: Handler<*>) : AbstractCursor() {
-
-    public override fun doClose() {
-        task.cancel()
-        handler.onComplete()
-    }
-}
-
-/**
- * A [[Cursor]] for closing an underlying [[Future]]
- */
-public class FutureCursor( val handler: Handler<*>, val mayInterruptIfRunningOnClose: Boolean = true) : AbstractCursor() {
-
-    /**
-     * Allows the future to be specified after this cursor has been created so that the cursor can be passed into the
-     * Open event before the Future has been created to avoid timing issues where a Future may complete before a stream
-     * is opened
-     */
-    var future: Future<*>? = null
-
-    public override fun doClose() {
-        future?.cancel(mayInterruptIfRunningOnClose)
-        handler.onComplete()
-    }
-}
