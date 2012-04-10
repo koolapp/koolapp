@@ -6,7 +6,7 @@ import org.koolapp.stream.*
 import org.koolapp.stream.math.*
 
 import org.junit.Test as test
-import java.util.Queue
+import java.util.List
 
 class WindowTest {
 
@@ -17,7 +17,7 @@ class WindowTest {
         }
 
         // TODO compile error if you miss out this type expression
-        val window: Stream<Queue<Double>> = list.toStream().window(4)
+        val window: Stream<List<Double>> = list.toStream().window(4)
 
         window.take(9).map{ it.variance() }.open { println("Has $it") }
 

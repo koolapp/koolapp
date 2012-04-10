@@ -3,6 +3,7 @@ package org.koolapp.stream
 import java.io.Closeable
 import org.koolapp.stream.support.*
 import java.util.Queue
+import java.util.List
 
 /**
  * Represents an asynchronous stream of events which can be composed and processed asynchronously.
@@ -78,7 +79,7 @@ public abstract class Stream<out T> {
      * Returns a [[Stream]] which consumes events and puts them into a moving window
      * collection [[Queue]] and fires the handler for each window collection
      */
-    fun window(size: Int): Stream<Queue<T>> {
+    fun window(size: Int): Stream<List<T>> {
         return WindowStream(this, size)
     }
 

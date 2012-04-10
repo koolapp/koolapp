@@ -6,16 +6,18 @@ import java.util.concurrent.Executor
 import java.util.Timer
 import java.util.TimerTask
 import java.util.concurrent.ScheduledFuture
+import java.util.List
 import java.util.Queue
-import java.util.concurrent.ConcurrentLinkedQueue
+import java.util.ArrayDeque
+import java.util.ArrayList
 
 
 /**
- * Creates an [[Stream]] which puts each event into a [[Queue]] of a fixed size
+ * Creates an [[Stream]] which puts each event into a [[List]] of a fixed size
  */
-class WindowStream<T>(val delegate: Stream<T>, val size: Int) : Stream<Queue<T>>() {
+class WindowStream<T>(val delegate: Stream<T>, val size: Int) : Stream<List<T>>() {
 
-    public override fun open(handler: Handler<Queue<T>>): Cursor {
+    public override fun open(handler: Handler<List<T>>): Cursor {
         val newHandler: Handler<T> = WindowHandler(handler, size)
         val cursor = delegate.open(newHandler)
         newHandler.onOpen(cursor)
@@ -27,13 +29,17 @@ class WindowStream<T>(val delegate: Stream<T>, val size: Int) : Stream<Queue<T>>
 /**
 * Creates an [[Stream]] which puts the events into a moving window
 */
-class WindowHandler<T>(delegate: Handler<Queue<T>>, val size: Int, val queue: Queue<T> = ConcurrentLinkedQueue<T>()): DelegateHandler<T,Queue<T>>(delegate) {
+class WindowHandler<T>(delegate: Handler<List<T>>, val size: Int): DelegateHandler<T,List<T>>(delegate) {
+    val queue: Queue<T> = ArrayDeque<T>(size)
 
     public override fun onNext(next: T) {
         while (queue.size() >= size) {
             queue.remove()
         }
         queue.add(next)
-        delegate.onNext(queue)
+
+        // now lets create an immutable copy to avoid any concurrent oddness
+        val copy = queue.to(ArrayList<T>(size))
+        delegate.onNext(copy)
     }
 }
