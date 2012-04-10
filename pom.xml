@@ -12,6 +12,7 @@
 
     <properties>
         <camel.version>2.9.1</camel.version>
+        <common-math-version>2.2</common-math-version>
         <javax.servlet.api.version>3.0.1</javax.servlet.api.version>
         <junit-version>4.9</junit-version>
         <kotlin-maven-plugin.version>0.2.3.8</kotlin-maven-plugin.version>
@@ -20,6 +21,7 @@
         <pegdown.version>1.1.0</pegdown.version>
         <project-root>${project.basedir}/..</project-root>
         <surefire-version>2.5</surefire-version>
+        <exec-maven-plugin.version>1.2.1</exec-maven-plugin.version>
     </properties>
 
     <repositories>
@@ -78,6 +80,7 @@
 
     <modules>
         <module>koolapp-stream</module>
+        <module>koolapp-stream-math</module>
         <module>koolapp-camel</module>
         <module>koolapp-template</module>
         <module>koolapp-web</module>

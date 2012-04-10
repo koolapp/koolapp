@@ -25,15 +25,15 @@ abstract class AbstractHandler<T> : Handler<T>(), Closeable {
 
     var cursor: Cursor? = null
 
-    public open override fun onOpen(cursor: Cursor) {
+    public override fun onOpen(cursor: Cursor) {
         $cursor = cursor
     }
 
-    public open override fun onComplete() {
+    public override fun onComplete() {
         close()
     }
 
-    public open override fun onError(e: Throwable) {
+    public override fun onError(e: Throwable) {
         close()
     }
 
