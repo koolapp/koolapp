@@ -4,9 +4,18 @@ import org.koolapp.stream.*
 import java.io.Closeable
 import java.util.TimerTask
 import java.util.concurrent.Future
+import java.util.List
 
 public open class DefaultCursor(): AbstractCursor() {
     protected override fun doClose() {
+    }
+}
+
+public class CompositeCursor(val cursors: List<Cursor>): AbstractCursor() {
+    protected override fun doClose() {
+        for (cursor in cursors) {
+            cursor.close()
+        }
     }
 }
 

@@ -3,6 +3,8 @@ package org.koolapp.stream.support
 import org.koolapp.stream.*
 import java.io.Closeable
 import java.util.concurrent.atomic.AtomicBoolean
+import java.util.ArrayDeque
+import java.util.Queue
 
 /**
  * Useful base class for [[Handler]] to avoid having to implement [[onComplete()]] or [[onError()]]
@@ -50,8 +52,30 @@ abstract class AbstractHandler<T> : Handler<T>(), Closeable {
 class FunctionHandler<T>(val fn: (T) -> Unit): AbstractHandler<T>() {
 
     public override fun onNext(next: T) {
-        if (fn != null) {
-            (fn)(next)
+        (fn)(next)
+    }
+}
+
+/**
+ * A [[Handler]] where the next value may be consumed by the given *offer* function if it returns true
+ * but if not its added to a retry buffer for next time.
+ */
+class OfferHandler<T>(val offer: (T) -> Boolean): AbstractHandler<T>() {
+    val buffer: Queue<T> = ArrayDeque<T>()
+
+    public override fun onNext(next: T) {
+        while (buffer.notEmpty()) {
+            val head = buffer.peek()
+            if (head == null || (offer)(head)) {
+                buffer.remove()
+            } else {
+                buffer.add(next)
+                return
+            }
+        }
+        val result = (offer)(next)
+        if (!result) {
+            buffer.add(next)
         }
     }
 }

@@ -76,6 +76,15 @@ public abstract class Stream<out T> {
     }
 
     /**
+     * Returns a [[Stream]] which consumes events from *this* stream and *that* stream
+     * and then raises events when *this* stream then *that* stream receive an event.
+     * Multiple events on either stream in between are discarded.
+     */
+    fun <R> then(stream: Stream<R>): Stream<#(T,R)> {
+        return ThenStream(this, stream)
+    }
+
+    /**
      * Returns a [[Stream]] which consumes events and puts them into a moving time window
      * of a given number of *millis* which then fires the window [[List]] of elements into the handler on each event
      */
