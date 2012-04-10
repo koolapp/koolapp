@@ -76,8 +76,16 @@ public abstract class Stream<out T> {
     }
 
     /**
+     * Returns a [[Stream]] which consumes events and puts them into a moving time window
+     * of a given number of *millis* which then fires the window [[List]] of elements into the handler on each event
+     */
+    fun timeWindow(millis: Long): Stream<List<T>> {
+        return TimeWindowStream(this, millis)
+    }
+
+    /**
      * Returns a [[Stream]] which consumes events and puts them into a moving window
-     * collection [[Queue]] and fires the handler for each window collection
+     * of a fixed *size* which then fires the window [[List]] of elements into the handler on each event
      */
     fun window(size: Int): Stream<List<T>> {
         return WindowStream(this, size)

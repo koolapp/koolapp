@@ -38,7 +38,9 @@ class WindowHandler<T>(delegate: Handler<List<T>>, val size: Int): DelegateHandl
         }
         queue.add(next)
 
-        // now lets create an immutable copy to avoid any concurrent oddness
+        // now lets create an immutable copy to avoid any concurrent issues
+        // TODO we may wish to use a more optimal fixed ReadOnlyList here
+        // TODO change to queue.toImmutableList() when its available
         val copy = queue.to(ArrayList<T>(size))
         delegate.onNext(copy)
     }
