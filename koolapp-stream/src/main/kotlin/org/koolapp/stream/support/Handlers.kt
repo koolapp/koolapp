@@ -91,25 +91,3 @@ class FilterHandler<T>(delegate: Handler<T>, val predicate: (T) -> Boolean): Del
         }
     }
 }
-
-
-/**
- * A [[Handler]] which processes elements in the stream until the predicate is false then the underlying stream is closed
- */
-class TakeWhileHandler<T>(var delegate: Handler<T>, val includeNonMatching: Boolean, val predicate: (T) -> Boolean): AbstractHandler<T>() {
-
-    public override fun onNext(next: T) {
-        val matches = (predicate)(next)
-        if (matches || includeNonMatching) {
-            delegate.onNext(next)
-        }
-        if (!matches) {
-            close()
-        }
-    }
-
-    protected override fun doClose() {
-        delegate.onComplete()
-        super.doClose()
-    }
-}

@@ -22,7 +22,6 @@ class ThenStream<A,B>(val streamA: Stream<A>, val streamB: Stream<B>) : Stream<#
     }
 }
 
-
 /**
  * Creates an [[Stream]] which puts the events into a moving window
  */
