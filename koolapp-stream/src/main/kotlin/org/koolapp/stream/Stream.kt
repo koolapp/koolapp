@@ -79,6 +79,16 @@ public abstract class Stream<out T> {
     }
 
     /**
+     * Returns a [[Stream]] which merges events from *this* stream and *that* stream
+     * and then raises events of type [[#(T?,R?)]] when there is an event on either *stream1* or on *stream2*
+     *
+     * When there is an event on *this* stream then the event on *that* will be null and vice versa
+     */
+    fun <R> merge(stream: Stream<R>): Stream<#(T?,R?)> {
+        return MergeStream(this, stream)
+    }
+
+    /**
      * Returns a [[Stream]] which filters out duplicates
      */
     fun distinct(): Stream<T> {
