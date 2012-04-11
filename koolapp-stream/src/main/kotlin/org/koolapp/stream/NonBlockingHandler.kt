@@ -7,22 +7,24 @@ package org.koolapp.stream
  * A [[Stream]] will invoke only one of these methods at a time from a single thread, so the handler does
  * not have to worry about concurrent access.
  *
- * The sequence of events is Open, Next*, (Complete|Error) so that there will always be an Open first
- * then zero to many Next events and finally either Complete or Error
+ * The sequence of events is onOpen, offerNext*, (onComplete|onError) so that there will always be an onOpen first
+ * then zero to many offerNext events and finally either onComplete or onError.
  */
-public abstract class SuspendableHandler<in T> {
+public abstract class NonBlockingHandler<in T> {
 
     /**
-     * Receives the [[Cursor]] when the stream is opened in case
-     * the handler wishes to close the cursor itself
+     * Receives the [[NonBlockingCursorCursor]] when the stream is opened in case
+     * the handler wishes to close the cursor or if it needs to wake up the cursor
+     * at a later time.
      */
-    public abstract fun onOpen(cursor: SuspendableCursor): Unit
+    public abstract fun onOpen(cursor: NonBlockingCursor): Unit
 
     /**
      * Receives the next value of a stream and attempts to process it, returning *true* if its processed
      * or *false* if it cannot be processed right now.
      *
-     * If this method returns false then the stream should suspend itself
+     * If this method returns false then the cursor MAY not deliver the handler any
+     * more events until you wake it up by calling the [[NonBlockingCursorCursor]]'s `wakeup()` method.
      */
     public abstract fun offerNext(next: T): Boolean
 

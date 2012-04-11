@@ -31,21 +31,21 @@ public abstract class Stream<out T> {
      * returning *false* if the next event cannot be processed yet to allow flow control to
      * kick in
      */
-    public open fun openSuspendable(nextBlock: (T) -> Boolean): Cursor {
-        return open(FunctionSuspendableHandler(nextBlock))
+    public open fun openNonBlockingCursor(nextBlock: (T) -> Boolean): Cursor {
+        return open(FunctionNonBlockingHandler(nextBlock))
     }
 
     /**
-     * Opens the stream of events using a [[SuspendableHandler]] so that flow control
+     * Opens the stream of events using a [[NonBlockingHandler]] so that flow control
      * can be used to suspend the stream if the handler cannot consume an offered next event.
      *
      * [[Stream]] implementation classes which can implement flow control should override this
-     * function to provide support for the [[SuspendableCursor]]
+     * function to provide support for the [[NonBlockingCursorCursor]]
      */
-    public open fun open(suspendableHandler: SuspendableHandler<T>): SuspendableCursor {
-        val handler = SuspendableHandlerAdapter(suspendableHandler)
+    public open fun open(suspendableHandler: NonBlockingHandler<T>): NonBlockingCursor {
+        val handler = NonBlockingHandlerAdapter(suspendableHandler)
         val cursor = open(handler)
-        return cursor.toSuspendableCursor()
+        return cursor.toNonBlockingCursorCursor()
     }
 
     /**

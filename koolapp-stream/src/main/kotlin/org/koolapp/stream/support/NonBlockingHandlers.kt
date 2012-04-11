@@ -7,16 +7,16 @@ import org.koolapp.stream.*
 import java.io.Closeable
 
 /**
- * Adapts a [[SuspendableHandler]] to work with a regular [[Stream]] which works with a [[Handler]]
+ * Adapts a [[NonBlockingHandler]] to work with a regular [[Stream]] which works with a [[Handler]]
  * by buffering up any events which could not be offered so they can be retried before the next event is
  * offered
  */
-open class SuspendableHandlerAdapter<T>(val delegate: SuspendableHandler<T>): Handler<T>() {
+open class NonBlockingHandlerAdapter<T>(val delegate: NonBlockingHandler<T>): Handler<T>() {
     val buffer: Queue<T> = ArrayDeque<T>()
-    var suspendableCursor: SuspendableCursor? = null
+    var suspendableCursor: NonBlockingCursor? = null
 
     public override fun onOpen(cursor: Cursor) {
-        val newCursor = cursor.toSuspendableCursor()
+        val newCursor = cursor.toNonBlockingCursorCursor()
         suspendableCursor = newCursor
         delegate.onOpen(newCursor)
     }
@@ -55,20 +55,10 @@ open class SuspendableHandlerAdapter<T>(val delegate: SuspendableHandler<T>): Ha
     }
 }
 
-class SuspendableCursorAdapter(val delegate: Cursor): AbstractCursor(), SuspendableCursor {
-//    val suspended = AtomicBoolean(false)
+class NonBlockingCursorAdapter(val delegate: Cursor): AbstractCursor(), NonBlockingCursor {
 
-//    public override fun isSuspended(): Boolean {
-//        return suspended.get()
-//    }
-
-    public override fun resume() {
-//        suspended.set(false)
+    public override fun wakeup() {
     }
-
-//    public override fun suspend() {
-//        suspended.set(true)
-//    }
 
     protected override fun doClose() {
         delegate.close()
@@ -78,7 +68,7 @@ class SuspendableCursorAdapter(val delegate: Cursor): AbstractCursor(), Suspenda
 /**
  * Useful base class for [[Handler]] to avoid having to implement [[onComplete()]] or [[onError()]]
  */
-abstract class AbstractSuspendableHandler<T> : SuspendableHandler<T>(), Closeable {
+abstract class AbstractNonBlockingHandler<T> : NonBlockingHandler<T>(), Closeable {
     private val closedFlag = AtomicBoolean(false)
 
     public override fun close() {
@@ -94,9 +84,9 @@ abstract class AbstractSuspendableHandler<T> : SuspendableHandler<T>(), Closeabl
     public fun isClosed(): Boolean = closedFlag.get()
 
 
-    var cursor: SuspendableCursor? = null
+    var cursor: NonBlockingCursor? = null
 
-    public override fun onOpen(cursor: SuspendableCursor) {
+    public override fun onOpen(cursor: NonBlockingCursor) {
         $cursor = cursor
     }
 
@@ -116,9 +106,9 @@ abstract class AbstractSuspendableHandler<T> : SuspendableHandler<T>(), Closeabl
 }
 
 /**
- * Allows a function to be converted into an [[SuspendableHandler]] so we can use a simple function to consume events
+ * Allows a function to be converted into an [[NonBlockingHandler]] so we can use a simple function to consume events
  */
-class FunctionSuspendableHandler<T>(val fn: (T) -> Boolean) : AbstractSuspendableHandler<T>() {
+class FunctionNonBlockingHandler<T>(val fn: (T) -> Boolean) : AbstractNonBlockingHandler<T>() {
     public override fun offerNext(next: T): Boolean {
         return (fn)(next)
     }

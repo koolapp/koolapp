@@ -8,6 +8,9 @@ import java.nio.channels.*
 import java.net.*
 import org.fusesource.hawtdispatch.*
 import org.junit.Test as test
+import java.util.concurrent.Executors
+import java.util.concurrent.CountDownLatch
+import org.koolapp.stream.*
 
 /**
  * <p>
@@ -17,19 +20,54 @@ import org.junit.Test as test
  */
 class EchoTest {
 
-    test fun echoServer() {
-        val server = EchoServer(0)
+    test fun testSimpleEchoServer() {
+        excerciseEchoServer(TcpServer())
+    }
+    test fun testStreamEchoServer() {
+        excerciseEchoServer(StreamTcpServer())
+    }
+
+
+    fun excerciseEchoServer(server:TcpServer) {
+        val threadPool = Executors.newCachedThreadPool()!!
+
         try {
             println("Server started on port: "+ server.localPort())
             val socket = Socket("localhost", server.localPort())
             try {
                 // write some data...
-                socket.getOutputStream()!!.write("Hello World".toByteArray("UTF-8"))
 
-                // it should get echoed back..
-                val buffer = ByteArray(1024)
-                var count = socket.getInputStream()!!.read(buffer)
-                assertEquals("Hello World", String(buffer, 0, count, "UTF-8"))
+                // Start a fast writer thread..
+                val data = "Hello World!".toByteArray("UTF-8")
+                val data_count = (1024*1024*100)/data.size // lets send about 100 megs of data..
+
+                threadPool.execute(runnable{
+                    println("Transmitting socket data...")
+                    val os = socket.getOutputStream()!!.buffered(1024*4)
+                    for( i in 0 upto data_count ) {
+                        os.write(data)
+                    }
+                    os.flush()
+                    println("Transmision sent.")
+                })
+
+                val done = CountDownLatch(1)
+                // lets read the data slowly..
+                threadPool.execute(runnable{
+                    println("Receiving socket data...")
+                    var remaining = data.size * data_count
+                    val input = socket.getInputStream()!!
+                    while(remaining > 0) {
+                        val r = Math.min(remaining, 1024*1024)
+                        input.skip(r.toLong())
+                        remaining -= r
+                        println("Received: ${r} bytes")
+                        Thread.sleep(100)
+                    }
+                    done.countDown()
+                    println("Transmision recieved.")
+                })
+                done.await()
 
             } finally {
                 socket.close()
@@ -43,10 +81,97 @@ class EchoTest {
 }
 
 fun main(args:Array<String>):Unit {
-    EchoTest().echoServer()
+    EchoTest().testSimpleEchoServer()
+    EchoTest().testStreamEchoServer()
 }
 
-class EchoServer(val port : Int) {
+class StreamTcpConnection(socket : SocketChannel) : TcpConnection(socket) {
+
+    val stream = TcpStream()
+    class TcpStream : Stream<ByteArray>() {
+        override public fun open(handler : Handler<ByteArray>) : Cursor {
+            throw UnsupportedOperationException()
+        }
+
+        override public fun open(handler: NonBlockingHandler<ByteArray>): NonBlockingCursor {
+            if( cursor.handler!=null )
+                throw IllegalStateException("Handler allready open.")
+            cursor.handler = handler
+            handler.onOpen(cursor)
+            resumeReads()
+            return cursor
+        }
+    }
+
+    // this gets called when data arrives on the socket... send it to the cursor's handler..
+    // if this returns false, the TCP socket not read again until the cursor is resumed.
+    override fun offerRead(data : ByteArray) : Boolean {
+        val h = cursor.handler
+        if( h!=null ) {
+            return h.offerNext(data)
+        } else {
+            return false
+        }
+    }
+
+    val cursor = TcpCursor()
+    class TcpCursor : NonBlockingCursor {
+        var handler : NonBlockingHandler<ByteArray>? = null
+
+        // the handler will call resume when it can accept more read data..
+        public override fun wakeup() {
+            // re-enable reads from the socket.
+            resumeReads()
+        }
+        public override fun isClosed() : Boolean {
+            return handler==null
+        }
+        public override fun close() {
+            handler = null
+        }
+    }
+
+
+    // A handler which writes data it receives to the socket.
+    val handler = TcpHandler()
+    class TcpHandler : NonBlockingHandler<ByteArray>() {
+        var cursor: NonBlockingCursor? = null
+        public override fun onOpen(cursor : NonBlockingCursor) {
+            if( this.cursor!=null )
+                throw IllegalStateException("Handler allready open.")
+            this.cursor = cursor
+        }
+
+        public override fun offerNext(next : ByteArray) = offerWrite(next)
+
+        public override fun onComplete() {
+            this.cursor = null
+        }
+        public override fun onError(e : Throwable) = onComplete()
+    }
+
+    // This gets called back once to tcp socket can accept more writes.
+    override fun onWriteRefill() : Unit {
+        val c = handler.cursor
+        if(c!=null) {
+            c.wakeup()
+        }
+    }
+
+}
+
+class StreamTcpServer : TcpServer() {
+
+    override fun createConnection(socket : SocketChannel):TcpConnection {
+        val connection = StreamTcpConnection(socket)
+        // just have read events out out to the handler..
+        connection.stream.open( connection.handler )
+        return connection
+    }
+}
+
+
+open class TcpServer(val port : Int = 0) {
 
     val queue = Dispatch.createQueue()!!
     val channel = ServerSocketChannel.open()!!
@@ -67,7 +192,7 @@ class EchoServer(val port : Int) {
                 if( socket != null ) {
                     try {
                         socket.configureBlocking(false)
-                        EchoConnection(socket).resume()
+                        createConnection(socket).resume()
                     } catch (e : Exception) {
                         socket.close()
                     }
@@ -79,6 +204,9 @@ class EchoServer(val port : Int) {
         acceptEvents.resume()
     }
 
+    // Allow subclasses to use a use a custom subclassed TcpConnection Class.
+    open fun createConnection(socket:SocketChannel) = TcpConnection(socket)
+
     fun localPort() = channel.socket()!!.getLocalPort()
 
     fun close():Unit {
@@ -86,7 +214,7 @@ class EchoServer(val port : Int) {
     }
 }
 
-open class EchoConnection(val channel : SocketChannel) {
+open class TcpConnection(val channel : SocketChannel) {
 
     val queue = Dispatch.createQueue()!!
     val buffer = ByteBuffer.allocate(1024)!!
@@ -99,8 +227,8 @@ open class EchoConnection(val channel : SocketChannel) {
             writeEvents.cancel()
         })
         writeEvents.setCancelHandler(runnable{
-            channel.close()
             println("Closed connection from: ${remoteAddress()}")
+            channel.close()
         })
         readEvents.setEventHandler(runnable{ processReads()  })
         writeEvents.setEventHandler(runnable{ processWrites() })
@@ -109,7 +237,7 @@ open class EchoConnection(val channel : SocketChannel) {
 
     fun resume() = readEvents.resume()
     fun suspend() = readEvents.suspend()
-    fun remoteAddress() = channel.socket()?.getRemoteSocketAddress()?.toString()?:"n/a"
+    fun remoteAddress() = channel.socket()?.getRemoteSocketAddress().toString()?:"n/a"
     fun close() = readEvents.cancel()
 
     var pendingRead :ByteArray? = null
@@ -127,16 +255,18 @@ open class EchoConnection(val channel : SocketChannel) {
                         if( !lastReadOfferRejected ) {
                             lastReadOfferRejected = true
                             readEvents.suspend();
+                            println("read suspended...")
                         }
+                        return;
                     }
                 } else {
                     if (channel.read(buffer) == - 1) {
                         close()
-                        break
+                        return;
                     } else {
                         buffer.flip()
                         if (buffer.remaining() > 0) {
-                            println("Received: ${buffer.remaining()} bytes of data")
+                            //println("Received: ${buffer.remaining()} bytes of data")
                             pendingRead = buffer.array()!!.copyOf(buffer.remaining())
                         }
                         buffer.clear()
@@ -149,16 +279,19 @@ open class EchoConnection(val channel : SocketChannel) {
     }
 
     open fun offerRead(data:ByteArray):Boolean = offerWrite(data)
+    open fun onWriteRefill() = resumeReads()
 
     fun resumeReads() = queue.execute(runnable{
         if( lastReadOfferRejected ) {
             lastReadOfferRejected = false
             readEvents.resume();
+            println("read resumed...")
             processReads();
         }
     })
 
     var pendingWrite :ByteBuffer? = null
+    var lastWriteOfferRejected = false
 
     fun offerWrite(data:ByteArray):Boolean {
         queue.assertExecuting()
@@ -167,9 +300,13 @@ open class EchoConnection(val channel : SocketChannel) {
             processWrites()
             return true
         } else {
+            if( !lastWriteOfferRejected ) {
+                lastWriteOfferRejected = true
+            }
             return false
         }
     }
+
 
     fun processWrites():Unit {
         queue.assertExecuting()
@@ -177,7 +314,12 @@ open class EchoConnection(val channel : SocketChannel) {
             while( true ) {
                 if (pendingWrite == null) {
                     if( !writeEvents.isSuspended() ) {
+                        println("Write buffers have been drained..")
                         writeEvents.suspend()
+                    }
+                    if( lastWriteOfferRejected ) {
+                        lastWriteOfferRejected = false
+                        onWriteRefill()
                     }
                     return;
                 } else {
@@ -188,10 +330,11 @@ open class EchoConnection(val channel : SocketChannel) {
                         if( count == 0 ) {
                             if( writeEvents.isSuspended() ) {
                                 writeEvents.resume()
+                                println("waiting for write buffers to drain...")
                             }
                             return;
                         } else {
-                            println("Sent: ${count} bytes of data")
+                            // println("Sent: ${count} bytes of data")
                         }
                     }
                 }

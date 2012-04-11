@@ -1,6 +1,6 @@
 package org.koolapp.stream
 
-import org.koolapp.stream.support.SuspendableCursorAdapter
+import org.koolapp.stream.support.NonBlockingCursorAdapter
 import java.io.Closeable
 
 /**
@@ -12,12 +12,12 @@ public trait Cursor: Closeable {
 }
 
 /**
- * Converts this [[Cursor]] to a [[SuspendableCursor]] if it not already
+ * Converts this [[Cursor]] to a [[NonBlockingCursorCursor]] if it not already
  */
-inline fun Cursor.toSuspendableCursor(): SuspendableCursor {
-    return if (this is SuspendableCursor) {
+inline fun Cursor.toNonBlockingCursorCursor(): NonBlockingCursor {
+    return if (this is NonBlockingCursor) {
         this
     } else {
-        SuspendableCursorAdapter(this)
+        NonBlockingCursorAdapter(this)
     }
 }
