@@ -56,19 +56,19 @@ open class SuspendableHandlerAdapter<T>(val delegate: SuspendableHandler<T>): Ha
 }
 
 class SuspendableCursorAdapter(val delegate: Cursor): AbstractCursor(), SuspendableCursor {
-    val suspended = AtomicBoolean(false)
+//    val suspended = AtomicBoolean(false)
 
-    public override fun isSuspended(): Boolean {
-        return suspended.get()
-    }
+//    public override fun isSuspended(): Boolean {
+//        return suspended.get()
+//    }
 
     public override fun resume() {
-        suspended.set(false)
+//        suspended.set(false)
     }
 
-    public override fun suspend() {
-        suspended.set(true)
-    }
+//    public override fun suspend() {
+//        suspended.set(true)
+//    }
 
     protected override fun doClose() {
         delegate.close()

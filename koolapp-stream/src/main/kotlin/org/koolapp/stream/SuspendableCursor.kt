@@ -6,17 +6,17 @@ package org.koolapp.stream
  */
 public trait SuspendableCursor : Cursor {
 
-    /**
-     * Returns true if this cursor is currently suspended
-     * due to flow control
-     */
-    public fun isSuspended(): Boolean
-
-    /**
-     * Suspends this cursor which should prevent it raising more events until
-     * the [[resume()]] function is called
-     */
-    public fun suspend(): Unit
+//    /**
+//     * Returns true if this cursor is currently suspended
+//     * due to flow control
+//     */
+//    public fun isSuspended(): Boolean
+//
+//    /**
+//     * Suspends this cursor which should prevent it raising more events until
+//     * the [[resume()]] function is called
+//     */
+//    public fun suspend(): Unit
 
     /**
      * Resumes this cursor to continue raising events again after its been suspended
