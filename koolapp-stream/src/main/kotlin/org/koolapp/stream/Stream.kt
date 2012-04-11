@@ -22,8 +22,30 @@ public abstract class Stream<out T> {
      * Opens the stream of events using the given function block to process each event
      * until the stream completes or fails
      */
-    fun open(nextBlock: (T) -> Unit): Cursor {
+    public open fun open(nextBlock: (T) -> Unit): Cursor {
         return open(FunctionHandler(nextBlock))
+    }
+
+    /**
+     * Opens the stream of events using the given function block to process each event
+     * returning *false* if the next event cannot be processed yet to allow flow control to
+     * kick in
+     */
+    public open fun openSuspendable(nextBlock: (T) -> Boolean): Cursor {
+        return open(FunctionSuspendableHandler(nextBlock))
+    }
+
+    /**
+     * Opens the stream of events using a [[SuspendableHandler]] so that flow control
+     * can be used to suspend the stream if the handler cannot consume an offered next event.
+     *
+     * [[Stream]] implementation classes which can implement flow control should override this
+     * function to provide support for the [[SuspendableCursor]]
+     */
+    public open fun open(suspendableHandler: SuspendableHandler<T>): SuspendableCursor {
+        val handler = SuspendableHandlerAdapter(suspendableHandler)
+        val cursor = open(handler)
+        return cursor.toSuspendableCursor()
     }
 
     /**
