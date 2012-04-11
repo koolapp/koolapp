@@ -14,12 +14,16 @@ class HtmlTemplateTest {
             body {
                 h1("Hey")
                 h1 {
-                    text = "my title"
+                    // TODO
+                    // ideally this would work
+                    // +"my title"
+                    this + "my title"
                 }
                 p {
                     a(href = "hey", text = "link text") {
                         // TODO doesn't work yet...
                         // text = "whatnot"
+                        this + "whatnot"
                     }
                     a(href = "cheese.html", title = "my link title") {
                         img(src = "blah.jpg")
