@@ -14,7 +14,6 @@ import org.mortbay.jetty.plugin.JettyWebAppContext
 import java.io.File
 import java.util.*
 
-import kotlin.util.*
 
 /**
  * Returns true if the file exists
@@ -58,8 +57,8 @@ fun main(args: Array<String>): Unit {
     val pathSeparator = File.pathSeparator ?: ":"
 
     val classpath = System.getProperty("java.class.path") ?: ""
-    val classpaths = classpath.split(pathSeparator).sure()
-    val jarNames: Collection<String> = classpaths.filter{ it != null && isScannedWebInfLib(it) }.filterNotNull()
+    val classpaths = classpath.split(pathSeparator)
+    val jarNames: Collection<String> = classpaths.filter{ isScannedWebInfLib(it) }
 
     // TODO remove the File? stuff and null checks when issue fixed:
     val files = jarNames.map<String, File?>{ File(it) }.filter{ it != null && it.exists() }

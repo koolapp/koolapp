@@ -54,6 +54,7 @@
                         <ignorePackage>jet</ignorePackage>
                         <ignorePackage>org.p</ignorePackage>
                         <ignorePackage>org.w</ignorePackage>
+                        <ignorePackage>org.apache</ignorePackage>
                     </ignorePackages>
 
                 </configuration>
