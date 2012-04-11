@@ -59,6 +59,16 @@ public abstract class Stream<out T> {
     }
 
     /**
+     * Returns a [[Stream]] which consumes events from *this* stream and *that* stream
+     * and then raises events of type [[#(A,B)]] when there is an event on *stream1* followed by an event on *stream2*
+     *
+     * We filter out consecutive events on *this* stream or events on *that* stream before there is an event on *this*.
+     */
+    fun <R> followedBy(stream: Stream<R>): Stream<#(T,R)> {
+        return FollowedByStream(this, stream)
+    }
+
+    /**
      * Returns a new [[Stream]] which transforms the elements
      * in the stream using the given function
      */
@@ -95,15 +105,6 @@ public abstract class Stream<out T> {
      */
     fun takeWhile(predicate: (T) -> Boolean): Stream<T> {
         return TakeWhileStream(this, false, predicate)
-    }
-
-    /**
-     * Returns a [[Stream]] which consumes events from *this* stream and *that* stream
-     * and then raises events when *this* stream then *that* stream receive an event.
-     * Multiple events on either stream in between are discarded.
-     */
-    fun <R> then(stream: Stream<R>): Stream<#(T,R)> {
-        return ThenStream(this, stream)
     }
 
     /**
