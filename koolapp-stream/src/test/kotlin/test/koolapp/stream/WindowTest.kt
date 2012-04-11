@@ -17,6 +17,7 @@ class WindowTest {
         }
 
         // TODO compile error if you miss out this type
+        // val window = list.toStream().window(4)
         val window: Stream<List<Double>> = list.toStream().window(4)
 
         //window.take(9).open { (q: List<Double>) -> println("Has queue of $q") }
