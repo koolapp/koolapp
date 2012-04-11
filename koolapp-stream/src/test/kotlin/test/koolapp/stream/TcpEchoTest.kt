@@ -18,7 +18,7 @@ import org.koolapp.stream.*
  *
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
-class EchoTest {
+class TcpEchoTest {
 
     test fun testSimpleEchoServer() {
         excerciseEchoServer(TcpServer())
@@ -39,11 +39,11 @@ class EchoTest {
 
                 // Start a fast writer thread..
                 val data = "Hello World!".toByteArray("UTF-8")
-                val data_count = (1024*1024*100)/data.size // lets send about 100 megs of data..
+                val data_count = (1024*1024*500)/data.size // lets send about 500 megs of data..
 
                 threadPool.execute(runnable{
                     println("Transmitting socket data...")
-                    val os = socket.getOutputStream()!!.buffered(1024*4)
+                    val os = socket.getOutputStream()!!.buffered(1024*64)
                     for( i in 0 upto data_count ) {
                         os.write(data)
                     }
@@ -58,11 +58,13 @@ class EchoTest {
                     var remaining = data.size * data_count
                     val input = socket.getInputStream()!!
                     while(remaining > 0) {
-                        val r = Math.min(remaining, 1024*1024)
-                        input.skip(r.toLong())
-                        remaining -= r
-                        println("Received: ${r} bytes")
-                        Thread.sleep(100)
+                        var r = Math.min(remaining, 1024*1024*100)
+                        while( r > 0 ) {
+                            val c = input.skip(r.toLong())
+                            remaining -= c
+                            r -= c
+                        }
+                        Thread.sleep(500)
                     }
                     done.countDown()
                     println("Transmision recieved.")
@@ -81,8 +83,8 @@ class EchoTest {
 }
 
 fun main(args:Array<String>):Unit {
-    EchoTest().testSimpleEchoServer()
-    EchoTest().testStreamEchoServer()
+    TcpEchoTest().testSimpleEchoServer()
+    TcpEchoTest().testStreamEchoServer()
 }
 
 class StreamTcpConnection(socket : SocketChannel) : TcpConnection(socket) {
@@ -266,7 +268,6 @@ open class TcpConnection(val channel : SocketChannel) {
                     } else {
                         buffer.flip()
                         if (buffer.remaining() > 0) {
-                            //println("Received: ${buffer.remaining()} bytes of data")
                             pendingRead = buffer.array()!!.copyOf(buffer.remaining())
                         }
                         buffer.clear()
