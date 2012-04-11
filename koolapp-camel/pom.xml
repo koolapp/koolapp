@@ -22,7 +22,7 @@
 <!--
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>stdlib</artifactId>
+            <artifactId>kotlin-stdlib</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
 -->
