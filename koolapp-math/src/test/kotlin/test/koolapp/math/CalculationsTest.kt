@@ -2,7 +2,6 @@ package test.koolapp.math
 
 import kotlin.test.*
 
-import org.koolapp.stream.*
 import org.koolapp.math.*
 
 import org.junit.Test as test
