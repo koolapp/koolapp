@@ -108,6 +108,11 @@ open class FollowedByHandler<A,B>(streamA: Stream<A>, streamB: Stream<B>, delega
             }
         }
     }
+
+    // TODO compiler bug - must have this redundant method here for some reason
+    public override fun onNext(next: #(A, B)) {
+        super.onNext(next)
+    }
 }
 
 /**
@@ -131,5 +136,47 @@ open class MergeHandler<A,B>(streamA: Stream<A>, streamB: Stream<B>, delegate: H
 
     protected override fun onNextB(b: B): Unit {
         onNext(#(null, b))
+    }
+
+    // TODO compiler bug - must have this redundant method here for some reason
+    public override fun onNext(next: #(A?, B?)) {
+        super.onNext(next)
+    }
+}
+
+/**
+ * Creates an [[Stream]] which emits events of type [[#(A,B)]] when either *stream1* or *stream2* raises an event, sending the previous value
+ * of the other ovent. i.e. so each event on *stream1* will be processed twice if the events alternate between streams.
+ */
+class AndStream<A,B>(streamA: Stream<A>, streamB: Stream<B>) : JoinStream<A,B,#(A,B)>(streamA, streamB) {
+
+    protected override fun createHandler(handler: Handler<#(A,B)>): JoinHandlerSupport<A, B, #(A,B)> {
+        return AndHandler<A,B>(streamA, streamB, handler)
+    }
+}
+
+open class AndHandler<A,B>(streamA: Stream<A>, streamB: Stream<B>, delegate: Handler<#(A,B)>): JoinHandlerSupport<A, B, #(A,B)>(streamA, streamB, delegate) {
+    val lastA = AtomicReference<A?>(null)
+    val lastB = AtomicReference<B?>(null)
+
+    protected override fun onNextA(a: A): Unit {
+        lastA.set(a)
+        val b = lastB.get()
+        if (b != null) {
+            onNext(#(a, b))
+        }
+    }
+
+    protected override fun onNextB(b: B): Unit {
+        lastB.set(b)
+        val a = lastA.get()
+        if (a != null) {
+            onNext(#(a, b))
+        }
+    }
+
+    // TODO compiler bug - must have this redundant method here for some reason
+    public override fun onNext(next: #(A, B)) {
+        super.onNext(next)
     }
 }

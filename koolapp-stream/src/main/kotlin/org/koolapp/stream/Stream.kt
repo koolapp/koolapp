@@ -79,6 +79,17 @@ public abstract class Stream<out T> {
     }
 
     /**
+     * Returns a [[Stream]] which combines events from *this* stream and *that* stream
+     * and then raises events of type [[#(T,R)]] when there is an event on either *stream1* or on *stream2*
+     * such that there is always a value of each event.
+     *
+     * If there are multiple events on *this* stream then the previous event on *that* stream will be included
+     */
+    fun <R> and(stream: Stream<R>): Stream<#(T,R)> {
+        return AndStream(this, stream)
+    }
+
+    /**
      * Returns a [[Stream]] which merges events from *this* stream and *that* stream
      * and then raises events of type [[#(T?,R?)]] when there is an event on either *stream1* or on *stream2*
      *

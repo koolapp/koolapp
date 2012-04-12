@@ -11,6 +11,7 @@ import java.awt.event.ActionListener
 import java.awt.event.ActionEvent
 
 fun main(args: Array<String>): Unit{
+    /*
     val f = frame("Kool Stream Swing Demo") {
         exitOnClose()
         size = #(500, 300)
@@ -23,5 +24,6 @@ fun main(args: Array<String>): Unit{
 
     f.setLocationRelativeTo(null)
     f.setVisible(true)
+    */
 
 }
