@@ -1,8 +1,9 @@
 package test.koolapp.stream
 
-import java.util.*
-import org.junit.Test as test
 import org.koolapp.stream.*
+import java.util.*
+
+import org.junit.Test as test
 
 class JoinWindowsTest {
 
@@ -24,6 +25,7 @@ class JoinWindowsTest {
                 WithdrawalEvent("ABC", 50.0),
                 WithdrawalEvent("DEF", 10.0)
         )
+
         val fraudWarningList = arrayList(
                 FraudWarningEvent("ABC", "Oh dear"),
                 FraudWarningEvent("ABC", "Another issue")
@@ -32,6 +34,7 @@ class JoinWindowsTest {
         // TODO compile error if you miss out these unnecesasry type expressions
         // would be nice to remove them ASAP as soon as Kotlin's fixed the issue
         val withdrawStream: Stream<List<WithdrawalEvent>> = withdrawList.toStream().window(4)
+
         val fraudStream: Stream<List<FraudWarningEvent>> = fraudWarningList.toStream().window(4)
         val joinStream: Stream<#(List<WithdrawalEvent>, List<FraudWarningEvent>)> = withdrawStream.and(fraudStream)
 

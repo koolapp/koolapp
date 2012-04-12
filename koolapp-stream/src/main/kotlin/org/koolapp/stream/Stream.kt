@@ -4,6 +4,7 @@ import java.io.Closeable
 import org.koolapp.stream.support.*
 import java.util.Queue
 import java.util.List
+import java.util.Map
 
 /**
  * Represents an asynchronous stream of events which can be composed and processed asynchronously.
@@ -183,3 +184,12 @@ public abstract class Stream<out T> {
     }
 }
 
+/**
+ * Transforms the Stream<Iterable<T>> by grouping the contents of each stream element into a [[Map<K, List<T>>]]
+ * using the given *toKey* function to calculate the key to use in the map for each value
+ */
+public fun <T, K> Stream<java.lang.Iterable<T>>.groupBy(toKey: (T) -> K): Stream<Map<K, List<T>>> {
+    return this.map<Map<K, List<T>>> {
+        it.groupBy<T,K>(toKey)
+    }
+}
