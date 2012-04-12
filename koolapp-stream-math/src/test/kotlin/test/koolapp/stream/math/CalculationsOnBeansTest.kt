@@ -19,9 +19,11 @@ class CalculationsOnBeansTest {
 
         val maxPrice = trades.max{ it.price }
         val amountVariance = trades.variance{ it.amount }
+        val avgAmount = trades.mean{ it.amount }
 
-        println("maxprice = $maxPrice, amountVariance = $amountVariance")
+        println("maxprice = $maxPrice, amountVariance = $amountVariance, avgAmount = $avgAmount")
         assertEquals(630.0, maxPrice)
         assertTrue(amountVariance > 0.0)
+        assertTrue(avgAmount > 50.0)
     }
 }
