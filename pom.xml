@@ -80,7 +80,7 @@
 
     <modules>
         <module>koolapp-stream</module>
-        <module>koolapp-stream-math</module>
+        <module>koolapp-math</module>
         <module>koolapp-camel</module>
         <module>koolapp-template</module>
         <module>koolapp-web</module>

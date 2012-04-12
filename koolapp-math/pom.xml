@@ -11,19 +11,14 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>koolapp-stream-math</artifactId>
+    <artifactId>koolapp-math</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>org.koolapp</groupId>
-            <artifactId>koolapp-stream</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math</artifactId>
+            <version>${common-math-version}</version>
         </dependency>
-        <dependency>
-              <groupId>org.apache.commons</groupId>
-              <artifactId>commons-math</artifactId>
-              <version>${common-math-version}</version>
-            </dependency>
 
         <dependency>
             <groupId>junit</groupId>
@@ -31,11 +26,16 @@
             <version>${junit-version}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-swing</artifactId>
             <version>${kotlin.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.koolapp</groupId>
+            <artifactId>koolapp-stream</artifactId>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 

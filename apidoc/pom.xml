@@ -42,9 +42,13 @@
                 <version>${kotlin.version}</version>
                 <configuration>
                     <sources>
-                        <source>${basedir}/../koolapp-stream/src/main/kotlin</source>
                         <source>${basedir}/../koolapp-camel/src/main/kotlin</source>
+                        <source>${basedir}/../koolapp-math/src/main/kotlin</source>
+                        <source>${basedir}/../koolapp-stream/src/main/kotlin</source>
                         <source>${basedir}/../koolapp-template/src/main/kotlin</source>
+<!--
+                        <source>${basedir}/../koolapp-ui/src/main/kotlin</source>
+-->
                     </sources>
                     <title>Kool API</title>
                     <ignorePackages>

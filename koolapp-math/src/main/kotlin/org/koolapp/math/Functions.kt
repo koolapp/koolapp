@@ -1,4 +1,4 @@
-package org.koolapp.stream.math
+package org.koolapp.math
 
 import org.apache.commons.math.stat.descriptive.DescriptiveStatistics
 
