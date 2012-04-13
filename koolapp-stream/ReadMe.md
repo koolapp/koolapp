@@ -47,10 +47,10 @@ Create event streams from various things:
 
 * [java.util.Collection](https://github.com/koolapp/koolapp/blob/master/koolapp-stream/src/test/kotlin/test/koolapp/stream/CollectionTest.kt#L10)
 * bean event listeners (TODO :)
-* [java.util.Timer](https://github.com/koolapp/koolapp/blob/master/koolapp-stream/src/test/kotlin/test/koolapp/stream/TimerTest.kt#L14)
-* [java.util.concurrent.ScheduledExecutorService](https://github.com/koolapp/koolapp/blob/master/koolapp-stream/src/test/kotlin/test/koolapp/stream/ScheduledExecutorServiceTest.kt#L17)
+* [java.util.Timer](https://github.com/koolapp/koolapp/blob/master/koolapp-stream/src/test/kotlin/test/koolapp/stream/TimerTest.kt#L14) via [extension functions](http://koolapp.org/versions/snapshot/apidocs/org/koolapp/stream/java/util/Timer-extensions.html)
+* [java.util.concurrent.ScheduledExecutorService](https://github.com/koolapp/koolapp/blob/master/koolapp-stream/src/test/kotlin/test/koolapp/stream/ScheduledExecutorServiceTest.kt#L17) via [extension functions](http://koolapp.org/versions/snapshot/apidocs/org/koolapp/stream/java/util/concurrent/ScheduledExecutorService-extensions.html)
 * [SimpleStream](https://github.com/koolapp/koolapp/blob/master/koolapp-stream/src/test/kotlin/test/koolapp/stream/SimpleStreamTest.kt#L15)
-* [Apache Camel Endpoints](https://github.com/koolapp/koolapp/blob/master/koolapp-camel/src/test/kotlin/test/koolapp/camel/EndpointConsumeTest.kt#L27)
+* [Apache Camel Endpoints](https://github.com/koolapp/koolapp/blob/master/koolapp-camel/src/test/kotlin/test/koolapp/camel/EndpointConsumeTest.kt#L27) via extension functions on [Endpoint](http://koolapp.org/versions/snapshot/apidocs/org/koolapp/camel/org/apache/camel/Endpoint-extensions.html)
 
 Combine streams with Collection-style combinators
 
