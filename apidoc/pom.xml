@@ -73,7 +73,7 @@
                     <projectRootDir>${project.basedir}/..</projectRootDir>
                     <packageDescriptionFiles>
                         <org.koolapp.stream>${project.basedir}/../koolapp-stream/ReadMe.md</org.koolapp.stream>
-                        <org.koolapp.template>${project.basedir}/../koolapp-template/ReadMe.md</org.koolapp.template>
+                        <org.koolapp.template.html>${project.basedir}/../koolapp-template/ReadMe.md</org.koolapp.template.html>
                     </packageDescriptionFiles>
                     <packageSummaryText>
                         <org.koolapp.camel>Apache Camel extensions and integration with [Kool Streams](https://github.com/koolapp/koolapp/blob/master/koolapp-stream/ReadMe.md)</org.koolapp.camel>
