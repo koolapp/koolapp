@@ -28,10 +28,11 @@ fun Node.element(localName: String, init: Element.()-> Unit): Element {
 }
 
 fun Node.textElement(localName: String, text: String? = null, init: Element.()-> Unit): Element {
-    return element(localName) {
+    val answer = element(localName) {
         if (text != null) addText(text)
-        init()
     }
+    answer.init()
+    return answer
 }
 
 fun Node.html(init: Element.()-> Unit): Element = element("html", init)
@@ -52,23 +53,25 @@ fun Node.h4(text: String? = null, init: Element.()-> Unit): Element = textElemen
 
 fun Node.p(init: Element.()-> Unit): Element = element("p", init)
 
+fun Node.a(href: String? = null, title: String? = null, text: String? = null): Element = a(href, title, text) {}
+
 fun Node.a(href: String? = null, title: String? = null, text: String? = null, init: Element.()-> Unit): Element {
-    return textElement("a", text) {
-        if (href != null) setAttribute("href", href)
-        if (title != null) setAttribute("title", title)
-        init()
-    }
+    val answer = textElement("a", text, init)
+    if (href != null) answer.setAttribute("href", href)
+    if (title != null) answer.setAttribute("title", title)
+    return answer
 }
 
 
 fun Node.img(src: String? = null, alt: String? = null): Element = img(src, alt) {}
 
 fun Node.img(src: String? = null, alt: String? = null, init: Element.()-> Unit): Element {
-    return element("img") {
+    val answer = element("img") {
         if (src != null) setAttribute("src", src)
         if (alt != null) setAttribute("alt", alt)
-        init()
     }
+    answer.init()
+    return answer
 }
 
 

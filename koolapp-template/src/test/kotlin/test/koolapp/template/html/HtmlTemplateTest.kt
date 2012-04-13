@@ -13,25 +13,20 @@ class HtmlTemplateTest {
         val dom = document.html {
             body {
                 h1("Hey")
-                h1 {
-                    // TODO
-                    // ideally this would work
-                    // +"my title"
-                    this + "my title"
+                h2 {
+                    text = "my title"
                 }
                 p {
-                    a(href = "hey", text = "link text") {
-                        // TODO doesn't work yet...
-                        // text = "whatnot"
-                        this + "whatnot"
-                    }
+                    a(href = "hey", text = "link text")
+
+                    this + "some text"
+
                     a(href = "cheese.html", title = "my link title") {
                         img(src = "blah.jpg")
                     }
                 }
-
             }
         }
-        println("Xml is ${dom.toXmlString()}")
+        println("HTML is ${dom.toXmlString()}")
     }
 }
