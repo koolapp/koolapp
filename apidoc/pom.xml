@@ -69,7 +69,8 @@
                         <ignorePackage>org.koolapp.stream.support</ignorePackage>
                         <ignorePackage>org.koolapp.template.markdown</ignorePackage>
                     </ignorePackages>
-
+                    <sourceRootHref>https://github.com/koolapp/koolapp/tree/master</sourceRootHref>
+                    <projectRootDir>${project.basedir}/..</projectRootDir>
                 </configuration>
 
                 <executions>
