@@ -32,3 +32,5 @@ Using windows of events for *complex event processing* types of things
 * [create a moving fixed window of events](https://github.com/koolapp/koolapp/blob/master/koolapp-stream/src/test/kotlin/test/koolapp/stream/WindowTest.kt#L21) via window(size)
 * [create a moving time window of events](https://github.com/koolapp/koolapp/blob/master/koolapp-stream/src/test/kotlin/test/koolapp/stream/TimeWindowTest.kt#L22) via timeWindow(millis)
 * [group events in a window](https://github.com/koolapp/koolapp/blob/master/koolapp-math/src/test/kotlin/test/koolapp/math/GroupByTest.kt#L11) using groupBy(keyFunction)
+
+Finally you can pipe the events from a Stream [to any Apache Camel Endpoint](https://github.com/koolapp/koolapp/blob/master/koolapp-camel/src/test/kotlin/test/koolapp/camel/EndpointProduceTest.kt#L33)
