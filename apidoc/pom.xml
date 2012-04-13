@@ -64,6 +64,10 @@
                         <ignorePackage>org.p</ignorePackage>
                         <ignorePackage>org.w</ignorePackage>
                         <ignorePackage>org.apache</ignorePackage>
+                        <ignorePackage>org.koolapp.camel.support</ignorePackage>
+                        <ignorePackage>org.koolapp.stream.beans</ignorePackage>
+                        <ignorePackage>org.koolapp.stream.support</ignorePackage>
+                        <ignorePackage>org.koolapp.template.markdown</ignorePackage>
                     </ignorePackages>
 
                 </configuration>
