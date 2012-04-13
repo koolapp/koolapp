@@ -6,4 +6,4 @@ side in a browser via JavaScript or on the server side in some JVM process, Serv
 The main components of KoolApp today are
 
 * [Kool Streams](https://github.com/koolapp/koolapp/blob/master/koolapp-stream/ReadMe.md) for working with event streams
-* [Kool Templates](koolapp-template/ReadMe.md) for creating HTML5 templates for use on the client or server side
+* [Kool Templates](https://github.com/koolapp/koolapp/blob/master/koolapp-template/ReadMe.md) for creating HTML5 templates for use on the client or server side
