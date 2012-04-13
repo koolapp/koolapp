@@ -78,7 +78,7 @@ class MarketDataMonitorTest {
 
         // now lets fire some events
         var delay: Long = 800
-        for (i in 0.upto(10)) {
+        for (i in 0.upto(2)) {
             for (t in trades) {
                 tradeStream.onNext(t)
                 Thread.sleep(delay)
