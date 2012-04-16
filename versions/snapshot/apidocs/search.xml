@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<searches>
+<search>
+  <href>org/koolapp/stream/Cursor.html</href>
+  <name>Cursor [org.koolapp.stream]</name>
+  <kind>trait</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Handler.html</href>
+  <name>Handler [org.koolapp.stream]</name>
+  <kind>class</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/NonBlockingCursor.html</href>
+  <name>NonBlockingCursor [org.koolapp.stream]</name>
+  <kind>trait</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/NonBlockingHandler.html</href>
+  <name>NonBlockingHandler [org.koolapp.stream]</name>
+  <kind>class</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/SimpleStream.html</href>
+  <name>SimpleStream [org.koolapp.stream]</name>
+  <kind>class</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Stream.html</href>
+  <name>Stream [org.koolapp.stream]</name>
+  <kind>class</kind>
+</search>
+<search>
+  <href>org/koolapp/template/html/org/w3c/dom/Node-extensions.html#a(jet.String, jet.String, jet.String)</href>
+  <name>a() [org.w3c.dom.Node]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/SimpleStream.html#and(org.koolapp.stream.Stream)</href>
+  <name>and() [org.koolapp.stream.SimpleStream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Stream.html#and(org.koolapp.stream.Stream)</href>
+  <name>and() [org.koolapp.stream.Stream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/template/html/org/w3c/dom/Node-extensions.html#body(jet.ExtensionFunction0)</href>
+  <name>body() [org.w3c.dom.Node]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Cursor.html#close()</href>
+  <name>close() [org.koolapp.stream.Cursor]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/NonBlockingCursor.html#close()</href>
+  <name>close() [org.koolapp.stream.NonBlockingCursor]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/math/java/lang/Iterable-extensions.html#descriptiveStatistics()</href>
+  <name>descriptiveStatistics() [java.lang.Iterable]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/SimpleStream.html#distinct()</href>
+  <name>distinct() [org.koolapp.stream.SimpleStream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Stream.html#distinct()</href>
+  <name>distinct() [org.koolapp.stream.Stream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/template/html/org/w3c/dom/Node-extensions.html#div(jet.ExtensionFunction0)</href>
+  <name>div() [org.w3c.dom.Node]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/template/html/org/w3c/dom/Node-extensions.html#element(jet.String, jet.ExtensionFunction0)</href>
+  <name>element() [org.w3c.dom.Node]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/camel/org/apache/camel/CamelContext-extensions.html#endpoint(jet.String)</href>
+  <name>endpoint() [org.apache.camel.CamelContext]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/SimpleStream.html#filter(jet.Function1)</href>
+  <name>filter() [org.koolapp.stream.SimpleStream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Stream.html#filter(jet.Function1)</href>
+  <name>filter() [org.koolapp.stream.Stream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/java/util/Timer-extensions.html#fixedDelayStream(jet.Long, java.util.Date)</href>
+  <name>fixedDelayStream() [java.util.Timer]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/java/util/Timer-extensions.html#fixedRateStream(jet.Long, java.util.Date)</href>
+  <name>fixedRateStream() [java.util.Timer]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/SimpleStream.html#followedBy(org.koolapp.stream.Stream)</href>
+  <name>followedBy() [org.koolapp.stream.SimpleStream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Stream.html#followedBy(org.koolapp.stream.Stream)</href>
+  <name>followedBy() [org.koolapp.stream.Stream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/math/java/lang/Iterable-extensions.html#geometricMean()</href>
+  <name>geometricMean() [java.lang.Iterable]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/org/koolapp/stream/Stream-extensions.html#groupBy(jet.Function1)</href>
+  <name>groupBy() [org.koolapp.stream.Stream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/template/html/org/w3c/dom/Node-extensions.html#h1(jet.String)</href>
+  <name>h1() [org.w3c.dom.Node]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/template/html/org/w3c/dom/Node-extensions.html#h2(jet.String, jet.ExtensionFunction0)</href>
+  <name>h2() [org.w3c.dom.Node]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/template/html/org/w3c/dom/Node-extensions.html#h3(jet.String, jet.ExtensionFunction0)</href>
+  <name>h3() [org.w3c.dom.Node]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/template/html/org/w3c/dom/Node-extensions.html#h4(jet.String, jet.ExtensionFunction0)</href>
+  <name>h4() [org.w3c.dom.Node]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/SimpleStream.html#handlers</href>
+  <name>handlers [org.koolapp.stream.SimpleStream]</name>
+  <kind>val</kind>
+</search>
+<search>
+  <href>org/koolapp/template/html/org/w3c/dom/Node-extensions.html#html(jet.ExtensionFunction0)</href>
+  <name>html() [org.w3c.dom.Node]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/template/html/org/w3c/dom/Node-extensions.html#img(jet.String, jet.String)</href>
+  <name>img() [org.w3c.dom.Node]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Cursor.html#isClosed()</href>
+  <name>isClosed() [org.koolapp.stream.Cursor]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/NonBlockingCursor.html#isClosed()</href>
+  <name>isClosed() [org.koolapp.stream.NonBlockingCursor]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/math/java/lang/Iterable-extensions.html#kurtosis()</href>
+  <name>kurtosis() [java.lang.Iterable]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/SimpleStream.html#map(jet.Function1)</href>
+  <name>map() [org.koolapp.stream.SimpleStream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Stream.html#map(jet.Function1)</href>
+  <name>map() [org.koolapp.stream.Stream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/math/java/lang/Iterable-extensions.html#max()</href>
+  <name>max() [java.lang.Iterable]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/math/java/lang/Iterable-extensions.html#mean()</href>
+  <name>mean() [java.lang.Iterable]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/SimpleStream.html#merge(org.koolapp.stream.Stream)</href>
+  <name>merge() [org.koolapp.stream.SimpleStream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Stream.html#merge(org.koolapp.stream.Stream)</href>
+  <name>merge() [org.koolapp.stream.Stream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/math/java/lang/Iterable-extensions.html#min()</href>
+  <name>min() [java.lang.Iterable]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/NonBlockingHandler.html#offerNext(T)</href>
+  <name>offerNext() [org.koolapp.stream.NonBlockingHandler]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Handler.html#onComplete()</href>
+  <name>onComplete() [org.koolapp.stream.Handler]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/NonBlockingHandler.html#onComplete()</href>
+  <name>onComplete() [org.koolapp.stream.NonBlockingHandler]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/SimpleStream.html#onComplete()</href>
+  <name>onComplete() [org.koolapp.stream.SimpleStream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Handler.html#onError(jet.Throwable)</href>
+  <name>onError() [org.koolapp.stream.Handler]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/NonBlockingHandler.html#onError(jet.Throwable)</href>
+  <name>onError() [org.koolapp.stream.NonBlockingHandler]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/SimpleStream.html#onError(jet.Throwable)</href>
+  <name>onError() [org.koolapp.stream.SimpleStream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Handler.html#onNext(T)</href>
+  <name>onNext() [org.koolapp.stream.Handler]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/SimpleStream.html#onNext(T)</href>
+  <name>onNext() [org.koolapp.stream.SimpleStream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Handler.html#onOpen(org.koolapp.stream.Cursor)</href>
+  <name>onOpen() [org.koolapp.stream.Handler]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/NonBlockingHandler.html#onOpen(org.koolapp.stream.NonBlockingCursor)</href>
+  <name>onOpen() [org.koolapp.stream.NonBlockingHandler]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/SimpleStream.html#open(jet.Function1)</href>
+  <name>open() [org.koolapp.stream.SimpleStream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Stream.html#open(jet.Function1)</href>
+  <name>open() [org.koolapp.stream.Stream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/SimpleStream.html#openDelegate(org.koolapp.stream.Stream, org.koolapp.stream.Handler)</href>
+  <name>openDelegate() [org.koolapp.stream.SimpleStream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Stream.html#openDelegate(org.koolapp.stream.Stream, org.koolapp.stream.Handler)</href>
+  <name>openDelegate() [org.koolapp.stream.Stream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/SimpleStream.html#openNonBlockingCursor(jet.Function1)</href>
+  <name>openNonBlockingCursor() [org.koolapp.stream.SimpleStream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Stream.html#openNonBlockingCursor(jet.Function1)</href>
+  <name>openNonBlockingCursor() [org.koolapp.stream.Stream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/template/html/org/w3c/dom/Node-extensions.html#p(jet.ExtensionFunction0)</href>
+  <name>p() [org.w3c.dom.Node]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/math/java/lang/Iterable-extensions.html#percentile(jet.Double)</href>
+  <name>percentile() [java.lang.Iterable]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/template/html/org/w3c/dom/Node-extensions.html#render(java.lang.Appendable)</href>
+  <name>render() [org.w3c.dom.Node]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/template/org/koolapp/template/Template-extensions.html#renderTo(java.io.File)</href>
+  <name>renderTo() [org.koolapp.template.Template]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/java/util/concurrent/ScheduledExecutorService-extensions.html#scheduleAtFixedRateStream(jet.Long, jet.Long, java.util.concurrent.TimeUnit)</href>
+  <name>scheduleAtFixedRateStream() [java.util.concurrent.ScheduledExecutorService]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/java/util/Timer-extensions.html#scheduleStream(java.util.Date)</href>
+  <name>scheduleStream() [java.util.Timer]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/java/util/concurrent/ScheduledExecutorService-extensions.html#scheduleStream(jet.Long, java.util.concurrent.TimeUnit)</href>
+  <name>scheduleStream() [java.util.concurrent.ScheduledExecutorService]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/java/util/concurrent/ScheduledExecutorService-extensions.html#scheduleWithFixedDelayStream(jet.Long, jet.Long, java.util.concurrent.TimeUnit)</href>
+  <name>scheduleWithFixedDelayStream() [java.util.concurrent.ScheduledExecutorService]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/math/java/lang/Iterable-extensions.html#skewness()</href>
+  <name>skewness() [java.lang.Iterable]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/math/java/lang/Iterable-extensions.html#standardDeviation()</href>
+  <name>standardDeviation() [java.lang.Iterable]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/math/java/lang/Iterable-extensions.html#sum()</href>
+  <name>sum() [java.lang.Iterable]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/math/java/lang/Iterable-extensions.html#sumSquares()</href>
+  <name>sumSquares() [java.lang.Iterable]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/SimpleStream.html#take(jet.Int)</href>
+  <name>take() [org.koolapp.stream.SimpleStream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Stream.html#take(jet.Int)</href>
+  <name>take() [org.koolapp.stream.Stream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/SimpleStream.html#takeWhile(jet.Function1)</href>
+  <name>takeWhile() [org.koolapp.stream.SimpleStream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Stream.html#takeWhile(jet.Function1)</href>
+  <name>takeWhile() [org.koolapp.stream.Stream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/template/html/org/w3c/dom/Node-extensions.html#textElement(jet.String, jet.String, jet.ExtensionFunction0)</href>
+  <name>textElement() [org.w3c.dom.Node]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/SimpleStream.html#timeWindow(jet.Long)</href>
+  <name>timeWindow() [org.koolapp.stream.SimpleStream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Stream.html#timeWindow(jet.Long)</href>
+  <name>timeWindow() [org.koolapp.stream.Stream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/camel/org/koolapp/stream/Stream-extensions.html#to(org.apache.camel.Endpoint)</href>
+  <name>to() [org.koolapp.stream.Stream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/camel/org/apache/camel/Endpoint-extensions.html#toExchangeStream()</href>
+  <name>toExchangeStream() [org.apache.camel.Endpoint]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/org/koolapp/stream/Cursor-extensions.html#toNonBlockingCursorCursor()</href>
+  <name>toNonBlockingCursorCursor() [org.koolapp.stream.Cursor]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/java/lang/Iterable-extensions.html#toStream(java.util.concurrent.Executor)</href>
+  <name>toStream() [java.lang.Iterable]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/camel/org/apache/camel/Endpoint-extensions.html#toStream()</href>
+  <name>toStream() [org.apache.camel.Endpoint]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/camel/org/apache/camel/Endpoint-extensions.html#toStreamOf(java.lang.Class)</href>
+  <name>toStreamOf() [org.apache.camel.Endpoint]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/org/koolapp/stream/Handler-extensions.html#toTimerRunnable()</href>
+  <name>toTimerRunnable() [org.koolapp.stream.Handler]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/org/koolapp/stream/Handler-extensions.html#toTimerTask()</href>
+  <name>toTimerTask() [org.koolapp.stream.Handler]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/camel/org/apache/camel/CamelContext-extensions.html#use(jet.Function1)</href>
+  <name>use() [org.apache.camel.CamelContext]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/math/java/lang/Iterable-extensions.html#variance()</href>
+  <name>variance() [java.lang.Iterable]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/NonBlockingCursor.html#wakeup()</href>
+  <name>wakeup() [org.koolapp.stream.NonBlockingCursor]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/SimpleStream.html#window(jet.Int)</href>
+  <name>window() [org.koolapp.stream.SimpleStream]</name>
+  <kind>fun</kind>
+</search>
+<search>
+  <href>org/koolapp/stream/Stream.html#window(jet.Int)</href>
+  <name>window() [org.koolapp.stream.Stream]</name>
+  <kind>fun</kind>
+</search>
+</searches>
