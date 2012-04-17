@@ -111,9 +111,17 @@ th, table { border-collapse:collapse;border-color: #E6E7E8; }
   color: white;
 }
 
+
 .NavBarCell1Rev { background-color:#FFFFFF; padding-left:6px; padding-right:6px;}
 .NavBarFont1    { color:#FFFFFF;}
 .NavBarFont1Rev { color:#243446;}
 
 .NavBarCell2    { background-color:#FFFFFF;}
 .NavBarCell3    { background-color:#FFFFFF;}
+
+div.doc-member.function {
+  border-bottom: 1px solid #E6E7E8;
+}
+div.source-detail {
+  float:right;
+}

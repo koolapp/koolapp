@@ -82,7 +82,11 @@
                         <org.koolapp.template>Text processing helper classes</org.koolapp.template>
                         <org.koolapp.template.html>[Kool Templates](https://github.com/koolapp/koolapp/blob/master/koolapp-template/ReadMe.md) a HTML5 template engine</org.koolapp.template.html>
                     </packageSummaryText>
-
+                    <packagePrefixToUrls>
+                        <kotlin>http://jetbrains.github.com/kotlin/versions/snapshot/apidocs/</kotlin>
+                        <org.apache.camel>http://camel.apache.org/maven/current/camel-core/apidocs/</org.apache.camel>
+                        <org.apache.commons.math>http://commons.apache.org/math/api-2.2/</org.apache.commons.math>
+                    </packagePrefixToUrls>
                 </configuration>
 
                 <executions>
