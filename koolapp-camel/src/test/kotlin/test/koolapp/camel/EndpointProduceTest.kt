@@ -31,7 +31,7 @@ class EndpointProduceTest {
             val inStream = context.endpoint("timer://foo?fixedRate=true&period=1000").toExchangeStream()
 
             val resultsEndpoint = context.endpoint("seda:resultsEndpoint")
-            inStream.to(resultsEndpoint)
+            inStream.sendTo(resultsEndpoint)
 
             val outStream = resultsEndpoint.toStream()
             val cursor = outStream.take(4).open{ println("handler consuming from $resultsEndpoint got $it of type ${it.javaClass}") }

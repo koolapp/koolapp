@@ -50,7 +50,7 @@ inline fun <T> Endpoint.toStreamOf(klass: Class<T>): Stream<T> {
 /**
  * Sends events on a [[Stream]] to an endpoint
  */
-inline fun <T> Stream<T>.to(endpoint: Endpoint): Cursor {
+inline fun <T> Stream<T>.sendTo(endpoint: Endpoint): Cursor {
     val producer = endpoint.createProducer()!!
     val handler = ProducerHandler<T>(producer)
     return open(handler)
