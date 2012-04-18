@@ -11,7 +11,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>koolapp-html-modelgen</artifactId>
+    <artifactId>koolapp-html</artifactId>
 
     <dependencies>
         <dependency>
@@ -20,9 +20,9 @@
             <version>${kotlin.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.koolapp</groupId>
-            <artifactId>koolapp-html</artifactId>
-            <version>${project.version}</version>
+            <groupId>nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+            <version>1.9.6.2</version>
         </dependency>
 
         <dependency>
@@ -38,25 +38,6 @@
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>${exec-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>org.koolapp.tools.htmlgen.namespace</mainClass>
-                    <arguments>
-                        <argument>file://src/main/resources/html5-spec.html</argument>
-                    </arguments>
-                </configuration>
             </plugin>
         </plugins>
     </build>

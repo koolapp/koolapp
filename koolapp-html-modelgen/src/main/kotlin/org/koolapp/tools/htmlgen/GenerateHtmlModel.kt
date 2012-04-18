@@ -1,5 +1,6 @@
 package org.koolapp.tools.htmlgen
 
+import org.koolapp.html.*
 import kotlin.*
 import kotlin.dom.*
 import kotlin.util.*
@@ -21,25 +22,6 @@ fun main(args: Array<String>): Unit {
 }
 
 /**
- * Returns the element with the given id or throws an exception if it can't be found
- */
-fun Document.id(idValue: String): Element {
-    val element = getElementById(idValue)
-    if (element != null) {
-        return element
-    } else {
-        // OK lets try iterating through the elements instead
-        for (e in elements) {
-            val value = e.attribute("id")
-            if (value == idValue) {
-                return e
-            }
-        }
-        throw IllegalArgumentException("No element with id $idValue is present in document $this")
-    }
-}
-
-/**
  * Parses the HTML5 specification
  */
 class GenerateHtmlModel : Runnable {
@@ -50,25 +32,19 @@ class GenerateHtmlModel : Runnable {
     public override fun run() {
         println("Loading the HTML5 spec from $htmlSpecUrl")
 
-        val config = HTMLConfiguration()
-        config.setProperty("http://cyberneko.org/html/properties/names/elems", "lower")
-        val parser = DOMParser(config)
-        if (htmlSpecUrl.startsWith("file://")) {
+        val document = if (htmlSpecUrl.startsWith("file://")) {
             val file = htmlSpecUrl.substring("file://".length())
             val inputSource = InputSource(FileInputStream(file))
-            parser.parse(inputSource)
+            parseHtml(inputSource)
         }
         else {
-            parser.parse(htmlSpecUrl)
+            parseHtml(htmlSpecUrl)
         }
-        val document = parser.getDocument()
-        if (document != null) {
-            processDocument(document)
-        }
+        processDocument(document)
     }
 
     fun processDocument(document: Document): Unit {
-        val title = document.id("elements-1")
+        val title = document.id("elements-1")!!
 
         // lets find the next table element
         println("Found title ${title.text}")

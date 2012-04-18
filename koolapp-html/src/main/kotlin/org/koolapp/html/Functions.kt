@@ -1,0 +1,65 @@
+package org.koolapp.html
+
+import kotlin.*
+import kotlin.dom.*
+import kotlin.util.*
+import org.w3c.dom.*
+
+import org.cyberneko.html.HTMLConfiguration
+import org.apache.xerces.parsers.DOMParser
+import org.xml.sax.InputSource
+import java.net.URL
+import java.io.FileInputStream
+import java.util.*
+import java.io.InputStream
+
+/**
+ * Returns the element with the given id or throws an exception if it can't be found
+ */
+public fun Document.id(idValue: String): Element? {
+    val element = getElementById(idValue)
+    if (element != null) {
+        return element
+    } else {
+        // OK lets try iterating through the elements instead
+        for (e in elements) {
+            val value = e.attribute("id")
+            if (value == idValue) {
+                return e
+            }
+        }
+        return null
+    }
+}
+
+/**
+ * Creates a new HTML parser
+ */
+public fun createHtmlParser(): DOMParser {
+    val config = HTMLConfiguration()
+    config.setProperty("http://cyberneko.org/html/properties/names/elems", "lower")
+    return DOMParser(config)
+}
+
+/**
+ * Parses the given *inputStream* as a HTML document
+ */
+public fun parseHtml(inputStream: InputStream, parser: DOMParser = createHtmlParser()): Document {
+    return parseHtml(InputSource(inputStream), parser)
+}
+
+/**
+ * Parses the given *inputSource* as a HTML document
+ */
+public fun parseHtml(inputSource: InputSource, parser: DOMParser = createHtmlParser()): Document {
+    parser.parse(inputSource)
+    return parser.getDocument()!!
+}
+
+/**
+ * Parses the given *uri* as a HTML document
+ */
+public fun parseHtml(uri: String, parser: DOMParser = createHtmlParser()): Document {
+    parser.parse(uri)
+    return parser.getDocument()!!
+}
