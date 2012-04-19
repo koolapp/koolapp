@@ -10,9 +10,8 @@ import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.Exchange
 import org.apache.camel.Message
 import org.apache.camel.model.ModelCamelContext
-
-// TODO cannot import this class as it blows up the compiler
-//import org.apache.camel.model.RouteDefinition
+import org.apache.camel.model.RouteDefinition
+import org.apache.camel.model.RoutesDefinition
 
 /**
  * Looks up the given endpoint in the [[CamelContext]] throwing an exception if its not available
@@ -59,12 +58,25 @@ inline fun createCamelContext(): ModelCamelContext {
 /**
  * A builder to add some route builders to the [[ModelCamelContext]]
  */
-/*
-//inline fun ModelCamelContext.routes(init: RoutesDefinition.() -> Unit): RoutesDefinition {
-inline fun CamelContext.routes(init: () -> Unit): RoutesDefinition {
+//inline fun ModelCamelContext.routes(init: RoutesDefinition.() -> Any): RoutesDefinition {
+inline fun CamelContext.routes(init: RoutesDefinition.() -> Any): RoutesDefinition {
     val definition = RoutesDefinition()
-    routes.init()
-    addRouteDefinitions(routes.getRoutes())
+    definition.init()
+    addRouteDefinitions(definition.getRoutes())
     return definition
+}
+
+/**
+ * A builder to add some route builders to the [[ModelCamelContext]]
+ */
+/*
+//inline fun ModelCamelContext.routes(init: RoutesDefinition.() -> Any): RoutesDefinition {
+inline fun CamelContext.route(init: CamelBuilder.() -> Any): RouteDefinition {
+    val definition = RoutesDefinition()
+    val route = definition.route()!!
+    val builder = CamelBuilder(route)
+    builder.init()
+    addRouteDefinitions(definition.getRoutes())
+    return route
 }
 */

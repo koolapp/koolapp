@@ -16,9 +16,9 @@ import org.apache.camel.model.*
  * using Camel's Java DSL
  */
 /*
-inline fun RoutesDefinition.route(init: RouteDefinition.() -> Unit): RouteDefinition {
-    val definition = this.route()
+*/
+inline fun RoutesDefinition.route(init: RouteDefinition.() -> Any): RouteDefinition {
+    val definition = this.route()!!
     definition.init()
     return definition
 }
-*/
