@@ -12,6 +12,12 @@ import java.net.URL
 import java.io.FileInputStream
 import java.util.*
 import java.io.InputStream
+import java.io.File
+import java.io.OutputStream
+import org.apache.xml.serialize.HTMLSerializer
+import org.apache.xml.serialize.OutputFormat
+import java.io.FileWriter
+import java.io.*
 
 /**
  * Returns the element with the given id or throws an exception if it can't be found
@@ -62,4 +68,45 @@ public fun parseHtml(inputSource: InputSource, parser: DOMParser = createHtmlPar
 public fun parseHtml(uri: String, parser: DOMParser = createHtmlParser()): Document {
     parser.parse(uri)
     return parser.getDocument()!!
+}
+
+/**
+ * Parses the given *file* as a HTML document
+ */
+public fun parseHtml(file: File, parser: DOMParser = createHtmlParser()): Document {
+    return parseHtml(FileInputStream(file))
+}
+
+
+public fun defaultEncoding(): String = "UTF-8"
+
+public fun defaultHtmlOutputFormat(): OutputFormat {
+    return OutputFormat()
+}
+
+
+/**
+ * Writes this document as HTML to the given *outputStream*
+ */
+public fun Document.writeHtml(outputStream: OutputStream, outputFormat: OutputFormat = OutputFormat(this)): Unit {
+    val serializer = HTMLSerializer(outputStream, outputFormat)
+    serializer.serialize(this)
+}
+
+/**
+ * Writes this document as HTML to the given *writer*
+ */
+public fun Document.writeHtml(writer: Writer, outputFormat: OutputFormat = OutputFormat(this)): Unit {
+    val serializer = HTMLSerializer(writer, outputFormat)
+    serializer.serialize(this)
+}
+
+/**
+ * Writes this document as HTML to the given *file*
+ */
+public fun Document.writeHtml(file: File, outputFormat: OutputFormat = OutputFormat(this)): Unit {
+    val outputStream = FileOutputStream(file)
+    outputStream.use {
+        writeHtml(outputStream)
+    }
 }
