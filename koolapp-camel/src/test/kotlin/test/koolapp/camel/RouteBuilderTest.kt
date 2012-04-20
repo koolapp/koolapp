@@ -12,12 +12,13 @@ class RouteBuilderTest {
         // as kotlin can't decide which one to invoke
 
         context.routes {
-            route {
-                from("seda:foo")!!.sendTo("seda:bar")
+            from("seda:foo") {
+                sendTo("seda:bar")
             }
         }
         context.use {
             println("Now has routes ${context}")
         }
+
     }
 }

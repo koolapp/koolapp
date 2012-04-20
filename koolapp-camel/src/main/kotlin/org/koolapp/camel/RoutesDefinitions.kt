@@ -15,10 +15,19 @@ import org.apache.camel.model.*
  * A builder API to help create a new [[RouteDefinition]] on a [[CamelContext]]
  * using Camel's Java DSL
  */
-/*
-*/
 inline fun RoutesDefinition.route(init: RouteDefinition.() -> Any): RouteDefinition {
     val definition = this.route()!!
+    definition.init()
+    return definition
+}
+
+/**
+ * A builder API to help create a new [[RouteDefinition]] on a [[CamelContext]]
+ * using Camel's Java DSL
+ */
+inline fun RoutesDefinition.from(uri: String, init: RouteDefinition.() -> Any): RouteDefinition {
+    val definition = this.route()!!
+    definition.from(uri)
     definition.init()
     return definition
 }
