@@ -8,9 +8,6 @@ class RouteBuilderTest {
     test fun createRoute() {
         val context = createCamelContext()
 
-        // TODO the from("") and to("") breaks the compiler
-        // as kotlin can't decide which one to invoke
-
         context.routes {
             from("seda:foo") {
                 sendTo("seda:bar")
