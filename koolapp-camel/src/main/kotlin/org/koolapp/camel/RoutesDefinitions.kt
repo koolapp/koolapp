@@ -22,3 +22,16 @@ inline fun RoutesDefinition.route(init: RouteDefinition.() -> Any): RouteDefinit
     definition.init()
     return definition
 }
+
+
+inline fun RouteDefinition.sendTo(uri: String): RouteDefinition {
+    return this.to(uri)!!
+}
+
+/*
+inline fun RouteDefinition.sendTo(uri: String): RouteDefinition {
+    val node = ToDefinition(uri)
+    addOutput(node)
+    return this
+}
+*/
