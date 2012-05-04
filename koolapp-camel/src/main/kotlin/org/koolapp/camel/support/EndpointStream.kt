@@ -14,7 +14,7 @@ import org.apache.camel.Producer
  * A [[Stream]] which consumes messages on a Camel [[Endpoint]]
  */
 public class EndpointStream<T>(val endpoint: Endpoint,val fn: (Exchange) -> T): Stream<T>() {
-    fun toString() = "EndpointStream($endpoint)"
+    public fun toString(): String = "EndpointStream($endpoint)"
 
     public override fun open(handler: Handler<T>): Cursor {
         val processor = HandlerProcessor(handler, fn)
@@ -27,7 +27,7 @@ public class EndpointStream<T>(val endpoint: Endpoint,val fn: (Exchange) -> T): 
 }
 
 public class HandlerProcessor<T>(val handler: Handler<T>, val fn: (Exchange) -> T): ExchangeProcessor {
-    fun toString() = "HandlerProcessor($handler)"
+    public override fun toString() = "HandlerProcessor($handler)"
 
     public override fun process(exchange: Exchange?): Unit {
         if (exchange != null) {
@@ -48,7 +48,7 @@ public class HandlerProcessor<T>(val handler: Handler<T>, val fn: (Exchange) -> 
  * the consumer is created to avoid it arriving after a Next
  */
 public class ConsumerCursor(val consumer: Consumer, val handler: Handler<*>): AbstractCursor() {
-    fun toString() = "ConsumerCursor($consumer, $handler)"
+    public override fun toString() = "ConsumerCursor($consumer, $handler)"
 
     public override fun doClose() {
         consumer.stop()
@@ -60,7 +60,7 @@ public class ConsumerCursor(val consumer: Consumer, val handler: Handler<*>): Ab
  * A [[Handler]] implementation which sends messages to a Camel [[Producer]]
  */
 public class ProducerHandler<T>(val producer: Producer) : AbstractHandler<T>() {
-    fun toString() = "EndpointProducerHandler($producer)"
+    public override fun toString() = "EndpointProducerHandler($producer)"
 
     public override fun onOpen(cursor: Cursor) {
         super.onOpen(cursor)
