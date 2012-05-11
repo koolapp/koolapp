@@ -7,9 +7,7 @@ import org.apache.camel.component.mock.MockEndpoint
 
 class FilterThenTest {
     test fun createRoute() {
-        val context = createCamelContext()
-
-        context.use {
+        camel {
             val result = mockEndpoint("mock:result")
             routes {
                 from("seda:foo") {
@@ -18,7 +16,6 @@ class FilterThenTest {
                     }
                 }
             }
-            println("Now has routes ${context}")
 
             result.expectedBodiesReceived("big1")
 

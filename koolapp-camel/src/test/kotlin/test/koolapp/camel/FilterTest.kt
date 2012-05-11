@@ -7,9 +7,7 @@ import org.apache.camel.component.mock.MockEndpoint
 
 class FilterTest {
     test fun createRoute() {
-        val context = createCamelContext()
-
-        context.use {
+        camel {
             val result = mockEndpoint("mock:result")
             routes {
                 from("seda:foo") {
@@ -18,8 +16,6 @@ class FilterTest {
                     })
                 }
             }
-            println("Now has routes ${context}")
-
             result.expectedBodiesReceived("big1")
 
             val producer = producerTemplate()

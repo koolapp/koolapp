@@ -4,6 +4,7 @@ import org.apache.camel.Endpoint
 import org.apache.camel.Exchange
 import org.apache.camel.model.*
 import org.koolapp.camel.support.*
+import java.util.List
 
 /**
 * A builder API to help create a new [[RouteDefinition]] on a [[CamelContext]]
@@ -59,4 +60,42 @@ inline fun <T: ProcessorDefinition<T>> T.filter(predicate: Exchange.() -> Boolea
     val predicateInstance = PredicateFunction(predicate)
     val filterBlock = filter(predicateInstance)!!
     return ThenDefinition<T>(filterBlock)
+}
+
+/**
+ * Performs a content based router
+ */
+inline fun <T: ProcessorDefinition<T>> T.choice(block: ChoiceDefinition.() -> Any?): T {
+    val choiceBlock = choice()!!
+    choiceBlock.block()
+    return this
+}
+
+/**
+ * Evaluates the nested body if this predicate matches
+ */
+inline fun ChoiceDefinition.filter(predicate: Exchange.() -> Boolean): ThenDefinition<ChoiceDefinition> {
+    val predicateInstance = PredicateFunction(predicate)
+    this.`when`(predicateInstance)
+
+    // lets get the last when output
+    val outputs: List<Any> = this.getOutputs()!! as List<Any>
+    val whenDefinition = outputs.tail
+    if (whenDefinition is WhenDefinition) {
+        return ThenDefinition<ChoiceDefinition>(whenDefinition)
+    } else {
+        throw IllegalStateException("Could not find WhenDefinition in ChoiceDefinition, found " + whenDefinition)
+    }
+}
+
+/**
+ * Adds an otherwise section
+ */
+inline fun ChoiceDefinition.otherwise(block: ChoiceDefinition.() -> Any?): ChoiceDefinition {
+    this.otherwise()
+    this.block()
+    end()
+
+    // TODO should we be returning the parent node?
+    return this
 }

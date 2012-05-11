@@ -17,6 +17,21 @@ import org.apache.camel.ProducerTemplate
 import org.apache.camel.ConsumerTemplate
 
 /**
+ * Helper method to create a new [[ModelCamelContext]]
+ */
+inline fun <T> camel(useBlock: ModelCamelContext.() -> T): T {
+    val context = createCamelContext()
+    return context.use(useBlock)
+}
+
+/**
+ * Helper method to create a new [[ModelCamelContext]]
+ */
+inline fun createCamelContext(): ModelCamelContext {
+    return DefaultCamelContext()
+}
+
+/**
  * Looks up the given endpoint in the [[CamelContext]] throwing an exception if its not available
  */
 inline fun CamelContext.endpoint(uri: String): Endpoint = CamelContextHelper.getMandatoryEndpoint(this, uri)!!
@@ -47,7 +62,7 @@ inline fun CamelContext.consumerTemplate(): ConsumerTemplate = createConsumerTem
 /**
  * Starts the given [[CamelContext]], processes the block and then stops it at the end
  */
-inline fun <T> CamelContext.use(block: CamelContext.() -> T): T {
+inline fun <T> ModelCamelContext.use(block: ModelCamelContext.() -> T): T {
     var closed = false
     try {
         this.start()
@@ -71,13 +86,6 @@ inline fun <T> CamelContext.use(block: CamelContext.() -> T): T {
             this.stop()
         }
     }
-}
-
-/**
- * Helper method to create a new [[ModelCamelContext]]
- */
-inline fun createCamelContext(): ModelCamelContext {
-    return DefaultCamelContext()
 }
 
 
