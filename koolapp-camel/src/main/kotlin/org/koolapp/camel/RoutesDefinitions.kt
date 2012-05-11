@@ -1,20 +1,14 @@
 package org.koolapp.camel
 
-
-import org.koolapp.camel.support.*
-import org.apache.camel.CamelContext
 import org.apache.camel.Endpoint
-import org.apache.camel.util.CamelContextHelper
-import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.Exchange
-import org.apache.camel.Message
 import org.apache.camel.model.*
-
+import org.koolapp.camel.support.*
 
 /**
- * A builder API to help create a new [[RouteDefinition]] on a [[CamelContext]]
- * using Camel's Java DSL
- */
+* A builder API to help create a new [[RouteDefinition]] on a [[CamelContext]]
+* using Camel's Java DSL
+*/
 inline fun RoutesDefinition.route(init: RouteDefinition.() -> Any): RouteDefinition {
     val definition = this.route()!!
     definition.init()
@@ -33,10 +27,27 @@ inline fun RoutesDefinition.from(uri: String, init: RouteDefinition.() -> Any): 
 }
 
 
-inline fun RouteDefinition.sendTo(uri: String): RouteDefinition {
+/**
+ * Sends the message to the given URI
+ */
+inline fun <T: ProcessorDefinition<T>> ProcessorDefinition<T>.sendTo(uri: String): T {
     return this.to(uri)!!
 }
 
-inline fun RouteDefinition.sendTo(endpoint: Endpoint): RouteDefinition {
+/**
+ * Sends the message to the given endpoint
+ */
+inline fun <T: ProcessorDefinition<T>> ProcessorDefinition<T>.sendTo(endpoint: Endpoint): T {
     return this.to(endpoint)!!
+}
+
+/**
+ * Performs a filter using the Kotlin function block as the predicate
+ */
+inline fun RouteDefinition.filter(predicate: (Exchange) -> Boolean, block: FilterDefinition.() -> Any): RouteDefinition {
+//inline fun RouteDefinition.filter(predicate: Exchange.() -> Boolean, block: FilterDefinition.() -> Any): RouteDefinition {
+    val predicateInstance = PredicateFunction(predicate)
+    val filterBlock = filter(predicateInstance)!!
+    filterBlock.block()
+    return this
 }
