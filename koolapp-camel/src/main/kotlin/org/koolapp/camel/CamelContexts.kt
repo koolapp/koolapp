@@ -12,20 +12,46 @@ import org.apache.camel.Message
 import org.apache.camel.model.ModelCamelContext
 import org.apache.camel.model.RouteDefinition
 import org.apache.camel.model.RoutesDefinition
+import org.apache.camel.component.mock.MockEndpoint
+import org.apache.camel.ProducerTemplate
+import org.apache.camel.ConsumerTemplate
 
 /**
  * Looks up the given endpoint in the [[CamelContext]] throwing an exception if its not available
  */
 inline fun CamelContext.endpoint(uri: String): Endpoint = CamelContextHelper.getMandatoryEndpoint(this, uri)!!
 
+// TODO if http://youtrack.jetbrains.com/issue/KT-1751 is resolved we can omit the
+// verbose klass parameter
+
+/**
+ * Looks up the given endpoint of type T in the [[CamelContext]] throwing an exception if its not available
+ */
+inline fun <T: Endpoint> CamelContext.endpoint(uri: String, klass: Class<T>): T = CamelContextHelper.getMandatoryEndpoint(this, uri, klass)!!
+
+/**
+ * Looks up the given [[MockEndpoint]] in the [[CamelContext]] throwing an exception if its not available
+ */
+inline fun CamelContext.mockEndpoint(uri: String): MockEndpoint = CamelContextHelper.getMandatoryEndpoint(this, uri, javaClass<MockEndpoint>)!!
+
+/**
+ * Creates a [[ProducerTemplate]] on this context
+ */
+inline fun CamelContext.producerTemplate(): ProducerTemplate = createProducerTemplate()!!
+
+/**
+ * Creates a [[ProducerTemplate]] on this context
+ */
+inline fun CamelContext.consumerTemplate(): ConsumerTemplate = createConsumerTemplate()!!
+
 /**
  * Starts the given [[CamelContext]], processes the block and then stops it at the end
  */
-inline fun <T> CamelContext.use(block: (CamelContext) -> T): T {
+inline fun <T> CamelContext.use(block: CamelContext.() -> T): T {
     var closed = false
     try {
         this.start()
-        return block(this)
+        return this.block()
     } catch (e: Exception) {
         closed = true
         try {
@@ -58,7 +84,6 @@ inline fun createCamelContext(): ModelCamelContext {
 /**
  * A builder to add some route builders to the [[ModelCamelContext]]
  */
-//inline fun ModelCamelContext.routes(init: RoutesDefinition.() -> Any): RoutesDefinition {
 inline fun CamelContext.routes(init: RoutesDefinition.() -> Any): RoutesDefinition {
     val definition = RoutesDefinition()
     definition.init()

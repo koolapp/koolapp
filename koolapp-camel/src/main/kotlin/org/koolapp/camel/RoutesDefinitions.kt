@@ -37,10 +37,6 @@ inline fun RouteDefinition.sendTo(uri: String): RouteDefinition {
     return this.to(uri)!!
 }
 
-/*
-inline fun RouteDefinition.sendTo(uri: String): RouteDefinition {
-    val node = ToDefinition(uri)
-    addOutput(node)
-    return this
+inline fun RouteDefinition.sendTo(endpoint: Endpoint): RouteDefinition {
+    return this.to(endpoint)!!
 }
-*/
