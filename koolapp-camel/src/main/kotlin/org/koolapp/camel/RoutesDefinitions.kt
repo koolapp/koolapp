@@ -44,8 +44,8 @@ inline fun <T: ProcessorDefinition<T>> ProcessorDefinition<T>.sendTo(endpoint: E
 /**
  * Performs a filter using the Kotlin function block as the predicate
  */
-inline fun RouteDefinition.filter(predicate: (Exchange) -> Boolean, block: FilterDefinition.() -> Any): RouteDefinition {
-//inline fun RouteDefinition.filter(predicate: Exchange.() -> Boolean, block: FilterDefinition.() -> Any): RouteDefinition {
+//inline fun RouteDefinition.filter(predicate: (Exchange) -> Boolean, block: FilterDefinition.() -> Any): RouteDefinition {
+inline fun RouteDefinition.filter(predicate: Exchange.() -> Boolean, block: FilterDefinition.() -> Any): RouteDefinition {
     val predicateInstance = PredicateFunction(predicate)
     val filterBlock = filter(predicateInstance)!!
     filterBlock.block()

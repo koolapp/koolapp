@@ -13,7 +13,7 @@ class FilterTest {
             val result = mockEndpoint("mock:result")
             routes {
                 from("seda:foo") {
-                    filter({ it.bodyString().contains("big") }, {
+                    filter({ bodyString().contains("big") }, {
                         sendTo(result)
                     })
                 }
