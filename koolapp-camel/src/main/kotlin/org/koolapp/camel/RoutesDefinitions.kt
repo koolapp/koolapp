@@ -30,24 +30,33 @@ inline fun RoutesDefinition.from(uri: String, init: RouteDefinition.() -> Any): 
 /**
  * Sends the message to the given URI
  */
-inline fun <T: ProcessorDefinition<T>> ProcessorDefinition<T>.sendTo(uri: String): T {
+inline fun <T: ProcessorDefinition<T>> T.sendTo(uri: String): T {
     return this.to(uri)!!
 }
 
 /**
  * Sends the message to the given endpoint
  */
-inline fun <T: ProcessorDefinition<T>> ProcessorDefinition<T>.sendTo(endpoint: Endpoint): T {
+inline fun <T: ProcessorDefinition<T>> T.sendTo(endpoint: Endpoint): T {
     return this.to(endpoint)!!
 }
 
 /**
- * Performs a filter using the Kotlin function block as the predicate
+ * Performs a filter using the function block as the predicate
  */
-//inline fun RouteDefinition.filter(predicate: (Exchange) -> Boolean, block: FilterDefinition.() -> Any): RouteDefinition {
-inline fun RouteDefinition.filter(predicate: Exchange.() -> Boolean, block: FilterDefinition.() -> Any): RouteDefinition {
+inline fun <T: ProcessorDefinition<T>> T.filter(predicate: Exchange.() -> Boolean, block: FilterDefinition.() -> Any): T {
     val predicateInstance = PredicateFunction(predicate)
     val filterBlock = filter(predicateInstance)!!
     filterBlock.block()
     return this
+}
+
+/**
+ * Performs a filter using the function block as the predicate, then calling *then* on the result object will
+ * pass the action block.
+ */
+inline fun <T: ProcessorDefinition<T>> T.filter(predicate: Exchange.() -> Boolean): ThenDefinition<T> {
+    val predicateInstance = PredicateFunction(predicate)
+    val filterBlock = filter(predicateInstance)!!
+    return ThenDefinition<T>(filterBlock)
 }
