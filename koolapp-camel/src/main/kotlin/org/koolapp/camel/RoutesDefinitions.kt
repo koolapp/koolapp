@@ -42,12 +42,30 @@ inline fun <T: ProcessorDefinition<T>> T.sendTo(endpoint: Endpoint): T {
     return this.to(endpoint)!!
 }
 
+// TODO the sendTo methods on FilterDefinition should not really be required
+// they are workarounds from compiler glitches
+
+/**
+ * Sends the message to the given URI
+ */
+inline fun FilterDefinition.sendTo(uri: String): FilterDefinition {
+    to(uri)
+    return this
+}
+
+/**
+ * Sends the message to the given endpoint
+ */
+inline fun FilterDefinition.sendTo(endpoint: Endpoint): FilterDefinition {
+    to(endpoint)
+    return this
+}
 /**
  * Performs a filter using the function block as the predicate
  */
 inline fun <T: ProcessorDefinition<T>> T.filter(predicate: Exchange.() -> Boolean, block: FilterDefinition.() -> Any): T {
     val predicateInstance = PredicateFunction(predicate)
-    val filterBlock = filter(predicateInstance)!!
+    val filterBlock: FilterDefinition = filter(predicateInstance)!!
     filterBlock.block()
     return this
 }
