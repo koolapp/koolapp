@@ -117,3 +117,24 @@ inline fun ChoiceDefinition.otherwise(block: ChoiceDefinition.() -> Any?): Choic
     // TODO should we be returning the parent node?
     return this
 }
+
+
+/**
+ * Processes the exchange using a function block
+ */
+inline fun <T: ProcessorDefinition<T>> T.process(block: Exchange.() -> Unit): T {
+    val processor = FunctionProcessor(block)
+    this.process(processor)
+    return this
+}
+
+
+/**
+ * Transforms the message, setting the output body to the result of the function block
+ */
+inline fun <T: ProcessorDefinition<T>> T.transform(block: Exchange.() -> Any?): T {
+    val expression = FunctionExpression(block)
+    this.transform(expression)
+    return this
+}
+
