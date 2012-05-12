@@ -5,13 +5,16 @@ import org.koolapp.camel.*
 import org.junit.Test as test
 import org.apache.camel.component.mock.MockEndpoint
 
-class TransformTest {
+class TransformAndSetHeaderTest {
     test fun createRoute() {
         camel {
             val result = mockEndpoint("mock:result")
             routes {
                 from("seda:foo") {
-                    transform { "Hello ${bodyString()}" }.sendTo(result)
+                    transform {
+                        out["foo"] = "bar"
+                        "Hello ${bodyString()}"
+                    }.sendTo(result)
                 }
             }
             result.expectedBodiesReceived("Hello world!")
@@ -22,7 +25,7 @@ class TransformTest {
             result.assertIsSatisfied()
 
             for (exchange in result.getReceivedExchanges()) {
-                println("Found message ${exchange?.input}")
+                println("Found message ${exchange?.input} with headers ${exchange?.input?.headers}")
             }
         }
     }

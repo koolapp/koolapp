@@ -27,7 +27,7 @@ class FilterThenTest {
             result.assertIsSatisfied()
 
             for (exchange in result.getReceivedExchanges()) {
-                println("Found message ${exchange?.getIn()}")
+                println("Found message ${exchange?.input}")
             }
         }
     }

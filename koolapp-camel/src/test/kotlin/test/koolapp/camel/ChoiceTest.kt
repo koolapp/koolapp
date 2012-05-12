@@ -40,7 +40,7 @@ class ChoiceTest {
                 result.assertIsSatisfied()
                 println("$result has messages:")
                 for (exchange in result.getReceivedExchanges()) {
-                    println("    ${exchange?.getIn()}")
+                    println("    ${exchange?.input}")
                 }
                 println()
             }

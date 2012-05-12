@@ -39,3 +39,13 @@ var Exchange.out: Message
  */
 inline fun Exchange.bodyString(nullValue: String = ""): String = body<String>(javaClass<String>) ?: nullValue
 
+/**
+ * Provides array style access to properties on the exchange
+ */
+inline fun Exchange.get(propertyName: String): Any? = getProperty(propertyName)
+
+/**
+ * Provides array style access to properties on the exchange
+ */
+inline fun Exchange.set(propertyName: String, value: Any?): Unit = setProperty(propertyName, value)
+
