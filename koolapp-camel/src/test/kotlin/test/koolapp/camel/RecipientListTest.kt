@@ -6,7 +6,6 @@ import org.koolapp.camel.*
 class RecipientListTest {
     test fun createRoute() {
         camel {
-
             routes {
                 from("seda:foo") {
                     recipientList(",") { input["recipientListHeader"] }
