@@ -3,3 +3,5 @@ org.koolapp.math
 org.koolapp.stream
 org.koolapp.template
 org.koolapp.template.html
+org.slf4j
+org.xml.sax
