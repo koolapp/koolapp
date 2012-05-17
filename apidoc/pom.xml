@@ -76,11 +76,11 @@
                         <org.koolapp.template.html>${project.basedir}/../koolapp-template/ReadMe.md</org.koolapp.template.html>
                     </packageDescriptionFiles>
                     <packageSummaryText>
-                        <org.koolapp.camel>Apache Camel extensions and integration with [Kool Streams](https://github.com/koolapp/koolapp/blob/master/koolapp-stream/ReadMe.md)</org.koolapp.camel>
+                        <org.koolapp.camel>Apache Camel DSL for Kotlin, extensions and integration with [Kool Streams](http://koolapp.org/streams.html)</org.koolapp.camel>
                         <org.koolapp.math>Various mathematics helper functions using [Apache Commons Math](http://commons.apache.org/math/)</org.koolapp.math>
-                        <org.koolapp.stream>[Kool Streams](https://github.com/koolapp/koolapp/blob/master/koolapp-stream/ReadMe.md) for working with events and asynchronous collections</org.koolapp.stream>
+                        <org.koolapp.stream>[Kool Streams](http://koolapp.org/streams.html) for working with events and asynchronous collections</org.koolapp.stream>
                         <org.koolapp.template>Text processing helper classes</org.koolapp.template>
-                        <org.koolapp.template.html>[Kool Templates](https://github.com/koolapp/koolapp/blob/master/koolapp-template/ReadMe.md) a HTML5 template engine</org.koolapp.template.html>
+                        <org.koolapp.template.html>[Kool Templates](http://koolapp.org/templates.html) a HTML5 template engine</org.koolapp.template.html>
                     </packageSummaryText>
                     <packagePrefixToUrls>
                         <kotlin>http://jetbrains.github.com/kotlin/versions/snapshot/apidocs/</kotlin>
