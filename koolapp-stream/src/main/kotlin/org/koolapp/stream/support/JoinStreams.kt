@@ -103,7 +103,7 @@ open class FollowedByHandler<A,B>(streamA: Stream<A>, streamB: Stream<B>, delega
             if (a != null && b != null) {
                 valueA = null
                 valueB = null
-                val next = #(a!!, b!!)
+                val next: #(A, B) = #(a, b)
                 onNext(next)
             }
         }
