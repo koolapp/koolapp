@@ -11,21 +11,6 @@
   <kind>class</kind>
 </search>
 <search>
-  <href>org/xml/sax/InputSource.html</href>
-  <name>InputSource [org.xml.sax]</name>
-  <kind>class</kind>
-</search>
-<search>
-  <href>org/slf4j/Logger.html</href>
-  <name>Logger [org.slf4j]</name>
-  <kind>trait</kind>
-</search>
-<search>
-  <href>org/slf4j/Marker.html</href>
-  <name>Marker [org.slf4j]</name>
-  <kind>trait</kind>
-</search>
-<search>
   <href>org/koolapp/stream/NonBlockingCursor.html</href>
   <name>NonBlockingCursor [org.koolapp.stream]</name>
   <kind>trait</kind>
@@ -48,11 +33,6 @@
 <search>
   <href>org/koolapp/template/html/org/w3c/dom/Node-extensions.html#a(jet.String, jet.String, jet.String)</href>
   <name>a() [org.w3c.dom.Node]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Marker.html#add(org.slf4j.Marker)</href>
-  <name>add() [org.slf4j.Marker]</name>
   <kind>fun</kind>
 </search>
 <search>
@@ -91,21 +71,6 @@
   <kind>fun</kind>
 </search>
 <search>
-  <href>org/slf4j/Logger.html#clone()</href>
-  <name>clone() [org.slf4j.Logger]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Marker.html#clone()</href>
-  <name>clone() [org.slf4j.Marker]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#clone()</href>
-  <name>clone() [org.xml.sax.InputSource]</name>
-  <kind>fun</kind>
-</search>
-<search>
   <href>org/koolapp/stream/Cursor.html#close()</href>
   <name>close() [org.koolapp.stream.Cursor]</name>
   <kind>fun</kind>
@@ -126,11 +91,6 @@
   <kind>fun</kind>
 </search>
 <search>
-  <href>org/slf4j/Marker.html#contains(jet.String)</href>
-  <name>contains() [org.slf4j.Marker]</name>
-  <kind>fun</kind>
-</search>
-<search>
   <href>org/koolapp/camel/org/apache/camel/Exchange-extensions.html#convertToType(jet.Any, java.lang.Class)</href>
   <name>convertToType() [org.apache.camel.Exchange]</name>
   <kind>fun</kind>
@@ -148,11 +108,6 @@
 <search>
   <href>org/koolapp/camel/org/apache/camel/Exchange-extensions.html#copyResultsPreservePatternFrom(org.apache.camel.Exchange)</href>
   <name>copyResultsPreservePatternFrom() [org.apache.camel.Exchange]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Logger.html#debug(jet.String)</href>
-  <name>debug() [org.slf4j.Logger]</name>
   <kind>fun</kind>
 </search>
 <search>
@@ -201,26 +156,6 @@
   <kind>fun</kind>
 </search>
 <search>
-  <href>org/slf4j/Logger.html#equals(jet.Any)</href>
-  <name>equals() [org.slf4j.Logger]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Marker.html#equals(jet.Any)</href>
-  <name>equals() [org.slf4j.Marker]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#equals(jet.Any)</href>
-  <name>equals() [org.xml.sax.InputSource]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Logger.html#error(jet.String)</href>
-  <name>error() [org.slf4j.Logger]</name>
-  <kind>fun</kind>
-</search>
-<search>
   <href>org/koolapp/camel/org/apache/camel/model/ChoiceDefinition-extensions.html#filter(jet.ExtensionFunction0)</href>
   <name>filter() [org.apache.camel.model.ChoiceDefinition]</name>
   <kind>fun</kind>
@@ -243,21 +178,6 @@
 <search>
   <href>org/koolapp/stream/NonBlockingCursor.html#finalize()</href>
   <name>finalize() [org.koolapp.stream.NonBlockingCursor]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Logger.html#finalize()</href>
-  <name>finalize() [org.slf4j.Logger]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Marker.html#finalize()</href>
-  <name>finalize() [org.slf4j.Marker]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#finalize()</href>
-  <name>finalize() [org.xml.sax.InputSource]</name>
   <kind>fun</kind>
 </search>
 <search>
@@ -301,16 +221,6 @@
   <kind>fun</kind>
 </search>
 <search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#getByteStream()</href>
-  <name>getByteStream() [org.xml.sax.InputSource]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#getCharacterStream()</href>
-  <name>getCharacterStream() [org.xml.sax.InputSource]</name>
-  <kind>fun</kind>
-</search>
-<search>
   <href>org/koolapp/stream/Cursor.html#getClass()</href>
   <name>getClass() [org.koolapp.stream.Cursor]</name>
   <kind>fun</kind>
@@ -318,46 +228,6 @@
 <search>
   <href>org/koolapp/stream/NonBlockingCursor.html#getClass()</href>
   <name>getClass() [org.koolapp.stream.NonBlockingCursor]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Logger.html#getClass()</href>
-  <name>getClass() [org.slf4j.Logger]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Marker.html#getClass()</href>
-  <name>getClass() [org.slf4j.Marker]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#getClass()</href>
-  <name>getClass() [org.xml.sax.InputSource]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#getEncoding()</href>
-  <name>getEncoding() [org.xml.sax.InputSource]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Logger.html#getName()</href>
-  <name>getName() [org.slf4j.Logger]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Marker.html#getName()</href>
-  <name>getName() [org.slf4j.Marker]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#getPublicId()</href>
-  <name>getPublicId() [org.xml.sax.InputSource]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#getSystemId()</href>
-  <name>getSystemId() [org.xml.sax.InputSource]</name>
   <kind>fun</kind>
 </search>
 <search>
@@ -391,16 +261,6 @@
   <kind>val</kind>
 </search>
 <search>
-  <href>org/slf4j/Marker.html#hasChildren()</href>
-  <name>hasChildren() [org.slf4j.Marker]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Marker.html#hasReferences()</href>
-  <name>hasReferences() [org.slf4j.Marker]</name>
-  <kind>fun</kind>
-</search>
-<search>
   <href>org/koolapp/stream/Cursor.html#hashCode()</href>
   <name>hashCode() [org.koolapp.stream.Cursor]</name>
   <kind>fun</kind>
@@ -408,21 +268,6 @@
 <search>
   <href>org/koolapp/stream/NonBlockingCursor.html#hashCode()</href>
   <name>hashCode() [org.koolapp.stream.NonBlockingCursor]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Logger.html#hashCode()</href>
-  <name>hashCode() [org.slf4j.Logger]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Marker.html#hashCode()</href>
-  <name>hashCode() [org.slf4j.Marker]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#hashCode()</href>
-  <name>hashCode() [org.xml.sax.InputSource]</name>
   <kind>fun</kind>
 </search>
 <search>
@@ -436,11 +281,6 @@
   <kind>fun</kind>
 </search>
 <search>
-  <href>org/slf4j/Logger.html#info(jet.String)</href>
-  <name>info() [org.slf4j.Logger]</name>
-  <kind>fun</kind>
-</search>
-<search>
   <href>org/koolapp/stream/Cursor.html#isClosed()</href>
   <name>isClosed() [org.koolapp.stream.Cursor]</name>
   <kind>fun</kind>
@@ -448,36 +288,6 @@
 <search>
   <href>org/koolapp/stream/NonBlockingCursor.html#isClosed()</href>
   <name>isClosed() [org.koolapp.stream.NonBlockingCursor]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Logger.html#isDebugEnabled()</href>
-  <name>isDebugEnabled() [org.slf4j.Logger]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Logger.html#isErrorEnabled()</href>
-  <name>isErrorEnabled() [org.slf4j.Logger]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Logger.html#isInfoEnabled()</href>
-  <name>isInfoEnabled() [org.slf4j.Logger]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Logger.html#isTraceEnabled()</href>
-  <name>isTraceEnabled() [org.slf4j.Logger]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Logger.html#isWarnEnabled()</href>
-  <name>isWarnEnabled() [org.slf4j.Logger]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Marker.html#iterator()</href>
-  <name>iterator() [org.slf4j.Marker]</name>
   <kind>fun</kind>
 </search>
 <search>
@@ -551,21 +361,6 @@
   <kind>fun</kind>
 </search>
 <search>
-  <href>org/slf4j/Logger.html#notify()</href>
-  <name>notify() [org.slf4j.Logger]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Marker.html#notify()</href>
-  <name>notify() [org.slf4j.Marker]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#notify()</href>
-  <name>notify() [org.xml.sax.InputSource]</name>
-  <kind>fun</kind>
-</search>
-<search>
   <href>org/koolapp/stream/Cursor.html#notifyAll()</href>
   <name>notifyAll() [org.koolapp.stream.Cursor]</name>
   <kind>fun</kind>
@@ -573,21 +368,6 @@
 <search>
   <href>org/koolapp/stream/NonBlockingCursor.html#notifyAll()</href>
   <name>notifyAll() [org.koolapp.stream.NonBlockingCursor]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Logger.html#notifyAll()</href>
-  <name>notifyAll() [org.slf4j.Logger]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Marker.html#notifyAll()</href>
-  <name>notifyAll() [org.slf4j.Marker]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#notifyAll()</href>
-  <name>notifyAll() [org.xml.sax.InputSource]</name>
   <kind>fun</kind>
 </search>
 <search>
@@ -701,11 +481,6 @@
   <kind>fun</kind>
 </search>
 <search>
-  <href>org/slf4j/Marker.html#remove(org.slf4j.Marker)</href>
-  <name>remove() [org.slf4j.Marker]</name>
-  <kind>fun</kind>
-</search>
-<search>
   <href>org/koolapp/template/html/org/w3c/dom/Node-extensions.html#render(java.lang.Appendable)</href>
   <name>render() [org.w3c.dom.Node]</name>
   <kind>fun</kind>
@@ -773,31 +548,6 @@
 <search>
   <href>org/koolapp/camel/org/apache/camel/Message-extensions.html#set(jet.String, jet.Any)</href>
   <name>set() [org.apache.camel.Message]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#setByteStream(java.io.InputStream)</href>
-  <name>setByteStream() [org.xml.sax.InputSource]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#setCharacterStream(java.io.Reader)</href>
-  <name>setCharacterStream() [org.xml.sax.InputSource]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#setEncoding(jet.String)</href>
-  <name>setEncoding() [org.xml.sax.InputSource]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#setPublicId(jet.String)</href>
-  <name>setPublicId() [org.xml.sax.InputSource]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#setSystemId(jet.String)</href>
-  <name>setSystemId() [org.xml.sax.InputSource]</name>
   <kind>fun</kind>
 </search>
 <search>
@@ -891,21 +641,6 @@
   <kind>fun</kind>
 </search>
 <search>
-  <href>org/slf4j/Logger.html#toString()</href>
-  <name>toString() [org.slf4j.Logger]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Marker.html#toString()</href>
-  <name>toString() [org.slf4j.Marker]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#toString()</href>
-  <name>toString() [org.xml.sax.InputSource]</name>
-  <kind>fun</kind>
-</search>
-<search>
   <href>org/koolapp/stream/org/koolapp/stream/Handler-extensions.html#toTimerRunnable()</href>
   <name>toTimerRunnable() [org.koolapp.stream.Handler]</name>
   <kind>fun</kind>
@@ -913,11 +648,6 @@
 <search>
   <href>org/koolapp/stream/org/koolapp/stream/Handler-extensions.html#toTimerTask()</href>
   <name>toTimerTask() [org.koolapp.stream.Handler]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Logger.html#trace(jet.String)</href>
-  <name>trace() [org.slf4j.Logger]</name>
   <kind>fun</kind>
 </search>
 <search>
@@ -941,28 +671,8 @@
   <kind>fun</kind>
 </search>
 <search>
-  <href>org/slf4j/Logger.html#wait()</href>
-  <name>wait() [org.slf4j.Logger]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Marker.html#wait()</href>
-  <name>wait() [org.slf4j.Marker]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>http://docs.oracle.com/javase/6/docs/api/org/xml/sax/InputSource.html?is-external=true#wait()</href>
-  <name>wait() [org.xml.sax.InputSource]</name>
-  <kind>fun</kind>
-</search>
-<search>
   <href>org/koolapp/stream/NonBlockingCursor.html#wakeup()</href>
   <name>wakeup() [org.koolapp.stream.NonBlockingCursor]</name>
-  <kind>fun</kind>
-</search>
-<search>
-  <href>org/slf4j/Logger.html#warn(jet.String)</href>
-  <name>warn() [org.slf4j.Logger]</name>
   <kind>fun</kind>
 </search>
 <search>
