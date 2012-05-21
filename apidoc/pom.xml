@@ -63,6 +63,8 @@
                         <ignorePackage>jet</ignorePackage>
                         <ignorePackage>org.p</ignorePackage>
                         <ignorePackage>org.w</ignorePackage>
+                        <ignorePackage>org.slf4j</ignorePackage>
+                        <ignorePackage>org.xml</ignorePackage>
                         <ignorePackage>org.apache</ignorePackage>
                         <ignorePackage>org.koolapp.camel.support</ignorePackage>
                         <ignorePackage>org.koolapp.stream.beans</ignorePackage>
@@ -76,9 +78,10 @@
                         <org.koolapp.template.html>${project.basedir}/../koolapp-template/ReadMe.md</org.koolapp.template.html>
                     </packageDescriptionFiles>
                     <packageSummaryText>
-                        <org.koolapp.camel>Apache Camel DSL for Kotlin, extensions and integration with [Kool Streams](http://koolapp.org/streams.html)</org.koolapp.camel>
-                        <org.koolapp.math>Various mathematics helper functions using [Apache Commons Math](http://commons.apache.org/math/)</org.koolapp.math>
-                        <org.koolapp.stream>[Kool Streams](http://koolapp.org/streams.html) for working with events and asynchronous collections</org.koolapp.stream>
+                        <org.koolapp.camel>[Kool Camel DSL](http://koolapp.org/camel.html), extensions and integration with [Kool Streams](http://koolapp.org/streams.html)</org.koolapp.camel>
+                        <org.koolapp.math>Extension functions using [Apache Commons Math](http://commons.apache.org/math/) to easily perform calculations and statistics on collections</org.koolapp.math>
+                        <org.koolapp.stream>[Kool Streams](http://koolapp.org/streams.html) for working with events and asynchronous collections</org.koolapp.stream>                  ah lemme check :)
+
                         <org.koolapp.template>Text processing helper classes</org.koolapp.template>
                         <org.koolapp.template.html>[Kool Templates](http://koolapp.org/templates.html) a HTML5 template engine</org.koolapp.template.html>
                     </packageSummaryText>
