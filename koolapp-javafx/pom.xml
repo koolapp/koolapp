@@ -19,6 +19,11 @@
           <artifactId>kotlin-stdlib</artifactId>
           <version>${kotlin.version}</version>
       </dependency>
+        <dependency>
+            <groupId>org.koolapp</groupId>
+            <artifactId>koolapp-template</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
           <groupId>javafx</groupId>
@@ -27,6 +32,7 @@
           <scope>system</scope>
           <systemPath>${java.home}/lib/jfxrt.jar</systemPath>
        </dependency>
+
 
 
         <dependency>
