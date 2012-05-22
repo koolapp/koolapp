@@ -17,6 +17,8 @@ import javafx.scene.layout.Priority
 import javafx.scene.web.WebEngine
 import javafx.scene.web.WebView
 import javafx.stage.Stage
+import org.w3c.dom.Document
+import javafx.concurrent.Worker.State
 
 /**
 * An [[Application]] which uses a [[WebView]] and [[WebEngine]]
@@ -32,6 +34,24 @@ public open class WebApplication(): Application() {
 
     var prefWidth = 800.0
     var prefHeight = 600.0
+
+    /**
+     * Registers a function block to be invoked when the browser is ready and the page has been loaded
+     */
+    public fun ready(fireOnce: Boolean = false, block: (Document) -> Any?): Unit {
+        val changeListener = object : ChangeListener<State?> {
+            public override fun changed(observable: ObservableValue<out State?>?, oldValue: State?, newValue: State?) {
+                val document = engine.getDocument()
+                if (document != null) {
+                    block(document)
+                }
+                if (fireOnce) {
+                    engine.getLoadWorker()?.stateProperty()?.removeListener(this)
+                }
+            }
+        }
+        engine.getLoadWorker()?.stateProperty()?.addListener(changeListener)
+    }
 
     override public fun start(primaryStage: Stage?) {
         val view = WebView()
