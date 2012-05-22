@@ -1,9 +1,17 @@
 ## Kool JavaFX
 
-**NOTE** this module requires Java 7 update 4 or later which ships with JavaFX. If you install Java 7 and use a Mac you might want to run this first...
+**NOTE** this module requires [Java 7 update 4](http://www.oracle.com/technetwork/java/javase/overview/index.html) or later which ships with JavaFX. If you install Java 7 and use a Mac you might want to run this first...
 
     export JAVA_HOME=/Library/Java/JavaVirtualMachines/1.7.0.jdk/Contents/Home
     export PATH=$JAVA_HOME/bin:$PATH
+
+You can check you have JavaFX in your JDK install via
+
+    ls -l $JAVA_HOME/lib/javafx-mx.jar
+
+which should find the javafx jar.
+
+### Running the sample
 
 To run the sample try...
 
@@ -11,7 +19,7 @@ To run the sample try...
 
 Assuming you've Java 7 enabled and JAVA_HOME points to the JRE/JDK for Java 7 or later.
 
-### Demo overview
+### Demo code walkthrough
 
 The demo should create a really simple Java application that boots up a browser, loads a local file then dynamically updates the DOM using [Kool Templates](http://koolapp.org/templates.html).
 
