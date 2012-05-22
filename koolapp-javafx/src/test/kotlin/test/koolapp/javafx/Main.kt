@@ -4,5 +4,5 @@ import javafx.application.Application
 
 fun main(args: Array<String>): Unit {
     println("Hello world!")
-    Application.launch(javaClass<WebViewSample>)
+    Application.launch(javaClass<SampleWebApp>)
 }

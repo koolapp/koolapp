@@ -41,12 +41,14 @@ public open class WebApplication(): Application() {
     public fun ready(fireOnce: Boolean = false, block: (Document) -> Any?): Unit {
         val changeListener = object : ChangeListener<State?> {
             public override fun changed(observable: ObservableValue<out State?>?, oldValue: State?, newValue: State?) {
-                val document = engine.getDocument()
-                if (document != null) {
-                    block(document)
-                }
-                if (fireOnce) {
-                    engine.getLoadWorker()?.stateProperty()?.removeListener(this)
+                if (newValue != null && newValue == State.SUCCEEDED) {
+                    val document = engine.getDocument()
+                    if (document != null) {
+                        block(document)
+                    }
+                    if (fireOnce) {
+                        engine.getLoadWorker()?.stateProperty()?.removeListener(this)
+                    }
                 }
             }
         }

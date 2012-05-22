@@ -1,8 +1,9 @@
 package test.koolapp.javafx
 
 import org.koolapp.javafx.WebApplication
+import test.koolapp.myapp.myApp
 
-public class WebViewSample(): WebApplication() {
+public class SampleWebApp(): WebApplication() {
 
     override fun loadInitial(): String {
         ready {
