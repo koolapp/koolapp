@@ -31,4 +31,7 @@ This allows us to easily compose any [Kool Streams](http://koolapp.org/streams.h
 
 While the Kool Camel and Stream DSLs are Kotlin based; they obviously can easily work with any JVM code for domain models, functions and services; so its easy to reuse Kool Camel routes and Streams from Java, Scala, Groovy, JavaScript, JRuby in addition to the Kotlin language.
 
+### IDE support
+
+If you've not tried Kotlin yet, try the [Getting Started Guide](http://confluence.jetbrains.net/display/Kotlin/Getting+Started) to install the IDE plugin.
 
