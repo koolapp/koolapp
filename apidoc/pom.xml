@@ -83,7 +83,7 @@
                         <org.koolapp.stream>[Kool Streams](http://koolapp.org/streams.html) for working with events and asynchronous collections</org.koolapp.stream>                  ah lemme check :)
 
                         <org.koolapp.template>Text processing helper classes</org.koolapp.template>
-                        <org.koolapp.template.html>[Kool Templates](http://koolapp.org/templates.html) a HTML5 template engine</org.koolapp.template.html>
+                        <org.koolapp.template.html>[Kool Templates](http://koolapp.org/templates.html) a HTML5 [template engine](http://koolapp.org/versions/snapshot/apidocs/org/koolapp/template/html/org/w3c/dom/Node-extensions.html)</org.koolapp.template.html>
                     </packageSummaryText>
                     <packagePrefixToUrls>
                         <kotlin>http://jetbrains.github.com/kotlin/versions/snapshot/apidocs/</kotlin>
