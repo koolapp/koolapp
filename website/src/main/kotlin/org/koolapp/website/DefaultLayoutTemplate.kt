@@ -48,10 +48,10 @@ class DefaultLayoutTemplate(val text: String, val title: String = "KoolApp"): Te
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">KoolApp</a>
+          <a class="brand" href="http://koolapp.org/">KoolApp</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><a href="http://koolapp.org/">Home</a></li>
               <li><a href="versions/snapshot/apidocs/index.html">API</a></li>
               <li><a href="https://github.com/koolapp/koolapp">Source</a></li>
               <li><a href="https://groups.google.com/forum/#!forum/koolapp">Forum</a></li>

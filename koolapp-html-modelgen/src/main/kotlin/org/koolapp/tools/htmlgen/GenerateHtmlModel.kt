@@ -23,8 +23,9 @@ fun main(args: Array<String>): Unit {
  */
 class GenerateHtmlModel: Runnable {
 
-    public var htmlSpecUrl: String = "http://dev.w3.org/html5/spec/section-index.html"
-    public var htmlGlobalAttributesUrl: String = "http://dev.w3.org/html5/spec/global-attributes.html"
+    public var specPrefix: String = "http://dev.w3.org/html5/spec/"
+    public var htmlSpecUrl: String = specPrefix + "section-index.html"
+    public var htmlGlobalAttributesUrl: String = specPrefix + "/global-attributes.html"
 
     public var outFileName : String = "../koolapp-template/src/main/kotlin/org/koolapp/template/html/GeneratedElements.kt"
 
@@ -65,7 +66,13 @@ class GenerateHtmlModel: Runnable {
                         //println("Processing row $row")
                         val links = row["a"]
                         if (links.notEmpty()) {
-                            val name = links[0].text
+                            val a = links.first!!
+                            val name = a.text
+                            var href = a.attribute("href")
+                            if (href.notEmpty()) {
+                                href = specPrefix + href
+                            }
+                            println("$name has href: $href")
                             val tds = row["td"]
                             var empty = false
                             if (tds.size() > 4) {
@@ -79,9 +86,11 @@ class GenerateHtmlModel: Runnable {
                                 println("Element $name empty $empty attributes $attributeNames")
                                 val fnName = safeIdentifier(name)
                                 val elementDescription = description.children().map{ it.toXmlString() }.makeString("")
+                                val elementDescriptionText = description.children().map{ it.text }.makeString("")
+                                val linkText = """<a href="$href" title="$elementDescriptionText">$name</a>"""
                                 val safeIdentifiers = attributeNames.map { safeIdentifier(it) }
 
-                                writer.println("/** Creates a new *$name* element: ${elementDescription} */")
+                                writer.println("/** Creates a new $linkText element: ${elementDescription} */")
                                 writer.print("fun Node.$fnName(")
                                 if (!empty) writer.print("text: String? = null, ")
                                 for (id in safeIdentifiers) {
@@ -103,7 +112,7 @@ class GenerateHtmlModel: Runnable {
                                 writer.println("")
 
                                 // lets avoid the use of the initialisation block
-                                writer.println("/** Creates a new *$name* element: ${elementDescription} */")
+                                writer.println("/** Creates a new $linkText element: ${elementDescription} */")
                                 writer.print("fun Node.$fnName(")
                                 val args = ArrayList<String>()
                                 var first = false
