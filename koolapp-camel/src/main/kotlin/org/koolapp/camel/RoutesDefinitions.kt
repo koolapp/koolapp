@@ -101,7 +101,7 @@ inline fun ChoiceDefinition.filter(predicate: Exchange.() -> Boolean): ThenDefin
 
     // lets get the last when output
     val outputs: List<Any> = this.getOutputs()!! as List<Any>
-    val whenDefinition = outputs.tail
+    val whenDefinition = outputs.last
     if (whenDefinition is WhenDefinition) {
         return ThenDefinition<ChoiceDefinition>(whenDefinition)
     } else {
