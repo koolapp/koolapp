@@ -72,7 +72,9 @@
                             <phase>test</phase>
                             <configuration>
                               <target>
-                                <java fork="true" classpathref="maven.test.classpath" classname="test.koolapp.javafx.namespace"/>
+                                <java fork="true" classpathref="maven.test.classpath" classname="org.koolapp.javafx.namespace">
+                                    <arg value="file://src/test/resources/sample.html"/>
+                                </java>
                               </target>
                             </configuration>
                             <goals>

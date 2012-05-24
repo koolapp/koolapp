@@ -25,8 +25,26 @@ The demo should create a really simple Java application that boots up a browser,
 
 Here's a breakdown of the source code used to implement this:
 
-* [test.koolapp.myapp.MyApp.kt](https://github.com/koolapp/koolapp/blob/master/koolapp-javafx/src/test/kotlin/test/koolapp/myapp/MyApp.kt) the actual application
-* [test.koolapp.javafx.Main.kt](https://github.com/koolapp/koolapp/blob/master/koolapp-javafx/src/test/kotlin/test/koolapp/javafx/Main.kt) : Java main() function launcher for the JavaFX web app
-* [test.koolapp.javafx.SampleWebApp.kt](https://github.com/koolapp/koolapp/blob/master/koolapp-javafx/src/test/kotlin/test/koolapp/javafx/SampleWebApp.kt) : JavaFX web app (i.e. a kinda browser app which then loads our myApp function when the browser is ready and the single page HTML)
+* [test.koolapp.myapp.MyApp.kt](https://github.com/koolapp/koolapp/blob/master/koolapp-javafx/src/test/kotlin/test/koolapp/myapp/MyApp.kt) the actual application which interacts with the DOM using the standard [kotlin.browser](http://jetbrains.github.com/kotlin/versions/snapshot/apidocs/kotlin/browser/package-summary.html) package.
+* [org.koolapp.javafx.WebApplication](https://github.com/koolapp/koolapp/tree/master/koolapp-javafx/src/main/kotlin/org/koolapp/javafx/WebApplication.kt) : standard KoolApp browser Application
+* [org.koolapp.javafx.namespace](https://github.com/koolapp/koolapp/tree/master/koolapp-javafx/src/main/kotlin/org/koolapp/javafx/) : Java main() function launcher for the JavaFX web app
 
-The application code - the [myapp() function](https://github.com/koolapp/koolapp/blob/master/koolapp-javafx/src/test/kotlin/test/koolapp/myapp/MyApp.kt) should be usable when compiled to JavaScript directly. The code in the javafx package is only required if you want to run the application on a JVM with JavaFX
+The application code - the [myapp() function](https://github.com/koolapp/koolapp/blob/master/koolapp-javafx/src/test/kotlin/test/koolapp/myapp/MyApp.kt) should be usable when compiled to JavaScript directly. The code in the org.koolapp.javafx package is only required if you want to run the application on a JVM with JavaFX.
+
+### How a KoolApp JavaFX application works
+
+When using your web application in the KoolApp JavaFX browser, you need to bind your Kotlin application code to the web page. This is done by adding a script tag (or using the WebApplication.ready() function to pass a block when the document is ready).
+
+For example if you add this to a HTML file:
+
+    <script type="text/kotlin">
+        test.koolapp.myapp.namespace.myApp()
+    </script>
+
+when opening in the HTML in the KoolApp JavaFX browser (running the org.koolapp.javafx.namespace class as a Java main() function)
+
+    java org.koolapp.javafx.namespace file://foo.html
+
+The browser will startup, load the HTML and then when it sees the text/kotlin script it will invoke your function; once the document has loaded (and the kotlin.browser.document property is updated).
+
+The same Kotlin code should then work if the code is compiled to JavaScript. The only change is required is that the script tag with text/kotlin needs to be replaced with the actual JavaScript file; this could be done dynamically on the server or as part of your build process.

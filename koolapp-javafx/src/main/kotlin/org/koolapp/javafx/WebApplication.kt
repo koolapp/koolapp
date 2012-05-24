@@ -4,6 +4,7 @@ import java.io.File
 import javafx.application.Application
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
+import javafx.concurrent.Worker.State
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.geometry.HPos
@@ -17,8 +18,9 @@ import javafx.scene.layout.Priority
 import javafx.scene.web.WebEngine
 import javafx.scene.web.WebView
 import javafx.stage.Stage
+import kotlin.browser.*
+import kotlin.dom.*
 import org.w3c.dom.Document
-import javafx.concurrent.Worker.State
 
 /**
 * An [[Application]] which uses a [[WebView]] and [[WebEngine]]
@@ -27,10 +29,10 @@ public open class WebApplication(): Application() {
     private var _engine: WebEngine? = null
 
     var engine: WebEngine
-    get() = _engine!!
-    set(value) {
-        _engine = value
-    }
+        get() = _engine!!
+        set(value) {
+            _engine = value
+        }
 
     var prefWidth = 800.0
     var prefHeight = 600.0
@@ -42,9 +44,9 @@ public open class WebApplication(): Application() {
         val changeListener = object : ChangeListener<State?> {
             public override fun changed(observable: ObservableValue<out State?>?, oldValue: State?, newValue: State?) {
                 if (newValue != null && newValue == State.SUCCEEDED) {
-                    val document = engine.getDocument()
-                    if (document != null) {
-                        block(document)
+                    val doc = engine.getDocument()
+                    if (doc != null) {
+                        block(doc)
                     }
                     if (fireOnce) {
                         engine.getLoadWorker()?.stateProperty()?.removeListener(this)
@@ -63,6 +65,11 @@ public open class WebApplication(): Application() {
         view.setPrefSize(prefWidth, prefHeight)
         view.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
+        ready {
+            // lets register the global DOM instance
+            document = it
+            loadKotlinScripts(it)
+        }
         val initialLocation = loadInitial()
 
         val locationField = TextField(initialLocation)
@@ -120,7 +127,17 @@ public open class WebApplication(): Application() {
      * so it can be populated into the address bar
      */
     protected open fun loadInitial(): String {
-        return load("http://koolapp.org/")
+        val parameters = getParameters()!!
+        val unnamed = parameters.getUnnamed()!!
+        val raw = parameters.getRaw()!!
+        val url = if (unnamed.notEmpty()) {
+            unnamed.first()!!
+        } else if (raw.notEmpty()) {
+            raw.first()!!
+        } else {
+            "http://koolapp.org/"
+        }
+        return load(url)
     }
 
     /**
@@ -138,6 +155,44 @@ public open class WebApplication(): Application() {
             engine.load(url)
         }
         return url
+    }
+
+    /**
+     * Attempts to find any &lt;script&gt; tags for the type *text/kotlin* and invokes the methods
+     */
+    protected fun loadKotlinScripts(document: Document): Unit {
+        val scriptTags = document["script"]
+        for (scriptTag in scriptTags) {
+            val t = scriptTag.attribute("type")
+            if (t == "text/kotlin") {
+                val text = scriptTag.text.trim()
+                val lines = text.split("\n")
+                for (line in lines) {
+                    val initCall = line.trim().trimTrailing("()")
+                    if (initCall.notEmpty()) {
+                        val idx = initCall.lastIndexOf('.')
+                        if (idx <= 0) {
+                            println("Warning cannot invoke initCall which is not on a class $initCall")
+                        } else {
+                            try {
+                                val className = initCall.substring(0, idx)
+                                val methodName = initCall.substring(idx + 1)
+                                val klass = loadClass<Any>(className)
+                                val method = klass.getMethod(methodName)!!
+                                method.invoke(null)
+                            } catch (e: Exception) {
+                                println("Failed to invoke startup method: " + initCall + ". Reason: " + e)
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    protected fun <T> loadClass(className: String): Class<T> {
+        return Class.forName(className) as Class<T>
     }
 }
 
