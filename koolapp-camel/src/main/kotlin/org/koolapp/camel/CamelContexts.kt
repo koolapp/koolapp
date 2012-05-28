@@ -47,7 +47,7 @@ inline fun <T: Endpoint> CamelContext.endpoint(uri: String, klass: Class<T>): T 
 /**
  * Looks up the given [[MockEndpoint]] in the [[CamelContext]] throwing an exception if its not available
  */
-inline fun CamelContext.mockEndpoint(uri: String): MockEndpoint = CamelContextHelper.getMandatoryEndpoint(this, uri, javaClass<MockEndpoint>)!!
+inline fun CamelContext.mockEndpoint(uri: String): MockEndpoint = CamelContextHelper.getMandatoryEndpoint(this, uri, javaClass<MockEndpoint>())!!
 
 /**
  * Creates a [[ProducerTemplate]] on this context

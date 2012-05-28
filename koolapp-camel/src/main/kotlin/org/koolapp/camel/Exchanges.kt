@@ -133,7 +133,7 @@ val Exchange.contentEncoding: String?
 /**
  * Returns the input message body as a String using the empty string if its null
  */
-inline fun Exchange.bodyString(nullValue: String = ""): String = body<String>(javaClass<String>) ?: nullValue
+inline fun Exchange.bodyString(nullValue: String = ""): String = body<String>(javaClass<String>()) ?: nullValue
 
 /**
  * Provides array style access to properties on the exchange
