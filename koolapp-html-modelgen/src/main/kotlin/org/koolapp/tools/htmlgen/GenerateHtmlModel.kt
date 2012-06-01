@@ -152,9 +152,6 @@ import org.w3c.dom.*
 
 import kotlin.dom.*
 
-import org.koolapp.template.Template
-import java.io.Writer
-
 """)
 
             block(writer)

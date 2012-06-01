@@ -69,6 +69,7 @@
         <module>koolapp-template</module>
         <module>koolapp-web</module>
         <module>koolapp-html-modelgen</module>
+        <module>koolapp-js-library</module>
         <module>koolapp-ui</module>
         <module>apidoc</module>
         <module>website</module>
@@ -134,7 +135,7 @@
                 <jdk>7</jdk>
             </activation>
             <modules>
-                <module>koolapp-javafx</module>
+                <module>javafx</module>
             </modules>
         </profile>
     </profiles>

@@ -1,27 +1,12 @@
 package org.koolapp.template.html
 
-import org.w3c.dom.*
-
 import kotlin.dom.*
-
-import org.koolapp.template.Template
-import java.io.Writer
-
-/**
- * Renders the node as XML markup
- */
-fun Node.render(out: Appendable): Unit {
-    if (out is Writer) {
-        writeXmlString(out, false)
-    } else {
-        out.append(toXmlString())
-    }
-}
+import org.w3c.dom.*
 
 fun Node.element(localName: String, init: Element.()-> Unit): Element {
     val element = ownerDocument().createElement(localName).sure()
     element.init()
-    if (this is Element) {
+    if (this.nodeType == Node.ELEMENT_NODE) {
         appendChild(element)
     }
     return element

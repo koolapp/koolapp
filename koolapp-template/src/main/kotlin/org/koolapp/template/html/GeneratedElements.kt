@@ -8,8 +8,6 @@ import org.w3c.dom.*
 
 import kotlin.dom.*
 
-import org.koolapp.template.Template
-import java.io.Writer
 
 
 /** Creates a new <a href="http://dev.w3.org/html5/spec/the-a-element.html#the-a-element" title="Hyperlink">a</a> element: Hyperlink */

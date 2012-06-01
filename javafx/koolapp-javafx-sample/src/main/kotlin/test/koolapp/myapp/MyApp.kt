@@ -13,7 +13,6 @@ import kotlin.dom.*
 fun myApp() {
     val newNode = sampleTemplate(document)
     println("About to insert DOM node $newNode into document $document")
-    println("New XML: ${newNode.toXmlString()}")
 
     val container = document.getElementById("view")
     if (container != null) {
